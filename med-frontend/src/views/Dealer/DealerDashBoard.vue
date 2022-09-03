@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div class="col-12 mb-3">
-        <p class="navigation--label">Admin / Dashboard</p>
+        <p class="navigation--label">Dealer / Dashboard</p>
       </div>
     </div>
     <div class="row">
@@ -100,7 +100,7 @@ import { changeRequestStatus } from "@/service/admin.service";
 import { mapGetters } from "vuex";
 import Vue from "vue";
 export default {
-  name: "AdminDashBoard",
+  name: "DealerDashBoard",
   data() {
     return {
       selectedRequest: {},

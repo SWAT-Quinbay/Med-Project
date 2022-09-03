@@ -1,13 +1,30 @@
 <template>
-    <div>
-        
+  <div>
+    <div class="row">
+      <div class="col-12 mb-3">
+        <p class="navigation--label">Retailer / Request History</p>
+      </div>
+      <div class="col-12 px-2">
+        <RequestHistoryTable />
+      </div>
     </div>
+  </div>
 </template>
 <script>
+import RequestHistoryTable from "@/components/RetailerComponents/RequestHistoryTable.vue";
+
 export default {
-    name : "RetailerRequestHistory"
-}
+  name: "RetailerRequestHistory",
+  components: {
+    RequestHistoryTable,
+  },
+};
 </script>
-<style>
-    
+<style scoped>
+.navigation--label {
+  margin: 0;
+  font-size: 14px;
+  margin-left: 10px;
+  color: #999999;
+}
 </style>

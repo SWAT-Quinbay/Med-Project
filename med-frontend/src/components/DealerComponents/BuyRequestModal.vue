@@ -4,67 +4,18 @@
       <div class="modal--body">
         <p class="modal--header">{{ modalHeader }}</p>
 
-        <div class="action--form--controller">
-          <label for="user-name" class="action--input--label"
-            >Product Name</label
-          >
-          <input
-            type="text"
-            class="action--input"
-            v-model="product.name"
-            placeholder="Enter Product Name"
-          />
-        </div>
-        <div class="action--form--controller">
-          <label for="user-imageurl" class="action--input--label"
-            >ImageUrl</label
-          >
-          <input
-            type="link"
-            class="action--input"
-            v-model="product.imageUrl"
-            placeholder="Paste imageUrl"
-          />
-        </div>
+        <p class="request--text--header">Product Name:</p>
+        <p class="request--text--description">{{ product.name }}</p>
+
         <div class="action--form--controller">
           <label for="user-quantity" class="action--input--label"
-            >Net Quantity</label
+            >Product Quantity</label
           >
           <input
             type="number"
             class="action--input"
-            v-model="product.netQuantity"
-            placeholder="Enter Net Quanity"
-          />
-        </div>
-        <div class="action--form--controller">
-          <label for="user-price" class="action--input--label">Price</label>
-          <input
-            type="number"
-            class="action--input"
-            v-model="product.price"
-            placeholder="Enter Price"
-          />
-        </div>
-        <div class="action--form--controller">
-          <label for="user-tax" class="action--input--label">Tax</label>
-          <input
-            type="text"
-            class="action--input"
-            v-model="product.tax"
-            placeholder="Enter Tax Amount"
-          />
-        </div>
-        <div class="action--form--controller">
-          <label for="user-description" class="action--input--label"
-            >Description</label
-          >
-          <textarea
-            type="text"
-            rows="4"
-            class="action--textarea"
-            v-model="product.description"
-            placeholder="Enter Product Description"
+            v-model="product.quantity"
+            placeholder="Enter Quanity to request"
           />
         </div>
       </div>
@@ -95,7 +46,7 @@
 import ButtonComponent from "@/components/ButtonComponent.vue";
 
 export default {
-  name: "InventoryActionModal",
+  name: "BuyProductsModal",
   props: {
     modalObjectData: {
       type: Object,
@@ -106,11 +57,8 @@ export default {
     return {
       product: {
         id: "",
+        quantity: "",
         name: "",
-        imageUrl: "",
-        price: "",
-        netQuantity: "",
-        description: "",
       },
       modalHeader: "",
       modalButtonLabel: "",
@@ -127,30 +75,9 @@ export default {
       this.$emit("saveAction", this.product);
     },
   },
-  computed: {
-    checkMatchPassword() {
-      return (
-        this.userData.password &&
-        this.confirmPassword &&
-        this.userData.password !== this.confirmPassword
-      );
-    },
-    checkNameLength() {
-      return this.userData.name < 5;
-    },
-  },
   mounted() {
-    const propsProduct = this.modalObjectData.productData;
-    console.log(this.modalObjectData);
-    if (propsProduct !== null) {
-      this.product.id = propsProduct.id;
-      this.product.name = propsProduct.name;
-      this.product.imageUrl = propsProduct.imageUrl;
-      this.product.price = propsProduct.price;
-      this.product.tax = propsProduct.tax;
-      this.product.netQuantity = propsProduct.netQuantity;
-      this.product.description = propsProduct.description;
-    }
+    this.product.id = this.modalObjectData.productId;
+    this.product.name = this.modalObjectData.productName;
     this.modalHeader = this.modalObjectData.modalHeader;
     this.modalButtonLabel = this.modalObjectData.modalButtonName;
   },
@@ -173,7 +100,7 @@ export default {
   /* padding: 20px; */
   border: 1px solid #888;
   width: 30%;
-  min-height: 380px;
+  min-height: 300px;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -286,4 +213,20 @@ select {
 .action--form--controller {
   margin-bottom: 10px;
 }
+
+.request--text--header {
+  font-size: 14px;
+  color: #000000;
+  font-weight: 600;
+  margin: 0;
+  margin-top: 10px;
+}
+.request--text--description {
+  font-size: 13px;
+  color: #5b5b5b;
+  font-weight: 500;
+  margin: 0px;
+  margin-bottom: 20px;
+}
+
 </style>

@@ -2,22 +2,22 @@
     <div>
         <div class="row">
         <div class="col-12 mb-3">
-            <p class="navigation--label"> Dealer / Inventory</p>
+            <p class="navigation--label"> Dealer / Buy Products</p>
         </div>
         <div class="col-12 px-2">
-            <InventoryTable/>
+            <BuyProductsTable/>
         </div>
     </div>
     </div>
 </template>
 <script>
 
-import InventoryTable from "@/components/DealerComponents/InventoryTable.vue"
+import BuyProductsTable from "@/components/DealerComponents/BuyProductsTable.vue"
 
 export default {
-    name : "DealerInventory",
+    name : "DealerBuyProducts",
     components : {
-        InventoryTable
+        BuyProductsTable
     }
 }
 </script>

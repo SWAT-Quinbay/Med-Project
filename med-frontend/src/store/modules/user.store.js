@@ -7,21 +7,29 @@ export default {
         currentUser : {
             username : "",
             authenticated : false,
-            role : ""
+            role : "",
+            userId : ""
         }
     },
     getters : 
     {
         getUserFromState(state){
             return state.currentUser
+        },
+        getUserId(state){
+            return state.currentUser.userId;
         }
     },
     mutations : {
         setUserData(state,userData){
-            const { username , authenticated , roles } = userData;
+            const { username , authenticated , roles , userId } = userData;
+            state.currentUser.userId = userId;
             state.currentUser.username = username;
             state.currentUser.authenticated = authenticated;
             state.currentUser.role = roles[0].authority;
+        },
+        clearUserState(state){
+            state.currentUser = {};
         }
     },
     actions : {

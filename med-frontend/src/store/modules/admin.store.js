@@ -1,4 +1,4 @@
-import { getAllUser , getAllInventoryProduct} from "@/service/admin.service";
+import { getAllUser , getAllInventoryProduct , getAllRequestById} from "@/service/admin.service";
 
 export default {
     state : {
@@ -52,7 +52,18 @@ export default {
                     console.log(err)
                 }
             })
-        }
+        },
+        GET_ALL_REQUEST({commit},value=""){
+            getAllRequestById({
+                userId : value,
+                successCallback : ({data}) => {
+                    commit("setRequestHistory",data)
+                },
+                errorCallback : (err) => {
+                    console.log(err)
+                }
+            })
+        },
         
     }
 }

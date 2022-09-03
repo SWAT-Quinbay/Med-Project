@@ -4,9 +4,9 @@
       <div class="row justify-content-between align-items-center">
         <div class="col-12 col-md-4">
           <p class="table--header">
-            Total Items
+            Stocks with Merchant
             <span class="total--client--badge"
-              >{{ inventoryList.length }} products</span
+              >{{ productList.length }} products</span
             >
           </p>
         </div>
@@ -36,14 +36,6 @@
                 type="button"
               />
             </div>
-            <div class="col-auto">
-              <ButtonComponent
-                label="Add Product"
-                buttonStyle="btn--primary--sm"
-                @onClick="addNewProduct()"
-                type="button"
-              />
-            </div>
           </div>
         </div>
       </div>
@@ -55,20 +47,16 @@
             <tr class="table--tr">
               <th>S.No</th>
               <th>Product Name</th>
-              <th>Quantity</th>
               <th>MRP</th>
-              <th>Tax</th>
               <th>Availability</th>
               <th>Status</th>
-              <th>Created Date</th>
-              <th>Edit</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             <!-- <InventoryTableList v-for="(data,index) in userList" :key="index"/> -->
-            <InventoryTableList
-              v-for="(data, index) in inventoryList"
+            <BuyProductsTableList
+              v-for="(data, index) in productList"
               :key="index"
               :product="data"
               :index="index"
@@ -80,144 +68,94 @@
       </div>
     </div>
     <Transition>
-      <ConfirmModal
+      <!-- <ConfirmModal
         v-if="showConfirmModal"
         modalTitle="Confirm Production Stop!"
         modalAction="Change Production Status"
         :undo="true"
         @closeAction="closeConfirmModal"
         @confirmAction="confirmActionCall"
-      />
-      <InventoryActionModal
-        v-if="showActionModal"
+      /> -->
+      <BuyRequestModal
+        v-if="showBuyProductModal"
         :modalObjectData="selectedProduct"
         @closeAction="closeActionModal"
-        @saveAction="saveActionCall"
+        @saveAction="requestActionCall"
       />
     </Transition>
   </div>
 </template>
 <script>
-import InventoryTableList from "@/components/AdminComponents/InventoryTableList.vue";
-import ConfirmModal from "@/components/ConfirmModal.vue";
-import InventoryActionModal from "@/components/AdminComponents/InventoryActionModal.vue";
+import BuyProductsTableList from "@/components/DealerComponents/BuyProductsTableList.vue";
+import BuyRequestModal from "@/components/DealerComponents/BuyRequestModal.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
+import { requestStock } from "@/service/dealer.service";
 import { mapGetters } from "vuex";
 import Vue from "vue";
-import {
-  createNewProduct,
-  updateProductData,
-  updateProductPermission,
-} from "@/service/admin.service";
 
 export default {
-  name: "InventoryTable",
+  name: "BuyProductsTable",
+  components: {
+    BuyProductsTableList,
+    BuyRequestModal,
+    ButtonComponent,
+  },
   data() {
     return {
       showConfirmModal: false,
-      showActionModal: false,
+      showBuyProductModal: false,
       searchText: "",
       selectedProduct: {},
-      productIdFromPermission: "",
     };
-  },
-  components: {
-    InventoryTableList,
-    ConfirmModal,
-    ButtonComponent,
-    InventoryActionModal,
   },
   computed: {
     ...mapGetters({
-      inventoryList: "getInventory",
+      productList: "getDealerProductList",
+      userId: "getUserId",
     }),
   },
   methods: {
-    toggleConfirmModal({ productId }) {
-      this.productIdFromPermission = productId;
-      this.showConfirmModal = true;
-    },
-    closeConfirmModal() {
-      this.showConfirmModal = false;
-    },
     closeActionModal() {
-      this.showActionModal = false;
+      this.showBuyProductModal = false;
+    },
+    selectedProductFromList(data) {
+      this.showBuyProductModal = true;
+      this.selectedProduct = data;
     },
     clearSearch() {
       this.searchText = "";
-      this.$store.dispatch("GET_ALL_PRODUCT");
+      this.$store.dispatch("GET_ALL_PRODUCT_FROM_ADMIN");
     },
-    searchName() {
-      this.$store.dispatch("GET_ALL_PRODUCT", this.searchText);
-    },
-    selectedProductFromList(data) {
-      this.showActionModal = true;
-      this.selectedProduct = data;
-    },
-    confirmActionCall() {
-      updateProductPermission({
-        productId: this.productIdFromPermission,
+    requestActionCall(data) {
+      const { quantity, id } = data;
+      const payloadForStockRequest = {
+        productId: id,
+        requestedQuantity: quantity,
+        senderId: this.userId,
+      };
+      console.log(payloadForStockRequest);
+      requestStock({
+        requestData: payloadForStockRequest,
         successCallback: (res) => {
-          if (res.status === 200) this.$store.dispatch("GET_ALL_PRODUCT");
+          if (res.status === 200) {
+            Vue.$toast.success("Request Successfull");
+            this.showBuyProductModal = false;
+          } else {
+            Vue.$toast.error("Request Failed");
+          }
         },
         errorCallback: (err) => {
           console.log(err);
+          Vue.$toast.error(err.message);
         },
       });
-      this.userId = "";
-      this.showConfirmModal = false;
     },
-    addNewProduct() {
-      const constructedData = {
-        modalHeader: "Add New Product",
-        productData: null,
-        modalButtonName: "Create Product",
-      };
-      this.showActionModal = true;
-      this.selectedProduct = constructedData;
-    },
-    saveActionCall(product) {
-      console.log(product);
-      if (!product.id) {
-        const { id, ...rest } = product;
-        console.log(rest, id);
-        createNewProduct({
-          productData: rest,
-          successCallback: (res) => {
-            console.log(res);
-            if (res.status === 200) {
-              Vue.$toast.success("Product Added to Inventory!");
-              this.$store.dispatch("GET_ALL_PRODUCT");
-            } else {
-              Vue.$toast.error("Updated Process declined!");
-            }
-          },
-          errrorCallback: (err) => {
-            Vue.$toast.error(err);
-          },
-        });
-      } else {
-        updateProductData({
-          productData: product,
-          successCallback: (res) => {
-            console.log(res);
-            if (res.status === 200) {
-              Vue.$toast.success("Inventory Updated!");
-              this.$store.dispatch("GET_ALL_PRODUCT");
-            } else {
-              Vue.$toast.error("Updated Process declined!");
-            }
-          },
-          errrorCallback: (err) => {
-            Vue.$toast.error(err);
-          },
-        });
-      }
-      this.showActionModal = false;
+    searchName() {
+      this.$store.dispatch("GET_ALL_PRODUCT_FROM_ADMIN", this.searchText);
     },
   },
   created() {
-    this.$store.dispatch("GET_ALL_PRODUCT");
+    this.$store.dispatch("GET_ALL_PRODUCT_FROM_ADMIN");
   },
 };
 </script>

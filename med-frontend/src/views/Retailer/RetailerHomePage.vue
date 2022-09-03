@@ -1,6 +1,6 @@
 <template>
     <div>
-         <NavBar :navLinks="routes"/>
+         <NavBar :NavBarData="routes"/>
         <div class="mt-4 container">
             <router-view/>
         </div>
@@ -8,7 +8,7 @@
 </template>
 <script>
 import NavBar from "@/components/NavBar.vue"
-import { retailerNavBarRoutes } from "@/utils/navigationRoutes.js"
+import { retailerNavBarRoutes } from "@/contants/navigationRoutes.js"
 
 export default {
     name : "RetailerHomePage",

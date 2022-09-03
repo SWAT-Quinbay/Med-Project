@@ -1,9 +1,7 @@
 <template>
-     <p
-      :class="className"
-    >
-      {{ label }}
-    </p>
+  <p :class="className">
+    {{ label }}
+  </p>
 </template>
 <script>
 export default {
@@ -13,10 +11,10 @@ export default {
       type: String,
       default: () => {},
     },
-    className : {
-      type : String,
-      default : () => {}
-    }
+    className: {
+      type: String,
+      default: () => {},
+    },
   },
 };
 </script>
@@ -31,8 +29,8 @@ export default {
   margin: 0;
 }
 .badge--warning--outline {
-  background-color: #fff9e1;
-  color: #c4b84f;
+  background-color: #fef0b9;
+  color: #bc9102;
 }
 .badge--success--outline {
   background-color: #d0f4e8;
@@ -57,7 +55,7 @@ export default {
   color: #ffffff;
 }
 .badge--success--solid {
-  background-color: #27BD68;
+  background-color: #27bd68;
   color: #ffffff;
 }
 .badge--error--solid {

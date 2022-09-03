@@ -2,69 +2,18 @@
   <div class="modal--bg">
     <div class="modal--content">
       <div class="modal--body">
-        <p class="modal--header">{{ modalHeader }}</p>
+        <p class="modal--header">{{ requestModalData.modalTitle }}</p>
 
         <div class="action--form--controller">
-          <label for="user-name" class="action--input--label"
-            >Product Name</label
-          >
-          <input
-            type="text"
-            class="action--input"
-            v-model="product.name"
-            placeholder="Enter Product Name"
-          />
-        </div>
-        <div class="action--form--controller">
-          <label for="user-imageurl" class="action--input--label"
-            >ImageUrl</label
-          >
-          <input
-            type="link"
-            class="action--input"
-            v-model="product.imageUrl"
-            placeholder="Paste imageUrl"
-          />
-        </div>
-        <div class="action--form--controller">
-          <label for="user-quantity" class="action--input--label"
-            >Net Quantity</label
-          >
-          <input
-            type="number"
-            class="action--input"
-            v-model="product.netQuantity"
-            placeholder="Enter Net Quanity"
-          />
-        </div>
-        <div class="action--form--controller">
-          <label for="user-price" class="action--input--label">Price</label>
-          <input
-            type="number"
-            class="action--input"
-            v-model="product.price"
-            placeholder="Enter Price"
-          />
-        </div>
-        <div class="action--form--controller">
-          <label for="user-tax" class="action--input--label">Tax</label>
-          <input
-            type="text"
-            class="action--input"
-            v-model="product.tax"
-            placeholder="Enter Tax Amount"
-          />
-        </div>
-        <div class="action--form--controller">
           <label for="user-description" class="action--input--label"
-            >Description</label
+            >Remark</label
           >
           <textarea
             type="text"
-            rows="4"
+            rows="5"
             class="action--textarea"
-            v-model="product.description"
-            placeholder="Enter Product Description"
+            v-model="remark"
+            placeholder="Write any remark about this request."
           />
         </div>
       </div>
@@ -80,7 +29,7 @@
           </div>
           <div class="col-6 ps-1">
             <ButtonComponent
-              :label="modalButtonLabel"
+              :label="requestModalData.modalActionButtonLabel"
               buttonStyle="btn--black"
               @onClick="confirmAction()"
               type="button"
@@ -95,64 +44,34 @@
 import ButtonComponent from "@/components/ButtonComponent.vue";
 
 export default {
-  name: "InventoryActionModal",
-  props: {
-    modalObjectData: {
-      type: Object,
-      default: () => {},
-    },
+  name: "RequestActionModal",
+  components: {
+    ButtonComponent,
   },
   data() {
     return {
-      product: {
-        id: "",
-        name: "",
-        imageUrl: "",
-        price: "",
-        netQuantity: "",
-        description: "",
-      },
-      modalHeader: "",
-      modalButtonLabel: "",
+      remark: "",
     };
   },
-  components: {
-    ButtonComponent,
+  props: {
+    requestModalData: {
+      type: Object,
+      default: () => {},
+    },
   },
   methods: {
     closeAction() {
       this.$emit("closeAction");
     },
     confirmAction() {
-      this.$emit("saveAction", this.product);
+      console.log(this.requestModalData);
+      const objForConfirm = {
+        remark: this.remark,
+        requestId: this.requestModalData.requestId,
+        approved: this.requestModalData.approved,
+      };
+      this.$emit("saveAction", objForConfirm);
     },
-  },
-  computed: {
-    checkMatchPassword() {
-      return (
-        this.userData.password &&
-        this.confirmPassword &&
-        this.userData.password !== this.confirmPassword
-      );
-    },
-    checkNameLength() {
-      return this.userData.name < 5;
-    },
-  },
-  mounted() {
-    const propsProduct = this.modalObjectData.productData;
-    console.log(this.modalObjectData);
-    if (propsProduct !== null) {
-      this.product.id = propsProduct.id;
-      this.product.name = propsProduct.name;
-      this.product.imageUrl = propsProduct.imageUrl;
-      this.product.price = propsProduct.price;
-      this.product.tax = propsProduct.tax;
-      this.product.netQuantity = propsProduct.netQuantity;
-      this.product.description = propsProduct.description;
-    }
-    this.modalHeader = this.modalObjectData.modalHeader;
-    this.modalButtonLabel = this.modalObjectData.modalButtonName;
   },
 };
 </script>

@@ -1,40 +1,66 @@
 <template>
   <div class="request--detail--card">
-    <div v-if="true">
-      <p class="request--id">REQUEST ID: 1</p>
+    <div v-if="requestData && requestData.id">
+      <p class="request--id">REQUEST ID: {{ requestData.id }}</p>
       <div class="request--detail--body">
         <div class="row justify-content-between align-items-center">
           <div class="col-auto">
             <p class="request--text--header">Customer Name:</p>
-            <p class="request--text--description">Vignesh Ravichandran</p>
+            <p class="request--text--description">
+              {{ requestData.senderName }}
+            </p>
           </div>
           <div class="col-auto">
             <BadgeComponent
-              :label="'InActive'"
+              :label="requestData.status"
               :className="[
-                checkStatus
-                  ? 'badge--success--outline'
-                  : 'badge--error--outline',
+                requestData.status === 'APPROVED'
+                  ? 'badge--success--solid'
+                  : requestData.status === 'DENIED'
+                  ? 'badge--error--solid'
+                  : 'badge--warning--solid',
                 'badge--outline--sm',
               ]"
             />
           </div>
         </div>
 
-        <p class="request--text--header">Username:</p>
-        <p class="request--text--description">admin</p>
         <p class="request--text--header">Request Date:</p>
-        <p class="request--text--description">22-08-2022</p>
-        <p class="request--text--header">Request Information:</p>
-        <p class="request--text--description"></p>
+        <p class="request--text--description">
+          {{ toDateString(requestData.createdAt) }}
+        </p>
+        <p class="request--text--header mt-4">Requested Quantity:</p>
+        <p class="request--text--description">
+          {{ requestData.requestedQuantity }}
+        </p>
+
+        <p class="request--text--header mt-4 mb-2">Request Information:</p>
+        <p class="request--text--description">
+          <b>Product Id:</b> {{ requestData.product.id }}
+        </p>
+        <p class="request--text--description">
+          <b>Product Name:</b> {{ requestData.product.name }}
+        </p>
+        <p class="request--text--description">
+          <b>Product Description:</b> {{ requestData.product.description }}
+        </p>
+        <p class="request--text--description">
+          <b>Product Price:</b> ₹{{ requestData.product.price }}
+        </p>
+        <p class="request--text--description">
+          <b>Product Tax:</b> ₹{{ requestData.product.tax }}
+        </p>
       </div>
-      <div class="request--detail--footer">
+      <div
+        class="request--detail--footer"
+        v-if="requestData.status === 'PENDING'"
+      >
         <div class="row justify-content-end align-items-center g-2">
           <div class="col-3">
             <ButtonComponent
               label="Reject"
               buttonStyle="btn--black--outline"
-              @onClick="deactivateConfirmation()"
+              @onClick="denyRequest()"
               type="button"
             />
           </div>
@@ -42,14 +68,14 @@
             <ButtonComponent
               label="Approve"
               buttonStyle="btn--black"
-              @onClick="deactivateConfirmation()"
+              @onClick="approveRequest()"
               type="button"
             />
           </div>
         </div>
       </div>
     </div>
-    <div class="request--notfound" v-if="false">
+    <div class="request--notfound" v-else>
       <p class="select--request">Select any request from left!</p>
     </div>
   </div>
@@ -59,6 +85,12 @@ import BadgeComponent from "@/components/BadgeComponent.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
 export default {
   name: "RequestDetailCard",
+  props: {
+    requestData: {
+      type: Object,
+      default: () => {},
+    },
+  },
   components: {
     BadgeComponent,
     ButtonComponent,
@@ -66,6 +98,17 @@ export default {
   computed: {
     checkStatus() {
       return true;
+    },
+  },
+  methods: {
+    toDateString(data) {
+      return new Date(data).toDateString();
+    },
+    approveRequest() {
+      this.$emit("approveRequest", { id: this.requestData.id });
+    },
+    denyRequest() {
+      this.$emit("denyRequest", { id: this.requestData.id });
     },
   },
 };

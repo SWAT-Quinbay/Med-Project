@@ -1,4 +1,4 @@
-import { baseUserUrl } from "@/utils/urls";
+import { baseUserUrl } from "@/contants/urls";
 import { getToken } from "@/utils/storage.js"
 import axios from "axios";
 

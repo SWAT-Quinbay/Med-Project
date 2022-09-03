@@ -4,51 +4,45 @@
     <td>{{ product.name }}</td>
     <td>{{ product.netQuantity }}</td>
     <td>₹ {{ product.price }}</td>
-    <td>₹ {{ product.tax }}</td>
     <td>
-      <BadgeComponent
+    <BadgeComponent
         :label="checkAvailabilityStatus ? 'Available' : 'Out of Stock'"
         :className="[
-          checkAvailabilityStatus
-            ? 'badge--success--outline'
-            : 'badge--error--outline',
+          checkAvailabilityStatus ? 'badge--success--outline' : 'badge--error--outline',
           'badge--outline--sm',
         ]"
       />
-    </td>
+      </td>
     <td>
       <BadgeComponent
         :label="checkProductionStatus ? 'In Production' : 'Stopped'"
         :className="[
-          checkProductionStatus
-            ? 'badge--success--outline'
-            : 'badge--error--outline',
+          checkProductionStatus ? 'badge--success--outline' : 'badge--error--outline',
           'badge--outline--sm',
         ]"
       />
     </td>
-    <td>{{ toDataString(product.createdAt) }}</td>
-    <td>
+    <!-- <td>
       <ButtonComponent
         label="Edit"
         buttonStyle="btn--edit--sm"
         @onClick="toggleActionModal(product)"
         type="button"
       />
-    </td>
-    <td>
+    </td> -->
+    <!-- <td>
       <ButtonComponent
-        label="Stop Production"
-        buttonStyle="btn--delete--sm"
-        @onClick="changeProductionStatus()"
+        label="Request Item"
+        buttonStyle="btn--edit--sm"
+        @onClick="toggleActionModal(product)"
         type="button"
       />
-    </td>
+    </td> -->
   </tr>
 </template>
 <script>
 import BadgeComponent from "@/components/BadgeComponent.vue";
-import ButtonComponent from "@/components/ButtonComponent.vue";
+// import ButtonComponent from "@/components/ButtonComponent.vue";
 export default {
   name: "InventoryTableList",
   props: {
@@ -56,40 +50,38 @@ export default {
       type: Object,
       default: () => {},
     },
-    index: {
-      type: Number,
-      default: 0,
-    },
+    index : {
+        type : Number,
+        default : 0
+    }
   },
   components: {
     BadgeComponent,
-    ButtonComponent,
+    // ButtonComponent,
   },
   computed: {
     checkProductionStatus() {
       return this.product.available;
     },
-    checkAvailabilityStatus() {
-      return this.product.netQuantity > 0;
-    },
+    checkAvailabilityStatus(){
+      return this.product.netQuantity > 0
+    }
   },
-  methods: {
-    changeProductionStatus() {
-      this.$emit("activateModal", { productId: this.product.id });
+  methods : {
+    changeProductionStatus(){
+      this.$emit('activateModal', {productId : this.product.id})
     },
-    toggleActionModal(data) {
-      this.showActionModal = true;
-      const constructedModalData = {
-        modalHeader: "Edit Product Information",
-        productData: data,
-        modalButtonName: "Save Product",
-      };
-      this.$emit("sendDataToEditModal", constructedModalData);
-    },
-    toDataString(date) {
-      return new Date(date).toDateString();
-    },
-  },
+    toggleActionModal(data){
+        this.showBuyProductsModal = true;
+        const constructedModalData = {
+          modalHeader: "Request Product",
+          productId: data.id,
+          productName : data.name,
+          modalButtonName: "Send Request",
+        };
+        this.$emit("sendDataToEditModal", constructedModalData);
+    }
+  }
 };
 </script>
 <style scoped>
