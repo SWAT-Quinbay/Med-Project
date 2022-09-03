@@ -35,22 +35,7 @@
     </div>
   </div>
 </template>
-<script>
-import BillingPageProductList from "@/components/RetailerComponents/BillingPageProductList.vue";
-import ButtonComponent from "@/components/ButtonComponent.vue";
-export default {
-  name: "BillingPageProductArea",
-  data() {
-    return {
-      searchKey: "",
-    };
-  },
-  components: {
-    BillingPageProductList,
-    ButtonComponent,
-  },
-};
-</script>
+<script src="@/components/RetailerComponents/script/BillingPageProductArea.js"></script>
 <style scoped>
 .search--card {
   background-color: #ffffff;

@@ -31,30 +31,7 @@
     </div>
   </div>
 </template>
-<script>
-import ButtonComponent from "@/components/ButtonComponent.vue";
-import BadgeComponent from "@/components/BadgeComponent.vue";
-export default {
-  name: "BillingPageProductList",
-  data() {
-    return {
-      editModalToggle: false,
-      showActionModal: false,
-      modalData: {},
-    };
-  },
-  props: {
-    product: {
-      type: Object,
-      default: () => {},
-    },
-  },
-  components: {
-    ButtonComponent,
-    BadgeComponent,
-  },
-};
-</script>
+<script src="@/components/RetailerComponents/script/BillingPageProductList.js"></script>
 <style scoped>
 .inventory--single--list {
   margin: 0;

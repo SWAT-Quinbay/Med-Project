@@ -74,38 +74,7 @@
     </div>
   </div>
 </template>
-<script>
-import InventoryTableList from "@/components/RetailerComponents/InventoryTableList.vue";
-import ButtonComponent from "@/components/ButtonComponent.vue";
-
-export default {
-  name: "InventoryTable",
-  components: {
-    InventoryTableList,
-    ButtonComponent,
-  },
-  data() {
-    return {
-      showConfirmModal: false,
-      showBuyProductModal: false,
-      searchText: "",
-      selectedProduct: {},
-    };
-  },
-  methods: {
-    closeActionModal() {
-      this.showBuyProductModal = false;
-    },
-    selectedProductFromList(data) {
-      this.showBuyProductModal = true;
-      this.selectedProduct = data;
-    },
-    requestActionCall(data) {
-      console.log(data);
-    },
-  },
-};
-</script>
+<script src="@/components/RetailerComponents/script/InventoryTable.js"></script>
 <style scoped>
 .v-enter-active,
 .v-leave-active {

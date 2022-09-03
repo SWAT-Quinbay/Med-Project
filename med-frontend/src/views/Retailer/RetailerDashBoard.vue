@@ -14,17 +14,7 @@
     </div>
   </div>
 </template>
-<script>
-import BillingPOS from "@/components/RetailerComponents/BillingPOS.vue";
-import BillingPageProductArea from "@/components/RetailerComponents/BillingPageProductArea.vue";
-export default {
-  name: "RetailerDashBoard",
-  components: {
-    BillingPOS,
-    BillingPageProductArea,
-  },
-};
-</script>
+<script src="@/views/Retailer/script/RetailerDashBoard.js"></script>
 <style scoped>
 .fixed--col {
   position: sticky;

@@ -1,13 +1,7 @@
 <template>
-    <div>
-        <h1>Page Not Found!</h1>
-    </div>
+  <div>
+    <h1>Page Not Found!</h1>
+  </div>
 </template>
-<script>
-export default {
-    name : "NotFound"
-}
-</script>
-<style>
-    
-</style>
+<script src="@/views/HelperPages/script/NotFound.js"></script>
+<style scoped></style>

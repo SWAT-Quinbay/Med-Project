@@ -74,20 +74,7 @@
     </div>
   </div>
 </template>
-<script>
-import ButtonComponent from "@/components/ButtonComponent.vue";
-export default {
-  name: "BillingPageProductList",
-  components: {
-    ButtonComponent,
-  },
-  data() {
-    return {
-      paymentMethod: "Cash",
-    };
-  },
-};
-</script>
+<script src="@/components/RetailerComponents/script/BillingPOS.js"></script>
 <style scoped>
 .pos--card {
   background-color: #ffffff;

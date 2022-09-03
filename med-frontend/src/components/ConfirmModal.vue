@@ -4,8 +4,8 @@
       <div class="modal--body">
         <p class="modal--header">{{ modalTitle }}</p>
         <p class="modal--subheader">
-          Are you sure you want to <b>{{ modalAction }}</b>? <span v-if="undo"> This action can
-          be undo.</span>
+          Are you sure you want to <b>{{ modalAction }}</b
+          >? <span v-if="undo"> This action can be undo.</span>
         </p>
       </div>
       <div class="modal--footer">
@@ -31,38 +31,7 @@
     </div>
   </div>
 </template>
-<script>
-import ButtonComponent from "@/components/ButtonComponent.vue";
-
-export default {
-  name: "ConfirmModal",
-  components: {
-    ButtonComponent,
-  },
-  props : {
-    modalTitle : {
-        type : String,
-        default : "Confirm Action"
-    },
-    modalAction : {
-        type : String,
-        default : "Delete"
-    },
-    undo : {
-        type : Boolean,
-        default : false
-    }
-  },
-  methods: {
-    closeAction() {
-      this.$emit("closeAction");
-    },
-    confirmAction() {
-      this.$emit("confirmAction");
-    },
-  },
-};
-</script>
+<script src="@/components/script/ConfirmModal.js"></script>
 <style scoped>
 .modal--bg {
   position: fixed;
