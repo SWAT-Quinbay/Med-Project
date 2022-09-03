@@ -1,40 +1,18 @@
 import Vuex from 'vuex';
 import Vue from 'vue'
 
-import productStore from './productStore';
-import requestStore from './requestStore';
-import request from './request';
-import cartStore from './cart';
+import user from '@/store/modules/user.store';
+import admin from '@/store/modules/admin.store'
+import dealer from '@/store/modules/dealer.store'
+import retailer from "@/store/modules/retailer.store"
 
 Vue.use(Vuex)
 
-const homePageStore = {
-    state : {val : 'asdfghjk'},
-    getters  : {
-            getStateValue1(state) {
-                return state.val;
-            }
-    },
-    mutations :{
-        setStateValue1(state,newval) {
-            state.val = newval;
-        }
-
-    },
-    actions : {
-        SET_SOME_VALUE() {
-            this.commit('setStateValue1','casdfghjkllkj')
-        }
-
-    }
-}
-
 export default new Vuex.Store({
    modules:{
-    homePageStore,
-    productStore,
-    cartStore,
-    requestStore,
-    request
+    user,
+    admin,
+    dealer,
+    retailer
    }
 })

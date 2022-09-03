@@ -1,19 +1,27 @@
 <template>
-<div>
-  <router-view/>
-</div>
+  <div id="app">
+    <router-view/>
+  </div>
 </template>
 
 <script>
-export default{
-  
+import NotFound from "@/views/HelperPages/NotFound.vue"
+export default {
+  name: 'App',
+  data(){
+    return{
+      fallBack : NotFound
+    }
+  }
 }
 </script>
 
 <style>
+body{
+  background-color: #FAFBFC !important;
+}
 #app {
-  margin-top: 60px;
-  background-color: #ffffff;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Open Sans',Arial,sans-serif;
+  
 }
 </style>
