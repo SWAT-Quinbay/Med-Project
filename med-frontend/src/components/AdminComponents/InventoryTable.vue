@@ -12,7 +12,7 @@
         </div>
         <div class="col-12 col-md-6">
           <div class="row justify-content-end align-items-center gx-2">
-            <div class="col-6">
+            <div class="col-12 col-md-6">
               <input
                 type="text"
                 v-model="searchText"
@@ -20,7 +20,7 @@
                 placeholder="Search product"
               />
             </div>
-            <div class="col-auto">
+            <div class="col-6 col-md-auto">
               <ButtonComponent
                 label="Search"
                 buttonStyle="btn--black--outline"
@@ -28,7 +28,7 @@
                 type="button"
               />
             </div>
-            <div class="col-auto">
+            <div class="col-6 col-md-auto">
               <ButtonComponent
                 label="Clear"
                 buttonStyle="btn--primary--sm--outline"
@@ -36,7 +36,7 @@
                 type="button"
               />
             </div>
-            <div class="col-auto">
+            <div class="col-6 col-md-auto">
               <ButtonComponent
                 label="Add Product"
                 buttonStyle="btn--primary--sm"
@@ -82,7 +82,7 @@
     <Transition>
       <ConfirmModal
         v-if="showConfirmModal"
-        modalTitle="Confirm Production Stop!"
+        modalTitle="Confirm Production Status!"
         modalAction="Change Production Status"
         :undo="true"
         @closeAction="closeConfirmModal"
@@ -97,130 +97,7 @@
     </Transition>
   </div>
 </template>
-<script>
-import InventoryTableList from "@/components/AdminComponents/InventoryTableList.vue";
-import ConfirmModal from "@/components/ConfirmModal.vue";
-import InventoryActionModal from "@/components/AdminComponents/InventoryActionModal.vue";
-import ButtonComponent from "@/components/ButtonComponent.vue";
-import { mapGetters } from "vuex";
-import Vue from "vue";
-import {
-  createNewProduct,
-  updateProductData,
-  updateProductPermission,
-} from "@/service/admin.service";
-
-export default {
-  name: "InventoryTable",
-  data() {
-    return {
-      showConfirmModal: false,
-      showActionModal: false,
-      searchText: "",
-      selectedProduct: {},
-      productIdFromPermission: "",
-    };
-  },
-  components: {
-    InventoryTableList,
-    ConfirmModal,
-    ButtonComponent,
-    InventoryActionModal,
-  },
-  computed: {
-    ...mapGetters({
-      inventoryList: "getInventory",
-    }),
-  },
-  methods: {
-    toggleConfirmModal({ productId }) {
-      this.productIdFromPermission = productId;
-      this.showConfirmModal = true;
-    },
-    closeConfirmModal() {
-      this.showConfirmModal = false;
-    },
-    closeActionModal() {
-      this.showActionModal = false;
-    },
-    clearSearch() {
-      this.searchText = "";
-      this.$store.dispatch("GET_ALL_PRODUCT");
-    },
-    searchName() {
-      this.$store.dispatch("GET_ALL_PRODUCT", this.searchText);
-    },
-    selectedProductFromList(data) {
-      this.showActionModal = true;
-      this.selectedProduct = data;
-    },
-    confirmActionCall() {
-      updateProductPermission({
-        productId: this.productIdFromPermission,
-        successCallback: (res) => {
-          if (res.status === 200) this.$store.dispatch("GET_ALL_PRODUCT");
-        },
-        errorCallback: (err) => {
-          console.log(err);
-        },
-      });
-      this.userId = "";
-      this.showConfirmModal = false;
-    },
-    addNewProduct() {
-      const constructedData = {
-        modalHeader: "Add New Product",
-        productData: null,
-        modalButtonName: "Create Product",
-      };
-      this.showActionModal = true;
-      this.selectedProduct = constructedData;
-    },
-    saveActionCall(product) {
-      console.log(product);
-      if (!product.id) {
-        const { id, ...rest } = product;
-        console.log(rest, id);
-        createNewProduct({
-          productData: rest,
-          successCallback: (res) => {
-            console.log(res);
-            if (res.status === 200) {
-              Vue.$toast.success("Product Added to Inventory!");
-              this.$store.dispatch("GET_ALL_PRODUCT");
-            } else {
-              Vue.$toast.error("Updated Process declined!");
-            }
-          },
-          errrorCallback: (err) => {
-            Vue.$toast.error(err);
-          },
-        });
-      } else {
-        updateProductData({
-          productData: product,
-          successCallback: (res) => {
-            console.log(res);
-            if (res.status === 200) {
-              Vue.$toast.success("Inventory Updated!");
-              this.$store.dispatch("GET_ALL_PRODUCT");
-            } else {
-              Vue.$toast.error("Updated Process declined!");
-            }
-          },
-          errrorCallback: (err) => {
-            Vue.$toast.error(err);
-          },
-        });
-      }
-      this.showActionModal = false;
-    },
-  },
-  created() {
-    this.$store.dispatch("GET_ALL_PRODUCT");
-  },
-};
-</script>
+<script src="@/components/AdminComponents/script/InventoryTable.js"></script>
 <style scoped>
 .v-enter-active,
 .v-leave-active {

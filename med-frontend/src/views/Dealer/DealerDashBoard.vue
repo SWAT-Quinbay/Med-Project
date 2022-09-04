@@ -5,9 +5,17 @@
         <p class="navigation--label">Dealer / Dashboard</p>
       </div>
     </div>
-    <div class="row">
-      <div class="col-12 col-md-4 px-2">
+    <div class="row align-items-center justify-center-between">
+      <div class="col-12 col-md-4 px-2 d-none d-md-block">
         <!-- <InventoryTable/> -->
+        <v-lottie-player
+          name="notfound"
+          class="mx-auto"
+          loop
+          height="400px"
+          width="400px"
+          :animationData="require('@/assets/lottie/dashboard.json')"
+        />
       </div>
       <div class="col-md-8">
         <div class="row">
@@ -27,6 +35,7 @@
                     <div class="col-6">
                       <input
                         type="text"
+                        v-model="searchRequestKey"
                         class="action--input"
                         placeholder="Search Request Id"
                       />
@@ -35,7 +44,7 @@
                       <ButtonComponent
                         label="Search"
                         buttonStyle="btn--primary--sm--outline"
-                        @onClick="confirmAction()"
+                        @onClick="searchFilter()"
                         type="button"
                       />
                     </div>
@@ -54,11 +63,11 @@
           </div>
           <div class="col-12 col-md-4">
             <div class="action--form--controller">
-              <select class="action--input">
-                <option :value="null">Select Request Status</option>
+              <select class="action--input" v-model="searchStatusKey">
+                <option value="">Select Request Status</option>
                 <option value="APPROVED">Approved</option>
                 <option value="PENDING">Pending</option>
-                <option value="REJECTED">Rejected</option>
+                <option value="DENIED">Denied</option>
               </select>
             </div>
             <div class="stepper--list--card">
@@ -91,91 +100,7 @@
     </Transition>
   </div>
 </template>
-<script>
-import RequestStepperCard from "@/components/RequestStepperCard.vue";
-import RequestDetailCard from "@/components/RequestDetailCard.vue";
-import ButtonComponent from "@/components/ButtonComponent.vue";
-import RequestActionModal from "@/components/RequestActionModal.vue";
-import { changeRequestStatus } from "@/service/admin.service";
-import { mapGetters } from "vuex";
-import Vue from "vue";
-export default {
-  name: "DealerDashBoard",
-  data() {
-    return {
-      selectedRequest: {},
-      showRequestActionModal: false,
-      requestModalData: {},
-      selectedIndex: 0,
-    };
-  },
-  components: {
-    RequestStepperCard,
-    RequestDetailCard,
-    ButtonComponent,
-    RequestActionModal,
-  },
-  computed: {
-    ...mapGetters({
-      userId: "getUserId",
-      requestList: "getRequestHistory",
-    }),
-  },
-  methods: {
-    closeRequestActionModal() {
-      this.showRequestActionModal = false;
-    },
-    switchSelectedProduct({ data, index }) {
-      this.selectedRequest = data;
-      this.selectedIndex = index;
-    },
-    activateApproveRequestModal({ id }) {
-      this.showRequestActionModal = true;
-      const modalData = {
-        modalTitle: "Do you want to approve the request?",
-        modalActionButtonLabel: "Approve",
-        approved: true,
-        // requestData: this.selectedRequest,
-        requestId: id,
-      };
-      this.requestModalData = modalData;
-    },
-    activateDenyRequestModal({ id }) {
-      this.showRequestActionModal = true;
-      const modalData = {
-        modalTitle: "Do you want to Deny the request?",
-        modalActionButtonLabel: "Deny",
-        approved: false,
-        // requestData: this.selectedRequest,
-        requestId: id,
-      };
-      this.requestModalData = modalData;
-    },
-    saveActionCall(data) {
-      console.log(data);
-      changeRequestStatus({
-        requestData: data,
-        successCallback: (res) => {
-          if (res.status === 200) {
-            Vue.$toast.success("Request Responded!");
-            this.$store.dispatch("GET_ALL_REQUEST", this.userId);
-          } else {
-            Vue.$toast.success("Request Failed!");
-          }
-        },
-        errorCallback: (err) => {
-          console.log(err);
-          Vue.$toast.error(err.message);
-        },
-      });
-      this.showRequestActionModal = false;
-    },
-  },
-  created() {
-    this.$store.dispatch("GET_ALL_REQUEST", this.userId);
-  },
-};
-</script>
+<script src="@/views/Dealer/script/DealerDashBoard.js"></script>
 <style scoped>
 .request--search--box {
   background-color: #ffffff;

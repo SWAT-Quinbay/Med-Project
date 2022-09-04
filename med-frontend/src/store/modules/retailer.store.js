@@ -1,48 +1,122 @@
-import { getAllProductFromAdmin} from "@/service/dealer.service";
+import { getAllProductFromAdmin } from "@/service/dealer.service";
+import {
+  getAllProductByRetailerId,
+  getAllRequestHistory,
+  getAllProductsFromAllDealers,
+  getAllSalesHistory,
+} from "@/service/retailer.service";
 
 export default {
-    state : {
-        productList : [],
-        inventoryList : [],
-        requestHistory : []
+  state: {
+    retailerProductList: [],
+    retailerInventoryList: [],
+    retailerSalesHistory: [],
+    retailerBuyProductList: [],
+    retailerRequestHistory: [],
+  },
+  getters: {
+    getRetailerProductList(state) {
+      return state.retailerProductList;
     },
-    getters : 
-    {
-        getProductList(state){
-            return state.productList;
-        },
-        getInventory(state){
-            return state.inventoryList;
-        },
-        getRequestHistory(state){
-            return state.requestHistory;
-        }
+    getRetailerInventory(state) {
+      return state.retailerInventoryList;
     },
-    mutations : {
-        setProductList(state,productList){
-            state.productList = productList
-        },
-        setInventory(state,inventoryList){
-            state.inventoryList = inventoryList
-        },
-        setRequestHistory(state,requestHistory){
-            state.requestHistory = requestHistory
-        }
+    getRetailerBuyProductList(state) {
+      return state.retailerBuyProductList;
     },
-    actions : {
-        
-        GET_ALL_PRODUCT_FROM_DEALER({commit},value=""){
-            getAllProductFromAdmin({
-                searchText : value,
-                successCallback : ({data}) => {
-                    commit("setProductList",data.content)
-                },
-                errorCallback : (err) => {
-                    console.log(err)
-                }
-            })
+    getRetailerSalesHistory(state) {
+      return state.retailerSalesHistory;
+    },
+    getRetailerRequestHistory(state) {
+      return state.retailerRequestHistory;
+    },
+  },
+  mutations: {
+    setRetailerProductList(state, productList) {
+      state.retailerProductList = productList;
+    },
+    setRetailerInventory(state, inventoryList) {
+      state.retailerInventoryList = inventoryList;
+    },
+    setRetailerSalesHistory(state, salesHistory) {
+      state.retailerSalesHistory = salesHistory;
+    },
+    setRetailerBuyProductList(state, productList) {
+      state.retailerBuyProductList = productList;
+    },
+    setRetailerRequestHistory(state, requestHistory) {
+      state.retailerRequestHistory = requestHistory;
+    },
+  },
+  actions: {
+    GET_ALL_PRODUCT_FROM_DEALER({ commit }, value = "") {
+      getAllProductFromAdmin({
+        searchText: value,
+        successCallback: ({ data }) => {
+          commit("setRetailerProductList", data.content);
         },
-        
-        
-    }
-}
+        errorCallback: (err) => {
+          console.log(err);
+        },
+      });
+    },
+    GET_ALL_PRODUCT_BY_RETAILER_ID({ commit }, { retailerId, searchKey = "" }) {
+      getAllProductByRetailerId({
+        retailerId,
+        searchKey,
+        successCallback: ({ data }) => {
+          commit("setRetailerInventory", data);
+        },
+        errorCallback: (err) => {
+          console.log(err);
+        },
+      });
+    },
+
+    GET_ALL_PRODUCTS_FROM_ALL_DEALERS({ commit }, value = "") {
+      getAllProductsFromAllDealers({
+        searchKey: value,
+        successCallback: ({ data }) => {
+          commit("setRetailerBuyProductList", data);
+        },
+        errorCallback: (err) => {
+          console.log(err);
+        },
+      });
+    },
+
+    GET_ALL_REQUEST_HISTORY_RETAILER(
+      { commit },
+      { retailerId = "", requestId = "", status = "" }
+    ) {
+      getAllRequestHistory({
+        retailerId,
+        requestId,
+        status,
+        successCallback: ({ data }) => {
+          commit("setRetailerRequestHistory", data);
+        },
+        errorCallback: (err) => {
+          console.log(err);
+        },
+      });
+    },
+
+    GET_ALL_SALES_HISTORY(
+      { commit },
+      { retailerId, value = "", orderId = "" }
+    ) {
+      getAllSalesHistory({
+        retailerId,
+        orderId,
+        searchKey: value,
+        successCallback: ({ data }) => {
+          commit("setRetailerSalesHistory", data);
+        },
+        errorCallback: (err) => {
+          console.log(err);
+        },
+      });
+    },
+  },
+};

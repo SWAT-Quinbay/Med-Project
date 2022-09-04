@@ -3,21 +3,7 @@
     {{ label }}
   </p>
 </template>
-<script>
-export default {
-  name: "BadgeComponent",
-  props: {
-    label: {
-      type: String,
-      default: () => {},
-    },
-    className: {
-      type: String,
-      default: () => {},
-    },
-  },
-};
-</script>
+<script src="@/components/script/BadgeComponent.js"></script>
 <style scoped>
 .badge--outline--sm {
   border-radius: 5px;

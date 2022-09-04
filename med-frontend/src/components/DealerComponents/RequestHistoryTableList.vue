@@ -18,33 +18,10 @@
         ]"
       />
     </td>
+    <td>{{ request.remark ? request.remark : "-" }}</td>
   </tr>
 </template>
-<script>
-import BadgeComponent from "@/components/BadgeComponent.vue";
-export default {
-  name: "RequestHistoryTableList",
-  props: {
-    request: {
-      type: Object,
-      default: () => {},
-    },
-    index: {
-      type: Number,
-      default: 0,
-    },
-  },
-  components: {
-    BadgeComponent,
-  },
-  computed: {},
-  methods: {
-    changeDateFormat(data) {
-      return new Date(data).toDateString();
-    },
-  },
-};
-</script>
+<script src="@/components/DealerComponents/script/RequestHistoryTableList.js"></script>
 <style scoped>
 .table--tr--single--entity {
   border-bottom: 1px solid rgba(233, 233, 233, 0.683);

@@ -6,7 +6,7 @@
           <p class="table--header">
             Request History
             <span class="total--client--badge"
-              >{{ dealerRequestHistory.length }} request</span
+              >{{ retailerRequestHistory.length }} request</span
             >
           </p>
         </div>
@@ -59,11 +59,12 @@
               <th>Requested Quantity</th>
               <th>Price + Tax</th>
               <th>Status</th>
+              <th>Remark</th>
             </tr>
           </thead>
           <tbody>
             <RequestHistoryTableList
-              v-for="(data, index) in dealerRequestHistory"
+              v-for="(data, index) in retailerRequestHistory"
               :key="index"
               :request="data"
               :index="index"
@@ -76,43 +77,7 @@
     </div>
   </div>
 </template>
-<script>
-import RequestHistoryTableList from "@/components/DealerComponents/RequestHistoryTableList.vue";
-import { mapGetters } from "vuex";
-
-export default {
-  name: "RequestHistoryTable",
-  components: {
-    RequestHistoryTableList,
-  },
-  data() {
-    return {
-      showConfirmModal: false,
-      showBuyProductModal: false,
-      searchText: "",
-      selectedProduct: {},
-    };
-  },
-  computed: {
-    ...mapGetters({
-      userId: "getUserId",
-      dealerRequestHistory: "getDealerRequestHistory",
-    }),
-  },
-  methods: {
-    closeActionModal() {
-      this.showBuyProductModal = false;
-    },
-    selectedProductFromList(data) {
-      this.showBuyProductModal = true;
-      this.selectedProduct = data;
-    },
-  },
-  created() {
-    this.$store.dispatch("GET_ALL_REQUEST_HISTORY", this.userId);
-  },
-};
-</script>
+<script src="@/components/RetailerComponents/script/RequestHistoryTable.js"></script>
 <style scoped>
 .v-enter-active,
 .v-leave-active {

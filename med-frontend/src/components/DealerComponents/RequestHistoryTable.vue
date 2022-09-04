@@ -59,6 +59,7 @@
               <th>Requested Quantity</th>
               <th>Price + Tax</th>
               <th>Status</th>
+              <th>Remark</th>
             </tr>
           </thead>
           <tbody>
@@ -76,43 +77,7 @@
     </div>
   </div>
 </template>
-<script>
-import RequestHistoryTableList from "@/components/DealerComponents/RequestHistoryTableList.vue";
-import { mapGetters } from "vuex";
-
-export default {
-  name: "RequestHistoryTable",
-  components: {
-    RequestHistoryTableList,
-  },
-  data() {
-    return {
-      showConfirmModal: false,
-      showBuyProductModal: false,
-      searchText: "",
-      selectedProduct: {},
-    };
-  },
-  computed: {
-    ...mapGetters({
-      userId: "getUserId",
-      dealerRequestHistory: "getDealerRequestHistory",
-    }),
-  },
-  methods: {
-    closeActionModal() {
-      this.showBuyProductModal = false;
-    },
-    selectedProductFromList(data) {
-      this.showBuyProductModal = true;
-      this.selectedProduct = data;
-    },
-  },
-  created() {
-    this.$store.dispatch("GET_ALL_REQUEST_HISTORY", this.userId);
-  },
-};
-</script>
+<script src="@/components/DealerComponents/script/RequestHistoryTable.js"></script>
 <style scoped>
 .v-enter-active,
 .v-leave-active {

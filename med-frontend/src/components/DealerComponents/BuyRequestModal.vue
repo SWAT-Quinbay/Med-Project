@@ -42,47 +42,7 @@
     </div>
   </div>
 </template>
-<script>
-import ButtonComponent from "@/components/ButtonComponent.vue";
-
-export default {
-  name: "BuyProductsModal",
-  props: {
-    modalObjectData: {
-      type: Object,
-      default: () => {},
-    },
-  },
-  data() {
-    return {
-      product: {
-        id: "",
-        quantity: "",
-        name: "",
-      },
-      modalHeader: "",
-      modalButtonLabel: "",
-    };
-  },
-  components: {
-    ButtonComponent,
-  },
-  methods: {
-    closeAction() {
-      this.$emit("closeAction");
-    },
-    confirmAction() {
-      this.$emit("saveAction", this.product);
-    },
-  },
-  mounted() {
-    this.product.id = this.modalObjectData.productId;
-    this.product.name = this.modalObjectData.productName;
-    this.modalHeader = this.modalObjectData.modalHeader;
-    this.modalButtonLabel = this.modalObjectData.modalButtonName;
-  },
-};
-</script>
+<script src="@/components/DealerComponents/script/BuyRequestModal.js"></script>
 <style scoped>
 .modal--bg {
   position: fixed;
@@ -228,5 +188,4 @@ select {
   margin: 0px;
   margin-bottom: 20px;
 }
-
 </style>

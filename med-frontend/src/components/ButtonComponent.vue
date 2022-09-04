@@ -8,38 +8,11 @@
     {{ label }}
   </button>
 </template>
-<script>
-export default {
-  name: "ButtonComponent",
-  props: {
-    label: {
-      type: String,
-      default: "Submit",
-    },
-    type: {
-      type: String,
-      default: "button",
-    },
-    buttonStyle: {
-      type: String,
-      default: "btn--primary",
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  methods: {
-    onClick() {
-      this.$emit("onClick");
-    },
-  },
-};
-</script>
+<script src="@/components/script/ButtonComponent.js"></script>
 <style scoped>
 .btn--primary {
   color: white;
-  border: 1px solid #02A6E4;
+  border: 1px solid #02a6e4;
   outline: none;
   width: 100%;
   /* height: 35px; */
@@ -47,11 +20,11 @@ export default {
   font-weight: 700;
   border-radius: 8px;
   padding: 10px 15px;
-  background-color: #02A6E4;
+  background-color: #02a6e4;
 }
 .btn--primary--outline {
-  color: #02A6E4;
-  border: 1px solid #02A6E4;
+  color: #02a6e4;
+  border: 1px solid #02a6e4;
   width: 100%;
   /* height: 35px; */
   font-size: 14px;
@@ -60,8 +33,6 @@ export default {
   padding: 10px 15px;
   background-color: #ffffff;
 }
-
-
 
 .btn--black {
   color: rgb(255, 255, 255);
@@ -85,7 +56,7 @@ export default {
   font-weight: 700;
   border-radius: 8px;
   padding: 5px 20px;
-  
+
   height: 35px;
 
   background-color: #ffffff;
@@ -105,9 +76,35 @@ export default {
   background-color: #dc3545;
 }
 
+.btn--primary--sm--100 {
+  color: #ffffff;
+  border: 1px solid #02a6e4;
+  outline: none;
+  width: 100%;
+  height: 35px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 5px 20px;
+  background-color: #02a6e4;
+}
+
+.btn--disabled--sm--100 {
+  color: white;
+  border: 1px solid #ffffff;
+  outline: none;
+  width: 100%;
+  height: 35px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 5px 20px;
+  background-color: #dfdfdf;
+}
+
 .btn--primary--sm {
   color: #ffffff;
-  border: 1px solid #02A6E4;
+  border: 1px solid #02a6e4;
   /* border: none; */
   outline: none;
   /* width: 100%; */
@@ -116,12 +113,12 @@ export default {
   font-weight: 700;
   border-radius: 8px;
   padding: 5px 20px;
-  background-color: #02A6E4;
+  background-color: #02a6e4;
 }
 
 .btn--primary--sm--outline {
-  color: #02A6E4;
-  border: 1px solid #02A6E4;
+  color: #02a6e4;
+  border: 1px solid #02a6e4;
   /* border: none; */
   outline: none;
   /* width: 100%; */
@@ -202,5 +199,17 @@ export default {
   background-color: #dfdfdf;
 }
 
-
+.btn--disabled--sm {
+  color: white;
+  border: 1px solid #ffffff;
+  /* border: none; */
+  outline: none;
+  /* width: 100%; */
+  /* height: 30px; */
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 5px 20px;
+  background-color: #dfdfdf;
+}
 </style>

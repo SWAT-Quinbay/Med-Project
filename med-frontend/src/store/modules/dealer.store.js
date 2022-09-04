@@ -2,6 +2,7 @@ import {
   getAllProductFromAdmin,
   getAllProductByDealerId,
   getAllRequestHistory,
+  getAllRequestById,
 } from "@/service/dealer.service";
 
 export default {
@@ -9,6 +10,7 @@ export default {
     dealerProductList: [],
     dealerInventoryList: [],
     dealerRequestHistory: [],
+    dealerRequestHistoryFromRetailer: [],
   },
   getters: {
     getDealerProductList(state) {
@@ -20,6 +22,9 @@ export default {
     getDealerRequestHistory(state) {
       return state.dealerRequestHistory;
     },
+    getDealerRequestHistoryFromRetailer(state) {
+      return state.dealerRequestHistoryFromRetailer;
+    },
   },
   mutations: {
     setDealerProductList(state, productList) {
@@ -30,6 +35,9 @@ export default {
     },
     setDealerRequestHistory(state, requestHistory) {
       state.dealerRequestHistory = requestHistory;
+    },
+    setDealerRequestHistoryFromRetailer(state, requestHistory) {
+      state.dealerRequestHistoryFromRetailer = requestHistory;
     },
   },
   actions: {
@@ -57,11 +65,33 @@ export default {
       });
     },
 
-    GET_ALL_REQUEST_HISTORY({ commit }, value = "") {
+    GET_ALL_REQUEST_HISTORY(
+      { commit },
+      { dealerId = "", requestId = "", status = "" }
+    ) {
       getAllRequestHistory({
-        dealerId: value,
+        dealerId: dealerId,
+        requestId: requestId,
+        status: status,
         successCallback: ({ data }) => {
           commit("setDealerRequestHistory", data);
+        },
+        errorCallback: (err) => {
+          console.log(err);
+        },
+      });
+    },
+
+    GET_ALL_REQUEST_FROM_RETAILER(
+      { commit },
+      { userId = "", requestId = "", status = "" }
+    ) {
+      getAllRequestById({
+        userId: userId,
+        requestId: requestId,
+        status: status,
+        successCallback: ({ data }) => {
+          commit("setDealerRequestHistoryFromRetailer", data);
         },
         errorCallback: (err) => {
           console.log(err);

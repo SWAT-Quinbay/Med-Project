@@ -17,62 +17,28 @@
     <td>
       <ButtonComponent
         label="Edit"
-        buttonStyle="btn--edit--sm"
+        :disabled="user.role === 'ADMIN'"
+        :buttonStyle="
+          user.role === 'ADMIN' ? 'btn--disabled--sm' : 'btn--edit--sm'
+        "
         @onClick="editModal()"
         type="button"
       />
     </td>
     <td>
       <ButtonComponent
+        :disabled="user.role === 'ADMIN'"
         :label="user.active ? 'Deactivate' : 'Activate'"
-        buttonStyle="btn--delete--sm"
+        :buttonStyle="
+          user.role === 'ADMIN' ? 'btn--disabled--sm' : 'btn--delete--sm'
+        "
         @onClick="accessConfirmation()"
         type="button"
       />
     </td>
   </tr>
 </template>
-<script>
-import BadgeComponent from "@/components/BadgeComponent.vue";
-import ButtonComponent from "@/components/ButtonComponent.vue";
-
-
-
-export default {
-  name: "UserTableList",
-  props: {
-    user: {
-      type: Object,
-      default: () => {},
-    },
-    index : {
-      type : Number,
-      default: 0
-    }
-  },
-  components: {
-    BadgeComponent,
-    ButtonComponent,
-  },
-  computed: {
-    checkStatus() {
-      return this.user.active;
-    },
-  },
-  methods: {
-    editModal(){
-      this.$emit("editModal", { userData : this.user });
-    },
-    accessConfirmation() {
-      this.$emit("activateModal", { userId: this.user.userId });
-    },
-    toDataString(date){
-      return new Date(date).toDateString()
-    }
-  },
-
-};
-</script>
+<script src="@/components/AdminComponents/script/UserTableList.js"></script>
 <style scoped>
 .table--tr--single--entity {
   border-bottom: 1px solid rgba(233, 233, 233, 0.683);

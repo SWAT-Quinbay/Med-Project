@@ -11,10 +11,11 @@ import AdminInventory from "@/views/Admin/AdminInventory.vue";
 import RetailerDashBoard from "@/views/Retailer/RetailerDashBoard.vue";
 import RetailerHomePage from "@/views/Retailer/RetailerHomePage.vue";
 import RetailerInventory from "@/views/Retailer/RetailerInventory.vue";
+import RetailerBuyProducts from "@/views/Retailer/RetailerBuyProducts.vue";
 import RetailerSalesHistory from "@/views/Retailer/RetailerSalesHistory.vue";
 import RetailerRequestHistory from "@/views/Retailer/RetailerRequestHistory.vue";
 
-import DealerHomePage from "@/views/Dealer/DealerHomePage";
+import DealerHomePage from "@/views/Dealer/DealerHomePage.vue";
 import DealerDashBoard from "@/views/Dealer/DealerDashBoard.vue";
 import DealerRequestHistory from "@/views/Dealer/DealerRequestHistory.vue";
 import DealerInventory from "@/views/Dealer/DealerInventory.vue";
@@ -22,10 +23,10 @@ import DealerBuyProducts from "@/views/Dealer/DealerBuyProducts.vue";
 
 import NotFound from "@/views/HelperPages/NotFound.vue";
 
-// import { deleteToken, getToken } from "@/utils/storage";
-// import store from "@/store";
-// import { redirectDashboard } from "@/utils/roleRedirect";
-// import { checkAuthToken } from "@/service/auth.service.js";
+import { getToken } from "@/utils/storage";
+import store from "@/store";
+import { redirectDashboard } from "@/utils/roleRedirect";
+import { checkAuthToken } from "@/service/auth.service.js";
 
 Vue.use(VueRouter);
 
@@ -34,27 +35,27 @@ const routes = [
     path: "/",
     name: "LoginPage",
     component: LoginPage,
-    // beforeEnter: (to, from, next) => {
-    //   console.log(from, to);
+    beforeEnter: (to, from, next) => {
+      console.log(from, to);
 
-    //   if (to.name === "LoginPage" && getToken()) {
-    //     checkAuthToken({
-    //       successCallback: (res) => {
-    //         if (res.status === 200) {
-    //           store.commit("setUserData", res.data);
-    //           const { data } = res;
-    //           redirectDashboard(data);
-    //         }
-    //       },
-    //       errorCallback: (err) => {
-    //         console.log(err);
-    //         router.replace({ name: "LoginPage" });
-    //       },
-    //     });
-    //   }
+      if (to.name === "LoginPage" && getToken()) {
+        checkAuthToken({
+          successCallback: (res) => {
+            if (res.status === 200) {
+              store.commit("setUserData", res.data);
+              const { data } = res;
+              redirectDashboard(data);
+            }
+          },
+          errorCallback: (err) => {
+            console.log(err);
+            router.replace({ name: "LoginPage" });
+          },
+        });
+      }
 
-    //   next();
-    // },
+      next();
+    },
   },
   {
     path: "/admin",
@@ -77,9 +78,9 @@ const routes = [
         component: AdminInventory,
       },
     ],
-    // beforeEnter: (to, from, next) => {
-    //   checkValidation("ADMIN", next);
-    // },
+    beforeEnter: (to, from, next) => {
+      checkValidation("ADMIN", next);
+    },
   },
   {
     path: "/retailer",
@@ -96,6 +97,11 @@ const routes = [
         component: RetailerSalesHistory,
       },
       {
+        path: "buy-products",
+        name: "RetailerBuyProducts",
+        component: RetailerBuyProducts,
+      },
+      {
         path: "request-history",
         name: "RetailerRequestHistory",
         component: RetailerRequestHistory,
@@ -106,9 +112,9 @@ const routes = [
         component: RetailerInventory,
       },
     ],
-    // beforeEnter: (to, from, next) => {
-    //   checkValidation("RETAILER", next);
-    // },
+    beforeEnter: (to, from, next) => {
+      checkValidation("RETAILER", next);
+    },
   },
   {
     path: "/dealer",
@@ -136,9 +142,9 @@ const routes = [
         component: DealerInventory,
       },
     ],
-    // beforeEnter: (to, from, next) => {
-    //   checkValidation("DEALER", next);
-    // },
+    beforeEnter: (to, from, next) => {
+      checkValidation("DEALER", next);
+    },
   },
   {
     path: "*",
@@ -152,42 +158,36 @@ const router = new VueRouter({
   routes,
 });
 
-// const checkValidation = (role, next) => {
-//   if (getToken()) {
-//     checkAuthToken({
-//       successCallback: (res) => {
-//         if (res.status === 200) {
-//           store.commit("setUserData", res.data);
-//           const { data } = res;
-//           console.log(data);
-//           if (data.roles[0].authority === role && data.authenticated)
-//             return next();
-//           else {
-//             deleteToken();
-//             return next({ name: "LoginPage" });
-//           }
-//         }
-//       },
-//       errorCallback: (err) => {
-//         console.log(err);
-//         deleteToken();
-//         router.replace({ name: "LoginPage" });
-//       },
-//     });
-//   } else {
-//     deleteToken();
-//     return next({ name: "LoginPage" });
-//   }
-// };
+const checkValidation = (role, next) => {
+  if (getToken()) {
+    checkAuthToken({
+      successCallback: (res) => {
+        if (res.status === 200) {
+          store.commit("setUserData", res.data);
+          const { data } = res;
+          if (data.roles[0].authority === role && data.authenticated)
+            return next();
+          else {
+            return next({ name: "LoginPage" });
+          }
+        }
+      },
+      errorCallback: (err) => {
+        console.log(err);
+        router.replace({ name: "LoginPage" });
+      },
+    });
+  } else {
+    return next({ name: "LoginPage" });
+  }
+};
 
-// router.afterEach((to, from) => {
-//   if (!getToken()) {
-//     console.log("Denied", to, from);
-//     if (to.name !== "LoginPage") {
-//       router.replace("/");
-//       deleteToken();
-//     }
-//   }
-// });
+router.afterEach((to) => {
+  if (!getToken()) {
+    if (to.name !== "LoginPage") {
+      router.replace("/");
+    }
+  }
+});
 
 export default router;

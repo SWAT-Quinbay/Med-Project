@@ -3,11 +3,7 @@
     <div class="spinner--inner"></div>
   </div>
 </template>
-<script>
-export default {
-    name : "SpinnerProgress"
-}
-</script>
+<script src="@/components/script/SpinnerProgress.js"></script>
 <style>
 .spinner--outer {
   width: fit-content;
@@ -17,7 +13,7 @@ export default {
 .spinner--inner {
   background-color: transparent;
   border: 5px solid #cdcdcd;
-  border-top: 5px solid #02A6E4;
+  border-top: 5px solid #02a6e4;
   border-radius: 50%;
   height: 30px;
   width: 30px;

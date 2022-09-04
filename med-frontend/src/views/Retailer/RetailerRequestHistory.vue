@@ -10,16 +10,7 @@
     </div>
   </div>
 </template>
-<script>
-import RequestHistoryTable from "@/components/RetailerComponents/RequestHistoryTable.vue";
-
-export default {
-  name: "RetailerRequestHistory",
-  components: {
-    RequestHistoryTable,
-  },
-};
-</script>
+<script src="@/views/Retailer/script/RetailerRequestHistory.js"></script>
 <style scoped>
 .navigation--label {
   margin: 0;

@@ -3,12 +3,10 @@
     <div class="row justify-content-center">
       <div class="col-11 col-sm-8 col-md-7 col-lg-5 col-xl-4">
         <div class="login--card">
-           <img src="@/assets/logo.png" alt="" width="180">
+          <img src="@/assets/logo.png" alt="" width="180" />
           <p class="login--header--text">Login into your account!</p>
           <div class="action--form--controller">
-            <label for="user-name" class="action--input--label"
-              >Username</label
-            >
+            <label for="user-name" class="action--input--label">Username</label>
             <input
               type="text"
               v-model="user.username"
@@ -16,7 +14,9 @@
               placeholder="Enter Your Username"
             />
           </div>
-            <p class="news--error" v-if="usernameValidation" >Special Characters and white spaces are not allowed!</p>
+          <p class="news--error" v-if="usernameValidation">
+            Special Characters and white spaces are not allowed!
+          </p>
           <div class="action--form--controller">
             <label for="user-password" class="action--input--label"
               >Password</label
@@ -33,7 +33,11 @@
               <ButtonComponent
                 label="Login"
                 :disabled="!(validateFormEntry && !usernameValidation)"
-                :buttonStyle="(validateFormEntry && !usernameValidation) ? 'btn--primary' : 'btn--disabled'"
+                :buttonStyle="
+                  validateFormEntry && !usernameValidation
+                    ? 'btn--primary'
+                    : 'btn--disabled'
+                "
                 @onClick="authenticate()"
                 type="button"
               />
@@ -41,7 +45,8 @@
           </div>
           <div>
             <p class="terms--cover--label">
-                By signing in, I agree to the ReadyMed Terms and Conditions, Privacy Statement and ReadyMed Rewards Terms and Conditions.
+              By signing in, I agree to the ReadyMed Terms and Conditions,
+              Privacy Statement and ReadyMed Rewards Terms and Conditions.
             </p>
           </div>
         </div>
@@ -49,43 +54,14 @@
     </div>
   </div>
 </template>
-<script>
-import ButtonComponent from "@/components/ButtonComponent.vue";
-
-export default {
-  name: "LoginPage",
-  data() {
-    return {
-      user: {
-        username: "",
-        password: "",
-      }
-    };
-  },
-  components: {
-    ButtonComponent,
-  },
-  methods : {
-    authenticate(){
-        this.$store.dispatch('AUTHENTICATE_USER',{ userData : this.user});
-    }
-  },
-  computed : {
-    validateFormEntry(){
-        return this.user.username && this.user.password
-    },
-    usernameValidation(){
-     return this.user.username.match(/[^A-Za-z0-9]/) ? true : false;
-    }
-  }
-};
-</script>
+<script src="@/views/script/LoginPage.js"></script>
 <style scoped>
 .login--card {
   margin-top: 30%;
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   padding: 25px;
 }
 
@@ -96,23 +72,23 @@ export default {
   margin-bottom: 20px;
 }
 
-.news--text{
-    color: #01a0d1;
+.news--text {
+  color: #01a0d1;
 }
 
-.news--error{
-    color: #e70000;
-    font-size: 13px;
+.news--error {
+  color: #e70000;
+  font-size: 13px;
 }
 
 .login--field--label {
   font-size: 18px;
 }
 
-.terms--cover--label{
-    font-size: 13px;
-    margin-top: 30px;
-    color: #656565;
+.terms--cover--label {
+  font-size: 13px;
+  margin-top: 30px;
+  color: #656565;
 }
 
 .action--input--label {
@@ -130,11 +106,11 @@ export default {
   outline: none;
 }
 .action--input:focus {
-  border: 1px solid #02A6E4;
+  border: 1px solid #02a6e4;
 }
 
-.action--input::placeholder{
-    font-size: 14px ;
+.action--input::placeholder {
+  font-size: 14px;
 }
 
 .action--form--controller {

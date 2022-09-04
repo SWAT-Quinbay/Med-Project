@@ -4,7 +4,10 @@
       <div class="row justify-content-between align-items-center">
         <div class="col-12 col-md-4">
           <p class="table--header">
-            Total Items <span class="total--client--badge">34 products</span>
+            Total Items
+            <span class="total--client--badge"
+              >{{ retailerInventory.length }} products</span
+            >
           </p>
         </div>
         <div class="col-12 col-md-6">
@@ -33,14 +36,14 @@
                 type="button"
               />
             </div>
-            <div class="col-auto">
+            <!-- <div class="col-auto">
               <ButtonComponent
                 label="Add Product"
                 buttonStyle="btn--primary--sm"
                 @onClick="addNewProduct()"
                 type="button"
               />
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -51,19 +54,20 @@
           <thead>
             <tr class="table--tr">
               <th>S.No</th>
+              <th>Product Id</th>
               <th>Product Name</th>
               <th>Quantity</th>
               <th>MRP</th>
-              <th>Availability</th>
+              <th>Tax</th>
               <th>Status</th>
             </tr>
           </thead>
           <tbody>
             <!-- <InventoryTableList v-for="(data,index) in userList" :key="index"/> -->
             <InventoryTableList
-              v-for="(data, index) in 25"
+              v-for="(data, index) in retailerInventory"
               :key="index"
-              :product="{}"
+              :product="data"
               :index="index"
               @activateModal="toggleConfirmModal"
               @sendDataToEditModal="selectedProductFromList"
@@ -74,38 +78,7 @@
     </div>
   </div>
 </template>
-<script>
-import InventoryTableList from "@/components/RetailerComponents/InventoryTableList.vue";
-import ButtonComponent from "@/components/ButtonComponent.vue";
-
-export default {
-  name: "InventoryTable",
-  components: {
-    InventoryTableList,
-    ButtonComponent,
-  },
-  data() {
-    return {
-      showConfirmModal: false,
-      showBuyProductModal: false,
-      searchText: "",
-      selectedProduct: {},
-    };
-  },
-  methods: {
-    closeActionModal() {
-      this.showBuyProductModal = false;
-    },
-    selectedProductFromList(data) {
-      this.showBuyProductModal = true;
-      this.selectedProduct = data;
-    },
-    requestActionCall(data) {
-      console.log(data);
-    },
-  },
-};
-</script>
+<script src="@/components/RetailerComponents/script/InventoryTable.js"></script>
 <style scoped>
 .v-enter-active,
 .v-leave-active {

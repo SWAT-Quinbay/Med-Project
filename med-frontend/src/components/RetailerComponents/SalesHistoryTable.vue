@@ -6,7 +6,7 @@
           <p class="table--header">
             Sales History
             <span class="total--client--badge"
-              >{{ dealerRequestHistory.length }} request</span
+              >{{ retailerSalesHistory.length }} request</span
             >
           </p>
         </div>
@@ -55,17 +55,17 @@
             <tr class="table--tr">
               <th>S.No</th>
               <th>Date</th>
-              <th>Product Name</th>
-              <th>Requested Quantity</th>
-              <th>Price + Tax</th>
+              <th>Order Items</th>
+              <th>Payment Method</th>
+              <th>Total</th>
               <th>Status</th>
             </tr>
           </thead>
           <tbody>
             <SalesHistoryTableList
-              v-for="(data, index) in dealerRequestHistory"
+              v-for="(data, index) in retailerSalesHistory"
               :key="index"
-              :request="data"
+              :sales="data"
               :index="index"
               @activateModal="toggleConfirmModal"
               @sendDataToEditModal="selectedProductFromList"
@@ -76,43 +76,7 @@
     </div>
   </div>
 </template>
-<script>
-import SalesHistoryTableList from "@/components/RetailerComponents/RequestHistoryTableList.vue";
-import { mapGetters } from "vuex";
-
-export default {
-  name: "SalesHistoryTable",
-  components: {
-    SalesHistoryTableList,
-  },
-  data() {
-    return {
-      showConfirmModal: false,
-      showBuyProductModal: false,
-      searchText: "",
-      selectedProduct: {},
-    };
-  },
-  computed: {
-    ...mapGetters({
-      userId: "getUserId",
-      dealerRequestHistory: "getDealerRequestHistory",
-    }),
-  },
-  methods: {
-    closeActionModal() {
-      this.showBuyProductModal = false;
-    },
-    selectedProductFromList(data) {
-      this.showBuyProductModal = true;
-      this.selectedProduct = data;
-    },
-  },
-  created() {
-    this.$store.dispatch("GET_ALL_REQUEST_HISTORY", this.userId);
-  },
-};
-</script>
+<script src="@/components/RetailerComponents/script/SalesHistoryTable.js"></script>
 <style scoped>
 .v-enter-active,
 .v-leave-active {

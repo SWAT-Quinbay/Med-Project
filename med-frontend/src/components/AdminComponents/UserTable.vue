@@ -1,10 +1,13 @@
 <template>
   <div class="">
     <div class="user--table--search">
-     <div class="row justify-content-between align-items-center">
+      <div class="row justify-content-between align-items-center">
         <div class="col-12 col-md-4">
           <p class="table--header">
-            Total Franchise <span class="total--client--badge">{{ userList.length }} users</span>
+            Total Franchise
+            <span class="total--client--badge"
+              >{{ userList.length }} users</span
+            >
           </p>
         </div>
         <div class="col-12 col-md-6">
@@ -38,8 +41,11 @@
       </div>
     </div>
     <div class="user--table">
-      <div class="loader--default--area" v-if="loader">
-        <SpinnerProgress/>
+      <div class="loader--default--area" v-if="userList.length === 0">
+        <!-- <SpinnerProgress /> -->
+        <p class="mt-4 text-center">
+          <small>No records found</small>
+        </p>
       </div>
       <div class="table-responsive" v-else>
         <table class="table table-sm table-borderless">
@@ -69,135 +75,27 @@
       </div>
     </div>
     <Transition>
-    <ConfirmModal
-      v-if="showConfirmModal"
-      modalTitle="Confirm Deactivate"
-      modalAction="Deactivate"
-      :undo="true"
-      @closeAction="closeConfirmModal"
-      @confirmAction="confirmActionCall"
-    />
-    <UserEditModal
-      v-if="showEditModal"
-      modalTitle="Edit User Information"
-      modalAction="Save"
-      :userInfo="userObjToEdit"
-      @closeAction="closeEditModal"
-      @saveAction="saveActionCall"
-    />
+      <ConfirmModal
+        v-if="showConfirmModal"
+        modalTitle="Confirm Action"
+        modalAction="Modify the user account"
+        :undo="true"
+        @closeAction="closeConfirmModal"
+        @confirmAction="confirmActionCall"
+      />
+      <UserEditModal
+        v-if="showEditModal"
+        modalTitle="Edit User Information"
+        modalAction="Save"
+        :userInfo="userObjToEdit"
+        @closeAction="closeEditModal"
+        @saveAction="saveActionCall"
+      />
     </Transition>
   </div>
 </template>
-<script>
-import UserTableList from "@/components/AdminComponents/UserTableList.vue";
-import ConfirmModal from "@/components/ConfirmModal.vue";
-import UserEditModal from "@/components/AdminComponents/UserEditModal.vue"
-import ButtonComponent from "@/components/ButtonComponent.vue"
-import { mapGetters } from "vuex"
-
-import { updateUserName , updateUserPassword , updatePermission } from "@/service/admin.service";
-import SpinnerProgress from "@/components/SpinnerProgress.vue";
-
-export default {
-  name: "UserTable",
-  data() {
-    return {
-      loader : false,
-      showConfirmModal: false,
-      showEditModal : false,
-      searchText : "",
-      userIdToUpdateActive : "",
-      userObjToEdit : {
-        name : "",
-        userId : ""
-      }
-    };
-  },
-  components: {
-    UserTableList,
-    ConfirmModal,
-    ButtonComponent,
-    UserEditModal,
-    SpinnerProgress
-  },
-  methods: {
-    clearSearch(){
-      this.searchText = "";
-      this.$store.dispatch("GET_ALL_USER");
-    },
-    searchName(){
-      this.$store.dispatch("GET_ALL_USER", this.searchText);
-    },
-    toggleConfirmModal({userId}){
-      this.userIdToUpdateActive = userId;
-      this.showConfirmModal = true;
-    },
-    toggleEditModal({ userData }){
-      this.userObjToEdit.name = userData.name;
-      this.userObjToEdit.userId = userData.userId;
-      this.showEditModal = true;
-    },
-    closeEditModal(){
-      this.showEditModal = false;
-    },
-    closeConfirmModal(){
-      this.showConfirmModal = false
-    },
-    confirmActionCall(){
-      updatePermission({
-          userId : this.userIdToUpdateActive,
-          successCallback : (res) => {
-            if(res.status === 200)
-              this.$store.dispatch("GET_ALL_USER")
-          },
-          errorCallback : (err) => {
-            console.log(err)
-          }
-      })
-      this.userId = "";
-      this.showConfirmModal = false;
-    },
-    saveActionCall({isUpdateName , userData}){
-        if(isUpdateName){
-          console.log(userData)
-            updateUserName({
-                userData,
-                successCallback : (res) => {
-                    if(res.status === 200){
-                        this.$store.dispatch("GET_ALL_USER")
-                    }
-                },
-                errorCallback : (err) => {
-                    console.log(err.message)
-                }
-            })
-        }else{
-            updateUserPassword({
-                userData,
-                successCallback : (res) => {
-                    if(res.status === 200){
-                        this.$store.dispatch("GET_ALL_USER")
-                    }
-                },
-                errorCallback : (err) => {
-                    console.log(err.message)
-                }
-            })
-        }
-    }
-  },
-    computed : {
-      ...mapGetters({
-         userList : 'getAllUser'
-      })
-    },
-     created(){
-        this.$store.dispatch("GET_ALL_USER")
-    },
-};
-</script>
+<script src="@/components/AdminComponents/script/UserTable.js"></script>
 <style scoped>
-
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.2s ease-in-out;
@@ -216,7 +114,7 @@ export default {
   padding: 10px;
 }
 
-.loader--default--area{
+.loader--default--area {
   margin-top: 25%;
 }
 
