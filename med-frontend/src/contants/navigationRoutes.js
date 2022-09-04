@@ -28,6 +28,10 @@ export const retailerNavBarRoutes = {
       name: "RetailerSalesHistory",
     },
     {
+      label: "Buy Products",
+      name: "RetailerBuyProducts",
+    },
+    {
       label: "Request History",
       name: "RetailerRequestHistory",
     },
@@ -43,7 +47,7 @@ export const dealerNavBarRoutes = {
   routes: [
     {
       label: "Dashboard",
-      name: "DealerHomePage",
+      name: "DealerDashBoard",
     },
     {
       label: "Buy Products",

@@ -1,9 +1,9 @@
 <template>
   <tr class="table--tr--single--entity align-middle">
     <td>{{ index + 1 }}</td>
+    <td>{{ product.dealerId }}</td>
     <td>{{ product.productDetail.id }}</td>
     <td>{{ product.productDetail.name }}</td>
-    <td>{{ product.stockInHand }}</td>
     <td>₹ {{ product.productDetail.price }}</td>
     <td>₹ {{ product.productDetail.tax }}</td>
     <td>
@@ -18,17 +18,6 @@
       />
     </td>
     <!-- <td>
-      <BadgeComponent
-        :label="checkProductionStatus ? 'In Production' : 'Stopped'"
-        :className="[
-          checkProductionStatus
-            ? 'badge--success--outline'
-            : 'badge--error--outline',
-          'badge--outline--sm',
-        ]"
-      />
-    </td> -->
-    <!-- <td>
       <ButtonComponent
         label="Edit"
         buttonStyle="btn--edit--sm"
@@ -36,17 +25,17 @@
         type="button"
       />
     </td> -->
-    <!-- <td>
+    <td>
       <ButtonComponent
         label="Request Item"
         buttonStyle="btn--edit--sm"
         @onClick="toggleActionModal(product)"
         type="button"
       />
-    </td> -->
+    </td>
   </tr>
 </template>
-<script src="@/components/RetailerComponents/script/InventoryTableList.js"></script>
+<script src="@/components/RetailerComponents/script/BuyProductsTableList.js"></script>
 <style scoped>
 .table--tr--single--entity {
   border-bottom: 1px solid rgba(233, 233, 233, 0.683);

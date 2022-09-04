@@ -14,6 +14,7 @@ export default {
   },
   methods: {
     logout() {
+      this.$store.dispatch("LOGOUT_USER");
       deleteToken();
       this.$router.replace("/");
     },

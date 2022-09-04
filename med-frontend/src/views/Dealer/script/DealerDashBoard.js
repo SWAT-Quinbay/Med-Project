@@ -13,6 +13,8 @@ export default {
       showRequestActionModal: false,
       requestModalData: {},
       selectedIndex: 0,
+      searchRequestKey: "",
+      searchStatusKey: "",
     };
   },
   components: {
@@ -21,13 +23,29 @@ export default {
     ButtonComponent,
     RequestActionModal,
   },
+  watch: {
+    searchStatusKey() {
+      this.$store.dispatch("GET_ALL_REQUEST_FROM_RETAILER", {
+        userId: this.userId,
+        requestId: this.searchRequestKey,
+        status: this.searchStatusKey,
+      });
+    },
+  },
   computed: {
     ...mapGetters({
       userId: "getUserId",
-      requestList: "getRequestHistory",
+      requestList: "getDealerRequestHistoryFromRetailer",
     }),
   },
   methods: {
+    searchFilter() {
+      this.$store.dispatch("GET_ALL_REQUEST_FROM_RETAILER", {
+        userId: this.userId,
+        requestId: this.searchRequestKey,
+        status: this.searchStatusKey,
+      });
+    },
     closeRequestActionModal() {
       this.showRequestActionModal = false;
     },
@@ -64,7 +82,9 @@ export default {
         successCallback: (res) => {
           if (res.status === 200) {
             Vue.$toast.success("Request Responded!");
-            this.$store.dispatch("GET_ALL_REQUEST", this.userId);
+            this.$store.dispatch("GET_ALL_REQUEST", {
+              userId: this.userId,
+            });
           } else {
             Vue.$toast.success("Request Failed!");
           }
@@ -78,6 +98,8 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("GET_ALL_REQUEST", this.userId);
+    this.$store.dispatch("GET_ALL_REQUEST_FROM_RETAILER", {
+      userId: this.userId,
+    });
   },
 };

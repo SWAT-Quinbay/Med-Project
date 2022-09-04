@@ -6,7 +6,7 @@
           <p class="table--header">
             Request History
             <span class="total--client--badge"
-              >{{ dealerRequestHistory.length }} request</span
+              >{{ retailerRequestHistory.length }} request</span
             >
           </p>
         </div>
@@ -59,11 +59,12 @@
               <th>Requested Quantity</th>
               <th>Price + Tax</th>
               <th>Status</th>
+              <th>Remark</th>
             </tr>
           </thead>
           <tbody>
             <RequestHistoryTableList
-              v-for="(data, index) in dealerRequestHistory"
+              v-for="(data, index) in retailerRequestHistory"
               :key="index"
               :request="data"
               :index="index"

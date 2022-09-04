@@ -27,6 +27,7 @@
                     <div class="col-6">
                       <input
                         type="text"
+                        v-model="searchRequestKey"
                         class="action--input"
                         placeholder="Search Request Id"
                       />
@@ -35,7 +36,7 @@
                       <ButtonComponent
                         label="Search"
                         buttonStyle="btn--primary--sm--outline"
-                        @onClick="confirmAction()"
+                        @onClick="searchFilter()"
                         type="button"
                       />
                     </div>
@@ -54,11 +55,11 @@
           </div>
           <div class="col-12 col-md-4">
             <div class="action--form--controller">
-              <select class="action--input">
-                <option :value="null">Select Request Status</option>
+              <select class="action--input" v-model="searchStatusKey">
+                <option value="">Select Request Status</option>
                 <option value="APPROVED">Approved</option>
                 <option value="PENDING">Pending</option>
-                <option value="REJECTED">Rejected</option>
+                <option value="DENIED">Denied</option>
               </select>
             </div>
             <div class="stepper--list--card">

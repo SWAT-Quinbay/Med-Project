@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      userId: "getUserId",
+      user: "getUserFromState",
       delearProductList: "getDealerInventory",
     }),
   },
@@ -30,6 +30,6 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("GET_ALL_PRODUCT_BY_DEALER_ID", this.userId);
+    this.$store.dispatch("GET_ALL_PRODUCT_BY_DEALER_ID", this.user.userId);
   },
 };

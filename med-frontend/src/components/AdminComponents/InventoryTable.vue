@@ -12,7 +12,7 @@
         </div>
         <div class="col-12 col-md-6">
           <div class="row justify-content-end align-items-center gx-2">
-            <div class="col-6">
+            <div class="col-12 col-md-6">
               <input
                 type="text"
                 v-model="searchText"
@@ -20,29 +20,31 @@
                 placeholder="Search product"
               />
             </div>
-            <div class="col-auto">
-              <ButtonComponent
-                label="Search"
-                buttonStyle="btn--black--outline"
-                @onClick="searchName()"
-                type="button"
-              />
-            </div>
-            <div class="col-auto">
-              <ButtonComponent
-                label="Clear"
-                buttonStyle="btn--primary--sm--outline"
-                @onClick="clearSearch()"
-                type="button"
-              />
-            </div>
-            <div class="col-auto">
-              <ButtonComponent
-                label="Add Product"
-                buttonStyle="btn--primary--sm"
-                @onClick="addNewProduct()"
-                type="button"
-              />
+            <div class="row">
+              <div class="col-auto">
+                <ButtonComponent
+                  label="Search"
+                  buttonStyle="btn--black--outline"
+                  @onClick="searchName()"
+                  type="button"
+                />
+              </div>
+              <div class="col-auto">
+                <ButtonComponent
+                  label="Clear"
+                  buttonStyle="btn--primary--sm--outline"
+                  @onClick="clearSearch()"
+                  type="button"
+                />
+              </div>
+              <div class="col-auto">
+                <ButtonComponent
+                  label="Add Product"
+                  buttonStyle="btn--primary--sm"
+                  @onClick="addNewProduct()"
+                  type="button"
+                />
+              </div>
             </div>
           </div>
         </div>

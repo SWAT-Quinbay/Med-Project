@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      userId: "getUserId",
+      user: "getUserFromState",
       dealerRequestHistory: "getDealerRequestHistory",
     }),
   },
@@ -30,6 +30,6 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("GET_ALL_REQUEST_HISTORY", this.userId);
+    this.$store.dispatch("GET_ALL_REQUEST_HISTORY", this.user.userId);
   },
 };

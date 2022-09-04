@@ -1,4 +1,4 @@
-import RequestHistoryTableList from "@/components/DealerComponents/RequestHistoryTableList.vue";
+import RequestHistoryTableList from "@/components/RetailerComponents/RequestHistoryTableList.vue";
 import { mapGetters } from "vuex";
 
 export default {
@@ -17,7 +17,7 @@ export default {
   computed: {
     ...mapGetters({
       userId: "getUserId",
-      dealerRequestHistory: "getDealerRequestHistory",
+      retailerRequestHistory: "getRetailerRequestHistory",
     }),
   },
   methods: {
@@ -30,6 +30,8 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("GET_ALL_REQUEST_HISTORY", this.userId);
+    this.$store.dispatch("GET_ALL_REQUEST_HISTORY_RETAILER", {
+      retailerId: this.userId,
+    });
   },
 };

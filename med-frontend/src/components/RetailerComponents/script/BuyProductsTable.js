@@ -1,7 +1,7 @@
-import BuyProductsTableList from "@/components/DealerComponents/BuyProductsTableList.vue";
-import BuyRequestModal from "@/components/DealerComponents/BuyRequestModal.vue";
+import BuyProductsTableList from "@/components/RetailerComponents/BuyProductsTableList.vue";
+import BuyRequestModal from "@/components/RetailerComponents/BuyRequestModal.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
-import { requestStock } from "@/service/dealer.service";
+import { requestStockFromDealer } from "@/service/retailer.service";
 import { mapGetters } from "vuex";
 import Vue from "vue";
 
@@ -22,8 +22,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      productList: "getDealerProductList",
-      user: "getUserFromState",
+      productList: "getRetailerBuyProductList",
+      userId: "getUserId",
     }),
   },
   methods: {
@@ -43,10 +43,11 @@ export default {
       const payloadForStockRequest = {
         productId: id,
         requestedQuantity: quantity,
-        senderId: this.user.userId,
+        senderId: this.userId,
+        receiverId: this.selectedProduct.dealerId,
       };
       console.log(payloadForStockRequest);
-      requestStock({
+      requestStockFromDealer({
         requestData: payloadForStockRequest,
         successCallback: (res) => {
           if (res.status === 200) {
@@ -63,10 +64,13 @@ export default {
       });
     },
     searchName() {
-      this.$store.dispatch("GET_ALL_PRODUCT_FROM_ADMIN", this.searchText);
+      this.$store.dispatch(
+        "GET_ALL_PRODUCTS_FROM_ALL_DEALERS",
+        this.searchText
+      );
     },
   },
   created() {
-    this.$store.dispatch("GET_ALL_PRODUCT_FROM_ADMIN");
+    this.$store.dispatch("GET_ALL_PRODUCTS_FROM_ALL_DEALERS");
   },
 };

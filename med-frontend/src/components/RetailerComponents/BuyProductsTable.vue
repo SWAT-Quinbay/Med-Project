@@ -4,9 +4,9 @@
       <div class="row justify-content-between align-items-center">
         <div class="col-12 col-md-4">
           <p class="table--header">
-            Total Items
+            Stocks with Merchant
             <span class="total--client--badge"
-              >{{ retailerInventory.length }} products</span
+              >{{ productList.length }} products</span
             >
           </p>
         </div>
@@ -36,14 +36,6 @@
                 type="button"
               />
             </div>
-            <!-- <div class="col-auto">
-              <ButtonComponent
-                label="Add Product"
-                buttonStyle="btn--primary--sm"
-                @onClick="addNewProduct()"
-                type="button"
-              />
-            </div> -->
           </div>
         </div>
       </div>
@@ -54,18 +46,19 @@
           <thead>
             <tr class="table--tr">
               <th>S.No</th>
+              <th>Dealer Id</th>
               <th>Product Id</th>
               <th>Product Name</th>
-              <th>Quantity</th>
               <th>MRP</th>
               <th>Tax</th>
               <th>Status</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             <!-- <InventoryTableList v-for="(data,index) in userList" :key="index"/> -->
-            <InventoryTableList
-              v-for="(data, index) in retailerInventory"
+            <BuyProductsTableList
+              v-for="(data, index) in productList"
               :key="index"
               :product="data"
               :index="index"
@@ -76,9 +69,25 @@
         </table>
       </div>
     </div>
+    <Transition>
+      <!-- <ConfirmModal
+        v-if="showConfirmModal"
+        modalTitle="Confirm Production Stop!"
+        modalAction="Change Production Status"
+        :undo="true"
+        @closeAction="closeConfirmModal"
+        @confirmAction="confirmActionCall"
+      /> -->
+      <BuyRequestModal
+        v-if="showBuyProductModal"
+        :modalObjectData="selectedProduct"
+        @closeAction="closeActionModal"
+        @saveAction="requestActionCall"
+      />
+    </Transition>
   </div>
 </template>
-<script src="@/components/RetailerComponents/script/InventoryTable.js"></script>
+<script src="@/components/RetailerComponents/script/BuyProductsTable.js"></script>
 <style scoped>
 .v-enter-active,
 .v-leave-active {

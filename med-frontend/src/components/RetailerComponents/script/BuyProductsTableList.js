@@ -1,7 +1,7 @@
 import BadgeComponent from "@/components/BadgeComponent.vue";
-// import ButtonComponent from "@/components/ButtonComponent.vue";
+import ButtonComponent from "@/components/ButtonComponent.vue";
 export default {
-  name: "InventoryTableList",
+  name: "BuyProductsTableList",
   props: {
     product: {
       type: Object,
@@ -14,7 +14,7 @@ export default {
   },
   components: {
     BadgeComponent,
-    // ButtonComponent,
+    ButtonComponent,
   },
   computed: {
     checkProductionStatus() {
@@ -32,8 +32,9 @@ export default {
       this.showBuyProductsModal = true;
       const constructedModalData = {
         modalHeader: "Request Product",
-        productId: data.id,
-        productName: data.name,
+        productId: data.productDetail.id,
+        productName: data.productDetail.name,
+        dealerId: data.dealerId,
         modalButtonName: "Send Request",
       };
       this.$emit("sendDataToEditModal", constructedModalData);
