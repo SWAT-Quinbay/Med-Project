@@ -59,6 +59,7 @@
               <th>Requested Quantity</th>
               <th>Price + Tax</th>
               <th>Status</th>
+              <th>Remark</th>
             </tr>
           </thead>
           <tbody>

@@ -1,19 +1,23 @@
 <template>
   <tr class="table--tr--single--entity align-middle">
     <td>{{ index + 1 }}</td>
-    <td>{{ changeDateFormat(request.createdAt) }}</td>
-    <td>{{ request.product.name }}</td>
-    <td>{{ request.requestedQuantity }}</td>
-    <td>₹ {{ request.product.price }} + ₹ {{ request.product.tax }} Tax</td>
+    <td>{{ changeDateFormat(sales.createdTime) }}</td>
+    <td>
+      <ul>
+        <li v-for="(data, index) in sales.orderItems" :key="index">
+          {{ data.name + " - " + data.quantity }}
+        </li>
+      </ul>
+    </td>
+    <td>{{ sales.paymentMethod }}</td>
+    <td>₹ {{ sales.subTotal }}</td>
     <td>
       <BadgeComponent
-        :label="request.status"
+        :label="sales.status"
         :className="[
-          request.status === 'APPROVED'
+          sales.status === 'CREATED'
             ? 'badge--success--outline'
-            : request.status === 'DENIED'
-            ? 'badge--error--outline'
-            : 'badge--warning--outline',
+            : 'badge--error--outline',
           'badge--outline--sm',
         ]"
       />

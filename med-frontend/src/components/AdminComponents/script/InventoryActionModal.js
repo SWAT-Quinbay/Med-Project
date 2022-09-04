@@ -41,6 +41,16 @@ export default {
         this.userData.password !== this.confirmPassword
       );
     },
+
+    checkAllField() {
+      return (
+        this.product.name.length > 4 &&
+        this.product.imageUrl.length > 4 &&
+        this.product.price &&
+        this.product.netQuantity &&
+        this.product.description.length > 4
+      );
+    },
     checkNameLength() {
       return this.userData.name < 5;
     },

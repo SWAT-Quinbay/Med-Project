@@ -16,12 +16,17 @@ export default {
         )
       );
     },
+    getTotalTax(state) {
+      return Math.floor(
+        state.cart.reduce((total, item) => total + item.tax * item.quantity, 0)
+      );
+    },
   },
   mutations: {
     addProductToCart(state, { product }) {
       console.log(product);
 
-      let item = state.cart.find((item) => item.id == product.id);
+      let item = state.cart.find((item) => item.productId == product.productId);
       if (item) {
         if (item.quantity < item.inventoryQuantity) {
           item.quantity++;
@@ -32,18 +37,19 @@ export default {
         const productObj = {
           quantity: 1,
           inventoryQuantity: product.stockInHand,
-          id: product.productId,
+          productId: product.productId,
           imageUrl: product.productDetail.imageUrl,
           description: product.productDetail.description,
           name: product.productDetail.name,
           price: product.productDetail.price,
+          tax: product.productDetail.tax,
         };
         state.cart.push({ ...productObj });
       }
     },
 
     decreaseProductQuantity(state, { productId }) {
-      let item = state.cart.find((item) => item.id == productId);
+      let item = state.cart.find((item) => item.productId == productId);
       if (item.quantity > 1) item.quantity--;
     },
 

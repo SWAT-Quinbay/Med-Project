@@ -23,13 +23,18 @@ export default {
     }),
   },
   methods: {
-    // clearSearch() {
-    //   this.searchText = "";
-    //   this.$store.dispatch("GET_ALL_PRODUCT_BY_RETAILER_ID", this.user.userId);
-    // },
-    // searchName() {
-    //   this.$store.dispatch("GET_ALL_PRODUCT_BY_RETAILER_ID", this.searchText);
-    // },
+    clearSearch() {
+      this.searchText = "";
+      this.$store.dispatch("GET_ALL_PRODUCT_BY_RETAILER_ID", {
+        retailerId: this.userId,
+      });
+    },
+    searchName() {
+      this.$store.dispatch("GET_ALL_PRODUCT_BY_RETAILER_ID", {
+        retailerId: this.userId,
+        searchKey: this.searchText,
+      });
+    },
     closeActionModal() {
       this.showBuyProductModal = false;
     },
@@ -42,6 +47,8 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("GET_ALL_PRODUCT_BY_RETAILER_ID", this.userId);
+    this.$store.dispatch("GET_ALL_PRODUCT_BY_RETAILER_ID", {
+      retailerId: this.userId,
+    });
   },
 };

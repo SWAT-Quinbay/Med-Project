@@ -5,9 +5,17 @@
         <p class="navigation--label">Dealer / Dashboard</p>
       </div>
     </div>
-    <div class="row">
-      <div class="col-12 col-md-4 px-2">
+    <div class="row align-items-center justify-center-between">
+      <div class="col-12 col-md-4 px-2 d-none d-md-block">
         <!-- <InventoryTable/> -->
+        <v-lottie-player
+          name="notfound"
+          class="mx-auto"
+          loop
+          height="400px"
+          width="400px"
+          :animationData="require('@/assets/lottie/dashboard.json')"
+        />
       </div>
       <div class="col-md-8">
         <div class="row">

@@ -17,15 +17,21 @@
     <td>
       <ButtonComponent
         label="Edit"
-        buttonStyle="btn--edit--sm"
+        :disabled="user.role === 'ADMIN'"
+        :buttonStyle="
+          user.role === 'ADMIN' ? 'btn--disabled--sm' : 'btn--edit--sm'
+        "
         @onClick="editModal()"
         type="button"
       />
     </td>
     <td>
       <ButtonComponent
+        :disabled="user.role === 'ADMIN'"
         :label="user.active ? 'Deactivate' : 'Activate'"
-        buttonStyle="btn--delete--sm"
+        :buttonStyle="
+          user.role === 'ADMIN' ? 'btn--disabled--sm' : 'btn--delete--sm'
+        "
         @onClick="accessConfirmation()"
         type="button"
       />

@@ -3,6 +3,7 @@ import ConfirmModal from "@/components/ConfirmModal.vue";
 import UserEditModal from "@/components/AdminComponents/UserEditModal.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
 import { mapGetters } from "vuex";
+import Vue from "vue";
 
 import {
   updateUserName,
@@ -60,10 +61,14 @@ export default {
       updatePermission({
         userId: this.userIdToUpdateActive,
         successCallback: (res) => {
-          if (res.status === 200) this.$store.dispatch("GET_ALL_USER");
+          if (res.status === 200) {
+            this.$store.dispatch("GET_ALL_USER");
+            Vue.$toast.success("User Account Updated");
+          }
         },
         errorCallback: (err) => {
           console.log(err);
+          Vue.$toast.error(err.message);
         },
       });
       this.userId = "";
@@ -77,10 +82,12 @@ export default {
           successCallback: (res) => {
             if (res.status === 200) {
               this.$store.dispatch("GET_ALL_USER");
+              Vue.$toast.success("User Name Updated");
             }
           },
           errorCallback: (err) => {
             console.log(err.message);
+            Vue.$toast.success(err.message);
           },
         });
       } else {
@@ -89,6 +96,7 @@ export default {
           successCallback: (res) => {
             if (res.status === 200) {
               this.$store.dispatch("GET_ALL_USER");
+              Vue.$toast.success("User Password Updated");
             }
           },
           errorCallback: (err) => {

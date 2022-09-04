@@ -1,4 +1,4 @@
-import SalesHistoryTableList from "@/components/RetailerComponents/RequestHistoryTableList.vue";
+import SalesHistoryTableList from "@/components/RetailerComponents/SalesHistoryTableList.vue";
 import { mapGetters } from "vuex";
 
 export default {

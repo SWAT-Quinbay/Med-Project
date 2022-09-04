@@ -82,7 +82,7 @@ export default {
         successCallback: (res) => {
           if (res.status === 200) {
             Vue.$toast.success("Request Responded!");
-            this.$store.dispatch("GET_ALL_REQUEST", {
+            this.$store.dispatch("GET_ALL_REQUEST_FROM_RETAILER", {
               userId: this.userId,
             });
           } else {

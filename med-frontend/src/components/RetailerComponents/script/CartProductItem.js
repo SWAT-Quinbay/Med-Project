@@ -12,7 +12,7 @@ export default {
   },
   methods: {
     subStringProduct(product) {
-      return product.substring(0, 20) + "...";
+      return product.substring(0, 10) + "...";
     },
   },
 };

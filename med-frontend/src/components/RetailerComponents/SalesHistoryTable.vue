@@ -55,9 +55,9 @@
             <tr class="table--tr">
               <th>S.No</th>
               <th>Date</th>
-              <th>Product Name</th>
-              <th>Requested Quantity</th>
-              <th>Price + Tax</th>
+              <th>Order Items</th>
+              <th>Payment Method</th>
+              <th>Total</th>
               <th>Status</th>
             </tr>
           </thead>
@@ -65,7 +65,7 @@
             <SalesHistoryTableList
               v-for="(data, index) in retailerSalesHistory"
               :key="index"
-              :request="data"
+              :sales="data"
               :index="index"
               @activateModal="toggleConfirmModal"
               @sendDataToEditModal="selectedProductFromList"

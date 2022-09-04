@@ -1,7 +1,7 @@
 import { authUser } from "@/service/auth.service";
 import { getToken, setToken } from "@/utils/storage";
 import { redirectDashboard } from "@/utils/roleRedirect";
-
+import Vue from "vue";
 export default {
   state: {
     currentUser: {
@@ -51,11 +51,13 @@ export default {
             }
             redirectDashboard(data);
           } else {
+            Vue.$toast.error("Username or password may Incorrect!");
             console.log(res);
           }
         },
         errorCallback: (err) => {
           console.log(err);
+          Vue.$toast.error("Username or password may Incorrect!");
         },
       });
     },

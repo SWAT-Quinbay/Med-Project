@@ -1,22 +1,28 @@
 <template>
   <div>
     <div class="search--card">
-      <div class="row align-items-center">
-        <div class="col-12 col-md-9 my-2 pe-md-0">
+      <div class="row align-items-center justify-content-between">
+        <div class="col-12 col-md-8">
           <input
             type="text"
             class="search--bar"
             v-model="searchKey"
-            @blur="searchForProduct(searchKey)"
             placeholder="Search Product"
           />
         </div>
-        <div class="col-12 col-md-3 my-2">
+        <div class="col-6 col-md-2 my-2 px-0">
           <ButtonComponent
             label="Search"
-            :disabled="false"
             buttonStyle="btn--primary--sm--100"
-            @onClick="addNewProduct()"
+            @onClick="searchForProduct()"
+            type="button"
+          />
+        </div>
+        <div class="col-6 col-md-2 my-2 ps-2">
+          <ButtonComponent
+            label="Clear"
+            buttonStyle="btn--black--outline"
+            @onClick="clearSearch()"
             type="button"
           />
         </div>

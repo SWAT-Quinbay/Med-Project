@@ -25,7 +25,7 @@
             type="button"
             @click="
               $store.dispatch('DECREASE_PRODUCT_QUANTITY_FROM_CART', {
-                productId: product.id,
+                productId: product.productId,
               })
             "
           >

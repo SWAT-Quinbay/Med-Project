@@ -18,6 +18,7 @@
         ]"
       />
     </td>
+    <td>{{ request.remark ? request.remark : "-" }}</td>
   </tr>
 </template>
 <script src="@/components/DealerComponents/script/RequestHistoryTableList.js"></script>

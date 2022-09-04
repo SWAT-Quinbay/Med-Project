@@ -41,8 +41,11 @@
       </div>
     </div>
     <div class="user--table">
-      <div class="loader--default--area" v-if="loader">
-        <SpinnerProgress />
+      <div class="loader--default--area" v-if="userList.length === 0">
+        <!-- <SpinnerProgress /> -->
+        <p class="mt-4 text-center">
+          <small>No records found</small>
+        </p>
       </div>
       <div class="table-responsive" v-else>
         <table class="table table-sm table-borderless">
@@ -74,8 +77,8 @@
     <Transition>
       <ConfirmModal
         v-if="showConfirmModal"
-        modalTitle="Confirm Deactivate"
-        modalAction="Deactivate"
+        modalTitle="Confirm Action"
+        modalAction="Modify the user account"
         :undo="true"
         @closeAction="closeConfirmModal"
         @confirmAction="confirmActionCall"

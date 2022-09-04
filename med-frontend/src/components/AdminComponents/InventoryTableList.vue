@@ -38,7 +38,7 @@
     </td>
     <td>
       <ButtonComponent
-        label="Stop Production"
+        :label="checkProductionStatus ? 'Stop Production' : 'Start Production'"
         buttonStyle="btn--delete--sm"
         @onClick="changeProductionStatus()"
         type="button"

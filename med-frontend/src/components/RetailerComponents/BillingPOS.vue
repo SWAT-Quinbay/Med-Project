@@ -39,14 +39,14 @@
           <p class="pos--header">Tax</p>
         </div>
         <div>
-          <p class="pos--subheader">₹ df</p>
+          <p class="pos--subheader">₹ {{ totalTax }}</p>
         </div>
       </div>
       <hr class="pos--dot" />
       <div class="d-flex justify-content-between">
         <div><p class="pos--total--text">Total</p></div>
         <div>
-          <p class="pos--total--value">₹ df</p>
+          <p class="pos--total--value">₹ {{ totalPrice + totalTax }}</p>
         </div>
       </div>
     </div>
@@ -67,7 +67,7 @@
           label="Checkout"
           :disabled="false"
           buttonStyle="btn--primary--sm--100"
-          @onClick="addNewProduct()"
+          @onClick="completeCheckOut()"
           type="button"
         />
       </div>

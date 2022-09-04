@@ -35,11 +35,12 @@ export const getAllProductsFromAllDealers = ({
 
 export const getAllProductByRetailerId = ({
   retailerId,
+  searchKey,
   successCallback,
   errorCallback,
 }) => {
   axiosInstance
-    .get(`${baseRetailerUrl}/retailer/id?id=${retailerId}&page=0&size=15`)
+    .get(`${baseRetailerUrl}/retailer/id?id=${retailerId}&query=${searchKey}`)
     .then((res) => {
       successCallback && successCallback(res);
     })
@@ -91,6 +92,17 @@ export const requestStockFromDealer = ({
 }) => {
   axiosInstance
     .post(`${baseUserUrl}/stock/dealer`, requestData)
+    .then((res) => {
+      successCallback && successCallback(res);
+    })
+    .catch((err) => {
+      errorCallback && errorCallback(err);
+    });
+};
+
+export const makeOrder = ({ orderData, successCallback, errorCallback }) => {
+  axiosInstance
+    .post(`${baseOrderUrl}/order/make`, orderData)
     .then((res) => {
       successCallback && successCallback(res);
     })

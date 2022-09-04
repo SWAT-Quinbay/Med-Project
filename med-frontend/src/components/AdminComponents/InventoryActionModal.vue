@@ -6,7 +6,7 @@
 
         <div class="action--form--controller">
           <label for="user-name" class="action--input--label"
-            >Product Name</label
+            >Product Name *</label
           >
           <input
             type="text"
@@ -17,7 +17,7 @@
         </div>
         <div class="action--form--controller">
           <label for="user-imageurl" class="action--input--label"
-            >ImageUrl</label
+            >ImageUrl *</label
           >
           <input
             type="link"
@@ -28,7 +28,7 @@
         </div>
         <div class="action--form--controller">
           <label for="user-quantity" class="action--input--label"
-            >Net Quantity</label
+            >Net Quantity *</label
           >
           <input
             type="number"
@@ -38,7 +38,7 @@
           />
         </div>
         <div class="action--form--controller">
-          <label for="user-price" class="action--input--label">Price</label>
+          <label for="user-price" class="action--input--label">Price *</label>
           <input
             type="number"
             class="action--input"
@@ -47,7 +47,7 @@
           />
         </div>
         <div class="action--form--controller">
-          <label for="user-tax" class="action--input--label">Tax</label>
+          <label for="user-tax" class="action--input--label">Tax *</label>
           <input
             type="text"
             class="action--input"
@@ -57,7 +57,7 @@
         </div>
         <div class="action--form--controller">
           <label for="user-description" class="action--input--label"
-            >Description</label
+            >Description *</label
           >
           <textarea
             type="text"
@@ -67,6 +67,9 @@
             placeholder="Enter Product Description"
           />
         </div>
+        <p>
+          <small>Text should contains min 5 characters!</small>
+        </p>
       </div>
       <div class="modal--footer">
         <div class="row">
@@ -80,8 +83,9 @@
           </div>
           <div class="col-6 ps-1">
             <ButtonComponent
+              :disabled="!checkAllField"
               :label="modalButtonLabel"
-              buttonStyle="btn--black"
+              :buttonStyle="[!checkAllField ? 'btn--disabled' : 'btn--black']"
               @onClick="confirmAction()"
               type="button"
             />

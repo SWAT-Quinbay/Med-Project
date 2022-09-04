@@ -60,11 +60,12 @@ export default {
         },
       });
     },
-    GET_ALL_PRODUCT_BY_RETAILER_ID({ commit }, value = "") {
+    GET_ALL_PRODUCT_BY_RETAILER_ID({ commit }, { retailerId, searchKey = "" }) {
       getAllProductByRetailerId({
-        retailerId: value,
+        retailerId,
+        searchKey,
         successCallback: ({ data }) => {
-          commit("setRetailerInventory", data.content);
+          commit("setRetailerInventory", data);
         },
         errorCallback: (err) => {
           console.log(err);

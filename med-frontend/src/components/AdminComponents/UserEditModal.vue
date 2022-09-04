@@ -95,7 +95,7 @@
           <div class="col-6 ps-1">
             <ButtonComponent
               label="Save"
-              :disabled="activatePasswordMatchError"
+              :disabled="!isButtonEnabled"
               :buttonStyle="[isButtonEnabled ? 'btn--black' : 'btn--disabled']"
               @onClick="confirmAction()"
               type="button"

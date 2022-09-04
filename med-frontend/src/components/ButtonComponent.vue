@@ -198,4 +198,18 @@
   padding: 8px 15px;
   background-color: #dfdfdf;
 }
+
+.btn--disabled--sm {
+  color: white;
+  border: 1px solid #ffffff;
+  /* border: none; */
+  outline: none;
+  /* width: 100%; */
+  /* height: 30px; */
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 5px 20px;
+  background-color: #dfdfdf;
+}
 </style>

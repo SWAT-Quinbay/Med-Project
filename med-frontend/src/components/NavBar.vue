@@ -34,6 +34,12 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item me-4">
+            <BadgeComponent
+              :label="'Name : ' + user.username"
+              className="badge--success--outline badge--outline--sm"
+            />
+          </li>
           <li
             class="nav-item me-4"
             v-for="(data, index) in NavBarData.routes"

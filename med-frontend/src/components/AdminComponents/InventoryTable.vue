@@ -20,31 +20,29 @@
                 placeholder="Search product"
               />
             </div>
-            <div class="row">
-              <div class="col-auto">
-                <ButtonComponent
-                  label="Search"
-                  buttonStyle="btn--black--outline"
-                  @onClick="searchName()"
-                  type="button"
-                />
-              </div>
-              <div class="col-auto">
-                <ButtonComponent
-                  label="Clear"
-                  buttonStyle="btn--primary--sm--outline"
-                  @onClick="clearSearch()"
-                  type="button"
-                />
-              </div>
-              <div class="col-auto">
-                <ButtonComponent
-                  label="Add Product"
-                  buttonStyle="btn--primary--sm"
-                  @onClick="addNewProduct()"
-                  type="button"
-                />
-              </div>
+            <div class="col-6 col-md-auto">
+              <ButtonComponent
+                label="Search"
+                buttonStyle="btn--black--outline"
+                @onClick="searchName()"
+                type="button"
+              />
+            </div>
+            <div class="col-6 col-md-auto">
+              <ButtonComponent
+                label="Clear"
+                buttonStyle="btn--primary--sm--outline"
+                @onClick="clearSearch()"
+                type="button"
+              />
+            </div>
+            <div class="col-6 col-md-auto">
+              <ButtonComponent
+                label="Add Product"
+                buttonStyle="btn--primary--sm"
+                @onClick="addNewProduct()"
+                type="button"
+              />
             </div>
           </div>
         </div>
@@ -84,7 +82,7 @@
     <Transition>
       <ConfirmModal
         v-if="showConfirmModal"
-        modalTitle="Confirm Production Stop!"
+        modalTitle="Confirm Production Status!"
         modalAction="Change Production Status"
         :undo="true"
         @closeAction="closeConfirmModal"

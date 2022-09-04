@@ -58,10 +58,14 @@ export default {
       updateProductPermission({
         productId: this.productIdFromPermission,
         successCallback: (res) => {
-          if (res.status === 200) this.$store.dispatch("GET_ALL_PRODUCT");
+          if (res.status === 200) {
+            this.$store.dispatch("GET_ALL_PRODUCT");
+            Vue.$toast.success("Status Updated");
+          }
         },
         errorCallback: (err) => {
           console.log(err);
+          Vue.$toast.error(err.message);
         },
       });
       this.userId = "";
@@ -93,7 +97,7 @@ export default {
             }
           },
           errrorCallback: (err) => {
-            Vue.$toast.error(err);
+            Vue.$toast.error(err.message);
           },
         });
       } else {

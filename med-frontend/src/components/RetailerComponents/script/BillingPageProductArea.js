@@ -23,11 +23,22 @@ export default {
     addToCart(data) {
       this.$store.dispatch("ADD_PRODUCT_TO_CART", { product: data });
     },
-    // searchForProduct(searchKey) {
-    //   this.$store.dispatch("GET_ALL_PRODUCT_BY_RETAILER_ID", this.userId);
-    // },
+    clearSearch() {
+      this.searchKey = "";
+      this.$store.dispatch("GET_ALL_PRODUCT_BY_RETAILER_ID", {
+        retailerId: this.userId,
+      });
+    },
+    searchForProduct() {
+      this.$store.dispatch("GET_ALL_PRODUCT_BY_RETAILER_ID", {
+        retailerId: this.userId,
+        searchKey: this.searchKey,
+      });
+    },
   },
   created() {
-    this.$store.dispatch("GET_ALL_PRODUCT_BY_RETAILER_ID", this.userId);
+    this.$store.dispatch("GET_ALL_PRODUCT_BY_RETAILER_ID", {
+      retailerId: this.userId,
+    });
   },
 };
