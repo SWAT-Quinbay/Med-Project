@@ -19,15 +19,8 @@ export default {
   },
   mutations: {
     addProductToCart(state, { product }) {
-      const productObj = {
-        quantity: 1,
-        inventoryQuantity: product.quantity,
-        id: product.id,
-        imageUrl: product.imageUrl,
-        description: product.description,
-        name: product.name,
-        price: product.price,
-      };
+      console.log(product);
+
       let item = state.cart.find((item) => item.id == product.id);
       if (item) {
         if (item.quantity < item.inventoryQuantity) {
@@ -36,6 +29,15 @@ export default {
           Vue.$toast.error("Out of Stock, Please go for other!");
         }
       } else {
+        const productObj = {
+          quantity: 1,
+          inventoryQuantity: product.stockInHand,
+          id: product.productId,
+          imageUrl: product.productDetail.imageUrl,
+          description: product.productDetail.description,
+          name: product.productDetail.name,
+          price: product.productDetail.price,
+        };
         state.cart.push({ ...productObj });
       }
     },

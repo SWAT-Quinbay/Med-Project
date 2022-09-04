@@ -26,7 +26,7 @@
       <div class="row g-3">
         <BillingPageProductList
           class="col-12 col-md-6 col-lg-4"
-          v-for="(data, index) in 25"
+          v-for="(data, index) in productList"
           :key="index"
           :product="data"
           @addToCart="addToCart(data)"

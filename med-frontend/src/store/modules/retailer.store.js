@@ -3,12 +3,14 @@ import {
   getAllProductByRetailerId,
   getAllRequestHistory,
   getAllProductsFromAllDealers,
+  getAllSalesHistory,
 } from "@/service/retailer.service";
 
 export default {
   state: {
     retailerProductList: [],
     retailerInventoryList: [],
+    retailerSalesHistory: [],
     retailerBuyProductList: [],
     retailerRequestHistory: [],
   },
@@ -22,6 +24,9 @@ export default {
     getRetailerBuyProductList(state) {
       return state.retailerBuyProductList;
     },
+    getRetailerSalesHistory(state) {
+      return state.retailerSalesHistory;
+    },
     getRetailerRequestHistory(state) {
       return state.retailerRequestHistory;
     },
@@ -32,6 +37,9 @@ export default {
     },
     setRetailerInventory(state, inventoryList) {
       state.retailerInventoryList = inventoryList;
+    },
+    setRetailerSalesHistory(state, salesHistory) {
+      state.retailerSalesHistory = salesHistory;
     },
     setRetailerBuyProductList(state, productList) {
       state.retailerBuyProductList = productList;
@@ -86,6 +94,23 @@ export default {
         status,
         successCallback: ({ data }) => {
           commit("setRetailerRequestHistory", data);
+        },
+        errorCallback: (err) => {
+          console.log(err);
+        },
+      });
+    },
+
+    GET_ALL_SALES_HISTORY(
+      { commit },
+      { retailerId, value = "", orderId = "" }
+    ) {
+      getAllSalesHistory({
+        retailerId,
+        orderId,
+        searchKey: value,
+        successCallback: ({ data }) => {
+          commit("setRetailerSalesHistory", data);
         },
         errorCallback: (err) => {
           console.log(err);

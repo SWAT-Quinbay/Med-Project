@@ -1,12 +1,16 @@
 <template>
   <div>
     <div class="product--card">
-      <!-- <img :src="product.imageUrl" class="product--image" alt="product" /> -->
+      <img
+        :src="product.productDetail.imageUrl"
+        class="product--image"
+        alt="product"
+      />
       <div class="row text-center mt-4">
         <div class="col-12">
-          <p class="product--name">{{ product.name }}</p>
-          <p class="product--price">₹ {{ product.price }}</p>
-          <p class="product--price">Quantity: {{ product.quantity }}</p>
+          <p class="product--name">{{ product.productDetail.name }}</p>
+          <p class="product--price">₹ {{ product.productDetail.price }}</p>
+          <p class="product--price">Quantity: {{ product.stockInHand }}</p>
         </div>
       </div>
       <!-- <div class="d-flex justify-content-between align-items-end">
@@ -17,7 +21,7 @@
                         <img :src="product.image" class="product--image" alt="product">
                     </div>
                 </div> -->
-      <div class="mt-3" v-if="true">
+      <div class="mt-3 mx-auto" v-if="true">
         <ButtonComponent
           label="Add to Bag"
           buttonStyle="btn--primary--sm--outline"

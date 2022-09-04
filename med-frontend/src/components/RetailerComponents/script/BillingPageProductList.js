@@ -19,4 +19,9 @@ export default {
     ButtonComponent,
     BadgeComponent,
   },
+  methods: {
+    addToCart(product) {
+      this.$emit("addToCart", product);
+    },
+  },
 };

@@ -1,4 +1,9 @@
-import { baseUserUrl, baseRetailerUrl, baseDealerUrl } from "@/contants/urls";
+import {
+  baseUserUrl,
+  baseRetailerUrl,
+  baseDealerUrl,
+  baseOrderUrl,
+} from "@/contants/urls";
 import axios from "axios";
 import { getToken } from "@/utils/storage.js";
 
@@ -35,6 +40,23 @@ export const getAllProductByRetailerId = ({
 }) => {
   axiosInstance
     .get(`${baseRetailerUrl}/retailer/id?id=${retailerId}&page=0&size=15`)
+    .then((res) => {
+      successCallback && successCallback(res);
+    })
+    .catch((err) => {
+      errorCallback && errorCallback(err);
+    });
+};
+
+//Retailer Sales History
+export const getAllSalesHistory = ({
+  retailerId,
+  orderId,
+  successCallback,
+  errorCallback,
+}) => {
+  axiosInstance
+    .get(`${baseOrderUrl}/order/user?id=${retailerId}&query=${orderId}`)
     .then((res) => {
       successCallback && successCallback(res);
     })

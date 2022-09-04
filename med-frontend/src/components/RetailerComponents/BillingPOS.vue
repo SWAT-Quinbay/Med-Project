@@ -14,9 +14,9 @@
     </div>
     <hr class="billig--hr" />
     <div class="product--listing">
-      <div v-if="true">
+      <div v-if="cartProducts.length > 0">
         <CartProductItem
-          v-for="(data, index) in 35"
+          v-for="(data, index) in cartProducts"
           :productIndex="index"
           :key="index"
           :product="data"
@@ -31,12 +31,12 @@
       <div class="d-flex justify-content-between">
         <div><p class="pos--header">Sub Total</p></div>
         <div>
-          <p class="pos--subheader">₹ df</p>
+          <p class="pos--subheader">₹ {{ totalPrice }}</p>
         </div>
       </div>
       <div class="d-flex justify-content-between">
         <div>
-          <p class="pos--header">Tax df</p>
+          <p class="pos--header">Tax</p>
         </div>
         <div>
           <p class="pos--subheader">₹ df</p>
