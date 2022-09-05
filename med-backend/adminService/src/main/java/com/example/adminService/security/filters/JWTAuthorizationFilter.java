@@ -78,11 +78,11 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
             Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, grantedAuthorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            request.setAttribute("userId", userId);
-            request.setAttribute("username", username);
+            request.setAttribute(SecurityConstants.USER_ID, userId);
+            request.setAttribute(SecurityConstants.USER_NAME, username);
             request.setAttribute(SecurityConstants.AUTHORITIES_HEADER, grantedAuthorities);
-            request.setAttribute("jwt", token);
-            request.setAttribute("jwt_key", bearerToken);
+            request.setAttribute(SecurityConstants.JWT_TOKEN, token);
+            request.setAttribute(SecurityConstants.JWT_TOKEN_KEY, bearerToken);
 
         } catch (Exception e) {
             e.printStackTrace();

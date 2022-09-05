@@ -74,6 +74,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             throws IOException,UsernameNotFoundException {
 
         AppUser appUser = userService.getUserByUsernameObject(authResult.getName());
+
+        if(!appUser.isActive()){
+            response.sendError(HttpStatus.PAYMENT_REQUIRED.value(),"You Are Currently Blocked please contact Admin.");
+            return;
+        }
+
+
         String token = Jwts.builder()
                 .setId(String.valueOf(appUser.getId()))
                 .setSubject(authResult.getName())
