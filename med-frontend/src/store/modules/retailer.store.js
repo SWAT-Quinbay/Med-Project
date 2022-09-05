@@ -9,6 +9,7 @@ import {
 
 export default {
   state: {
+    retailerLoader: false,
     retailerProductList: [],
     retailerInventoryList: [],
     retailerSalesHistory: [],
@@ -16,6 +17,9 @@ export default {
     retailerRequestHistory: [],
   },
   getters: {
+    getRetailerLoader(state) {
+      return state.retailerLoader;
+    },
     getRetailerProductList(state) {
       return state.retailerProductList;
     },
@@ -33,6 +37,9 @@ export default {
     },
   },
   mutations: {
+    setRetailerLoaderToggle(state) {
+      state.retailerLoader = !state.retailerLoader;
+    },
     setRetailerProductList(state, productList) {
       state.retailerProductList = productList;
     },
@@ -51,17 +58,21 @@ export default {
   },
   actions: {
     GET_ALL_PRODUCT_FROM_DEALER({ commit }, value = "") {
+      commit("setRetailerLoaderToggle");
       getAllProductFromAdmin({
         searchText: value,
         successCallback: ({ data }) => {
           commit("setRetailerProductList", data.content);
         },
         errorCallback: (err) => {
+          console.log(err);
           Vue.$toast.error("Something gone wrong! Please again later.");
         },
       });
+      commit("setRetailerLoaderToggle");
     },
     GET_ALL_PRODUCT_BY_RETAILER_ID({ commit }, { retailerId, searchKey = "" }) {
+      commit("setRetailerLoaderToggle");
       getAllProductByRetailerId({
         retailerId,
         searchKey,
@@ -69,27 +80,33 @@ export default {
           commit("setRetailerInventory", data);
         },
         errorCallback: (err) => {
+          console.log(err);
           Vue.$toast.error("Something gone wrong! Please again later.");
         },
       });
+      commit("setRetailerLoaderToggle");
     },
 
     GET_ALL_PRODUCTS_FROM_ALL_DEALERS({ commit }, value = "") {
+      commit("setRetailerLoaderToggle");
       getAllProductsFromAllDealers({
         searchKey: value,
         successCallback: ({ data }) => {
           commit("setRetailerBuyProductList", data);
         },
         errorCallback: (err) => {
+          console.log(err);
           Vue.$toast.error("Something gone wrong! Please again later.");
         },
       });
+      commit("setRetailerLoaderToggle");
     },
 
     GET_ALL_REQUEST_HISTORY_RETAILER(
       { commit },
       { retailerId = "", requestId = "", status = "" }
     ) {
+      commit("setRetailerLoaderToggle");
       getAllRequestHistory({
         retailerId,
         requestId,
@@ -98,15 +115,18 @@ export default {
           commit("setRetailerRequestHistory", data);
         },
         errorCallback: (err) => {
+          console.log(err);
           Vue.$toast.error("Something gone wrong! Please again later.");
         },
       });
+      commit("setRetailerLoaderToggle");
     },
 
     GET_ALL_SALES_HISTORY(
       { commit },
       { retailerId, value = "", orderId = "" }
     ) {
+      commit("setRetailerLoaderToggle");
       getAllSalesHistory({
         retailerId,
         orderId,
@@ -115,9 +135,11 @@ export default {
           commit("setRetailerSalesHistory", data);
         },
         errorCallback: (err) => {
+          console.log(err);
           Vue.$toast.error("Something gone wrong! Please again later.");
         },
       });
+      commit("setRetailerLoaderToggle");
     },
   },
 };

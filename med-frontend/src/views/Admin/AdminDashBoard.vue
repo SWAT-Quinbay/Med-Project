@@ -5,7 +5,7 @@
         <p class="navigation--label">Admin / Dashboard</p>
       </div>
     </div>
-    <div class="row align-items-center justify-center-between">
+    <div class="row align-items-center">
       <div class="col-12 col-md-4 px-2 d-none d-xl-block">
         <!-- <InventoryTable/> -->
         <v-lottie-player

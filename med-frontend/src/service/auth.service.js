@@ -9,6 +9,7 @@ export const checkAuthToken = ({ successCallback, errorCallback }) => {
     .get(`${baseUserUrl}/auth/validateToken`, {
       headers: {
         Authorization: getToken(),
+        // Authorization: `Bearer ${getToken()}`,
       },
     })
     .then((res) => {

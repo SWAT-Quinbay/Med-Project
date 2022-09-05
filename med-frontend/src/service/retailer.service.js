@@ -11,6 +11,7 @@ let axiosInstance = axios.create({});
 
 axiosInstance.interceptors.request.use(function (config) {
   const token = getToken();
+  // const token = `Bearer ${getToken()}`
   config.headers.Authorization = token;
   return config;
 });

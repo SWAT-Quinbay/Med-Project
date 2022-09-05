@@ -153,6 +153,7 @@ const routes = [
 const router = new VueRouter({
   mode: "history",
   routes,
+  linkExactActiveClass: "active",
 });
 
 // const checkValidation = (role, next) => {

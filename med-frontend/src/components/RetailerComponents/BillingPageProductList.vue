@@ -58,7 +58,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100px;
-  /* max-height: ; */
+  max-height: 400px;
   justify-content: space-between;
 }
 .product--name {

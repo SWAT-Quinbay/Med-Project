@@ -1,5 +1,6 @@
 import InventoryTableList from "@/components/RetailerComponents/InventoryTableList.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
+import SpinnerProgress from "@/components/SpinnerProgress";
 import { mapGetters } from "vuex";
 
 export default {
@@ -7,6 +8,7 @@ export default {
   components: {
     InventoryTableList,
     ButtonComponent,
+    SpinnerProgress,
   },
   data() {
     return {
@@ -20,6 +22,7 @@ export default {
     ...mapGetters({
       userId: "getUserId",
       retailerInventory: "getRetailerInventory",
+      loader: "getRetailerLoader",
     }),
   },
   methods: {

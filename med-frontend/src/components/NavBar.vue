@@ -71,6 +71,7 @@
 .nav--link {
   color: black;
   text-decoration: none;
+  font-size: 15px;
 }
 .btn--toggle {
   border: none;
@@ -82,5 +83,8 @@
   .nav-item {
     margin: 10px 10px 0px 10px !important;
   }
+}
+.active {
+  color: #009cd4;
 }
 </style>

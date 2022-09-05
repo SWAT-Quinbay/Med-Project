@@ -2,7 +2,7 @@
   <div class="">
     <div class="inventory--table--search">
       <div class="row justify-content-between align-items-center">
-        <div class="col-12 col-md-4 mb-2 mb-md-0">
+        <div class="col-12 col-md-6 mb-2 mb-md-0">
           <p class="table--header">
             Total Items
             <span class="total--client--badge"
@@ -12,7 +12,7 @@
         </div>
         <div class="col-12 col-md-6">
           <div class="row justify-content-end align-items-center gx-2">
-            <div class="col-6">
+            <div class="col-12 col-md-6 mb-2 mb-md-0">
               <input
                 type="text"
                 v-model="searchText"
@@ -20,18 +20,18 @@
                 placeholder="Search product"
               />
             </div>
-            <div class="col-auto">
+            <div class="col-6 col-md-3">
               <ButtonComponent
                 label="Search"
-                class="btn--black--outline"
+                class="btn--primary--sm--outline--100"
                 @onClick="searchName()"
                 type="button"
               />
             </div>
-            <div class="col-auto">
+            <div class="col-6 col-md-3">
               <ButtonComponent
                 label="Clear"
-                class="btn--primary--sm--outline"
+                class="btn--danger--sm--outline--100"
                 @onClick="clearSearch()"
                 type="button"
               />
@@ -49,31 +49,54 @@
       </div>
     </div>
     <div class="inventory--table">
-      <div class="table-responsive">
-        <table class="table table-sm table-borderless">
-          <thead>
-            <tr class="table--tr">
-              <th>S.No</th>
-              <th>Product Id</th>
-              <th>Product Name</th>
-              <th>Quantity</th>
-              <th>MRP</th>
-              <th>Tax</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- <InventoryTableList v-for="(data,index) in userList" :key="index"/> -->
-            <InventoryTableList
-              v-for="(data, index) in retailerInventory"
-              :key="index"
-              :product="data"
-              :index="index"
-              @activateModal="toggleConfirmModal"
-              @sendDataToEditModal="selectedProductFromList"
-            />
-          </tbody>
-        </table>
+      <div class="row justify-content-center mt-5" v-if="loader">
+        <div class="col-6 text-center">
+          <SpinnerProgress />
+        </div>
+      </div>
+      <div v-else>
+        <div class="table-responsive" v-if="retailerInventory.length > 0">
+          <table class="table table-sm table-borderless">
+            <thead>
+              <tr class="table--tr">
+                <th>S.No</th>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>MRP</th>
+                <th>Tax</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <InventoryTableList v-for="(data,index) in userList" :key="index"/> -->
+              <InventoryTableList
+                v-for="(data, index) in retailerInventory"
+                :key="index"
+                :product="data"
+                :index="index"
+                @activateModal="toggleConfirmModal"
+                @sendDataToEditModal="selectedProductFromList"
+              />
+            </tbody>
+          </table>
+        </div>
+        <div class="row justify-content-center mt-5" v-else>
+          <div class="col-6 text-center">
+            <p>No records found</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pagination--area my-3">
+      <div class="row g-0 align-items-center">
+        <div class="col-auto">
+          <span class="pagination--label">Size 1 - 25</span>
+        </div>
+        <div class="col-auto">
+          <ButtonComponent class="btn--edit--sm me-2" label="<" />
+          <ButtonComponent class="btn--edit--sm" label=">" />
+        </div>
       </div>
     </div>
   </div>
@@ -90,6 +113,9 @@
   opacity: 0;
 }
 
+.pagination--area {
+}
+
 .inventory--table--search {
   background-color: #ffffff;
   border-radius: 10px;
@@ -98,17 +124,19 @@
   padding: 10px;
 }
 
+.pagination--label {
+  font-size: 15px;
+  margin-right: 20px;
+}
+
 .inventory--table {
   background-color: #ffffff;
   border-radius: 10px;
   border: 1px solid rgb(209, 213, 216);
   /* box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px; */
   /* padding: 5px; */
-  max-height: 550px;
+  height: 550px;
   overflow: scroll;
-}
-.inventory--table--header {
-  /* background-color: #FAFBFC; */
 }
 
 .total--client--badge {

@@ -6,7 +6,7 @@
 
         <div class="action--form--controller">
           <label for="user-name" class="action--input--label"
-            >Product Name *</label
+            >Product Name <span class="required--red">*</span></label
           >
           <input
             type="text"
@@ -17,7 +17,7 @@
         </div>
         <div class="action--form--controller">
           <label for="user-imageurl" class="action--input--label"
-            >ImageUrl *</label
+            >ImageUrl <span class="required--red">*</span></label
           >
           <input
             type="link"
@@ -28,7 +28,7 @@
         </div>
         <div class="action--form--controller">
           <label for="user-quantity" class="action--input--label"
-            >Net Quantity *</label
+            >Net Quantity <span class="required--red">*</span></label
           >
           <input
             type="number"
@@ -41,7 +41,9 @@
           Field should not be in zero or negative.
         </p>
         <div class="action--form--controller">
-          <label for="user-price" class="action--input--label">Price *</label>
+          <label for="user-price" class="action--input--label"
+            >Price <span class="required--red">*</span></label
+          >
           <input
             type="number"
             class="action--input"
@@ -53,7 +55,9 @@
           Field should not be in zero or negative.
         </p>
         <div class="action--form--controller">
-          <label for="user-tax" class="action--input--label">Tax *</label>
+          <label for="user-tax" class="action--input--label"
+            >Tax <span class="required--red">*</span></label
+          >
           <input
             type="number"
             class="action--input"
@@ -66,7 +70,7 @@
         </p>
         <div class="action--form--controller">
           <label for="user-description" class="action--input--label"
-            >Description *</label
+            >Description <span class="required--red">*</span></label
           >
           <textarea
             maxlength="500"
@@ -77,9 +81,9 @@
             placeholder="Enter Product Description"
           />
         </div>
-        <p>
-          <small>Text should contains min 5 characters!</small>
-        </p>
+        <!-- <p>
+          <small>Text should be min 5 characters!</small>
+        </p> -->
       </div>
       <div class="modal--footer">
         <div class="row">
@@ -171,6 +175,10 @@
 
 .active--pointer {
   cursor: pointer;
+}
+
+.required--red {
+  color: rgb(244, 0, 0);
 }
 
 .modal--header {
