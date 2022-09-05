@@ -1,4 +1,5 @@
 import { getAllProductFromAdmin } from "@/service/dealer.service";
+import Vue from "vue";
 import {
   getAllProductByRetailerId,
   getAllRequestHistory,
@@ -56,7 +57,7 @@ export default {
           commit("setRetailerProductList", data.content);
         },
         errorCallback: (err) => {
-          console.log(err);
+          Vue.$toast.error(err.response.data.message);
         },
       });
     },
@@ -68,7 +69,7 @@ export default {
           commit("setRetailerInventory", data);
         },
         errorCallback: (err) => {
-          console.log(err);
+          Vue.$toast.error(err.response.data.message);
         },
       });
     },
@@ -80,7 +81,7 @@ export default {
           commit("setRetailerBuyProductList", data);
         },
         errorCallback: (err) => {
-          console.log(err);
+          Vue.$toast.error(err.response.data.message);
         },
       });
     },
@@ -97,7 +98,7 @@ export default {
           commit("setRetailerRequestHistory", data);
         },
         errorCallback: (err) => {
-          console.log(err);
+          Vue.$toast.error(err.response.data.message);
         },
       });
     },
@@ -114,7 +115,7 @@ export default {
           commit("setRetailerSalesHistory", data);
         },
         errorCallback: (err) => {
-          console.log(err);
+          Vue.$toast.error(err.response.data.message);
         },
       });
     },

@@ -4,6 +4,7 @@ import InventoryActionModal from "@/components/AdminComponents/InventoryActionMo
 import ButtonComponent from "@/components/ButtonComponent.vue";
 import { mapGetters } from "vuex";
 import Vue from "vue";
+
 import {
   createNewProduct,
   updateProductData,
@@ -64,8 +65,7 @@ export default {
           }
         },
         errorCallback: (err) => {
-          console.log(err);
-          Vue.$toast.error(err.message);
+          Vue.$toast.error(err.response.data.message);
         },
       });
       this.userId = "";
@@ -97,7 +97,7 @@ export default {
             }
           },
           errrorCallback: (err) => {
-            Vue.$toast.error(err.message);
+            Vue.$toast.error(err.response.data.message);
           },
         });
       } else {
@@ -113,7 +113,7 @@ export default {
             }
           },
           errrorCallback: (err) => {
-            Vue.$toast.error(err);
+            Vue.$toast.error(err.response.data.message);
           },
         });
       }

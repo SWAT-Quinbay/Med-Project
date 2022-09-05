@@ -15,6 +15,7 @@ export default {
         name: "",
         imageUrl: "",
         price: "",
+        tax: "",
         netQuantity: "",
         description: "",
       },
@@ -41,13 +42,22 @@ export default {
         this.userData.password !== this.confirmPassword
       );
     },
-
+    checkNegativePrice() {
+      return this.product.price && this.product.price < 1;
+    },
+    checkNegativeNetQuantity() {
+      return this.product.netQuantity && this.product.netQuantity < 1;
+    },
+    checkNegativeTax() {
+      return this.product.tax && this.product.tax < 1;
+    },
     checkAllField() {
       return (
         this.product.name.length > 4 &&
         this.product.imageUrl.length > 4 &&
-        this.product.price &&
-        this.product.netQuantity &&
+        this.product.price > 0 &&
+        this.product.netQuantity > 0 &&
+        this.product.tax > 0 &&
         this.product.description.length > 4
       );
     },

@@ -11,6 +11,7 @@
           <textarea
             type="text"
             rows="5"
+            maxlength="500"
             class="action--textarea"
             v-model="remark"
             placeholder="Write any remark about this request."

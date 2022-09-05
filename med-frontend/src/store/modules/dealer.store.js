@@ -1,3 +1,4 @@
+import Vue from "vue";
 import {
   getAllProductFromAdmin,
   getAllProductByDealerId,
@@ -48,7 +49,7 @@ export default {
           commit("setDealerProductList", data.content);
         },
         errorCallback: (err) => {
-          console.log(err);
+          Vue.$toast.error(err.response.data.message);
         },
       });
     },
@@ -60,7 +61,7 @@ export default {
           commit("setDealerInventory", data.content);
         },
         errorCallback: (err) => {
-          console.log(err);
+          Vue.$toast.error(err.response.data.message);
         },
       });
     },
@@ -77,7 +78,7 @@ export default {
           commit("setDealerRequestHistory", data);
         },
         errorCallback: (err) => {
-          console.log(err);
+          Vue.$toast.error(err.response.data.message);
         },
       });
     },
@@ -94,7 +95,7 @@ export default {
           commit("setDealerRequestHistoryFromRetailer", data);
         },
         errorCallback: (err) => {
-          console.log(err);
+          Vue.$toast.error(err.response.data.message);
         },
       });
     },

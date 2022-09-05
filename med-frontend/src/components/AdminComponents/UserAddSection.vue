@@ -10,6 +10,9 @@
         placeholder="Enter Name"
       />
     </div>
+    <p class="news--error" v-if="nameValidation">
+      Special Characters and white spaces are not allowed!
+    </p>
     <div class="action--form--controller">
       <label for="user-name" class="action--input--label">Username</label>
       <input
@@ -19,7 +22,9 @@
         placeholder="Enter Username"
       />
     </div>
-    <!-- <p class="news--error" v-if="usernameValidation" >Special Characters and white spaces are not allowed!</p> -->
+    <p class="news--error" v-if="usernameValidation">
+      Special Characters and white spaces are not allowed!
+    </p>
     <div class="action--form--controller">
       <label for="user-password" class="action--input--label">Password</label>
       <input
@@ -33,6 +38,7 @@
       <label for="user-password" class="action--input--label">User Type</label>
       <select v-model="user.role" class="action--input">
         <option :value="null">Select the User role</option>
+        <!-- <option value="ADMIN">Admin</option> -->
         <option value="DEALER">Dealer</option>
         <option value="RETAILER">Retailer</option>
       </select>

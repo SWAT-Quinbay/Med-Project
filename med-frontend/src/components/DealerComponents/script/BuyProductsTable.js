@@ -57,8 +57,7 @@ export default {
           }
         },
         errorCallback: (err) => {
-          console.log(err);
-          Vue.$toast.error(err.message);
+          Vue.$toast.error(err.response.data.message);
         },
       });
     },

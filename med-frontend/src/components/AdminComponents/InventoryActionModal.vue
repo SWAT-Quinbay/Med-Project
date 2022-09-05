@@ -37,6 +37,9 @@
             placeholder="Enter Net Quanity"
           />
         </div>
+        <p class="news--error" v-if="checkNegativeNetQuantity">
+          Field should not be in zero or negative.
+        </p>
         <div class="action--form--controller">
           <label for="user-price" class="action--input--label">Price *</label>
           <input
@@ -46,20 +49,27 @@
             placeholder="Enter Price"
           />
         </div>
+        <p class="news--error" v-if="checkNegativePrice">
+          Field should not be in zero or negative.
+        </p>
         <div class="action--form--controller">
           <label for="user-tax" class="action--input--label">Tax *</label>
           <input
-            type="text"
+            type="number"
             class="action--input"
             v-model="product.tax"
             placeholder="Enter Tax Amount"
           />
         </div>
+        <p class="news--error" v-if="checkNegativeTax">
+          Field should not be in zero or negative.
+        </p>
         <div class="action--form--controller">
           <label for="user-description" class="action--input--label"
             >Description *</label
           >
           <textarea
+            maxlength="500"
             type="text"
             rows="4"
             class="action--textarea"
@@ -127,6 +137,11 @@
 .modal--body {
   padding: 10px 20px;
   /* text-align: center; */
+}
+
+.news--error {
+  color: #e70000;
+  font-size: 13px;
 }
 
 .select--label {

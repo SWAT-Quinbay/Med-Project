@@ -56,8 +56,13 @@ export default {
           }
         },
         errorCallback: (err) => {
-          console.log(err);
-          Vue.$toast.error("Username or password may Incorrect!");
+          if (err.response.status === 402) {
+            Vue.$toast.error(
+              "You Are Currently Blocked, please contact Admin!"
+            );
+          } else {
+            Vue.$toast.error(err.response.data.message);
+          }
         },
       });
     },

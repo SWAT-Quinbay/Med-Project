@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="row align-items-center justify-center-between">
-      <div class="col-12 col-md-4 px-2 d-none d-md-block">
+      <div class="col-12 col-md-4 px-2 d-none d-lg-block">
         <!-- <InventoryTable/> -->
         <v-lottie-player
           name="notfound"
@@ -17,7 +17,7 @@
           :animationData="require('@/assets/lottie/dashboard.json')"
         />
       </div>
-      <div class="col-md-8">
+      <div class="col-12 col-md-8">
         <div class="row">
           <div class="col-12">
             <div class="request--search--box">
@@ -40,7 +40,7 @@
                         placeholder="Search Request Id"
                       />
                     </div>
-                    <div class="col-auto">
+                    <div class="col-3 col-md-auto">
                       <ButtonComponent
                         label="Search"
                         buttonStyle="btn--primary--sm--outline"
@@ -48,7 +48,7 @@
                         type="button"
                       />
                     </div>
-                    <div class="col-auto">
+                    <div class="col-3 col-md-auto">
                       <ButtonComponent
                         label="Clear"
                         buttonStyle="btn--danger--sm--outline"
