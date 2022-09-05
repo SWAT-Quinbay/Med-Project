@@ -22,7 +22,7 @@
           <div class="col-12">
             <div class="request--search--box">
               <div class="row justify-content-between align-items-center">
-                <div class="col-12 col-md-4 mb-2 mb-md-0">
+                <div class="col-12 col-md-6 mb-2 mb-md-0">
                   <p class="table--header">
                     Request Information
                     <span class="total--client--badge"
@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-12 col-md-6">
                   <div class="row justify-content-end align-items-center gx-2">
-                    <div class="col-6">
+                    <div class="col-12 col-md-6 mb-2 mb-md-0">
                       <input
                         type="text"
                         v-model="searchRequestKey"
@@ -40,18 +40,18 @@
                         placeholder="Search Request Id"
                       />
                     </div>
-                    <div class="col-3 col-md-auto">
+                    <div class="col-6 col-md-3">
                       <ButtonComponent
                         label="Search"
-                        class="btn--primary--sm--outline"
+                        class="btn--primary--sm--outline--100"
                         @onClick="searchFilter()"
                         type="button"
                       />
                     </div>
-                    <div class="col-3 col-md-auto">
+                    <div class="col-6 col-md-3">
                       <ButtonComponent
                         label="Clear"
-                        class="btn--danger--sm--outline"
+                        class="btn--danger--sm--outline--100"
                         @onClick="clearFilter()"
                         type="button"
                       />

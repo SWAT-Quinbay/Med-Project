@@ -181,6 +181,19 @@
   background-color: #ffffff;
 }
 
+.btn--danger--sm--outline--100 {
+  color: #dc3545;
+  border: 1px solid #dc3545;
+  outline: none;
+  width: 100%;
+  height: 35px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 5px 20px;
+  background-color: #ffffff;
+}
+
 .btn--secondary {
   color: white;
   border: 1px solid #ffffff;

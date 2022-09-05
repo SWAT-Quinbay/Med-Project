@@ -72,4 +72,10 @@
   font-weight: 500;
   color: rgb(137, 137, 137);
 }
+
+@media screen and (max-width: 900px) {
+  .modal--content {
+    width: 90%;
+  }
+}
 </style>

@@ -22,7 +22,7 @@
         />
       </a>
       <button
-        class="btn--toggle"
+        class="navbar-toggler btn--toggle"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navbarSupportedContent"

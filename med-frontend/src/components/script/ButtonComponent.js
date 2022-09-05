@@ -9,10 +9,6 @@ export default {
       type: String,
       default: "button",
     },
-    class: {
-      type: String,
-      default: "btn--primary",
-    },
     disabled: {
       type: Boolean,
       default: false,

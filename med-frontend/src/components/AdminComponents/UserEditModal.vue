@@ -222,4 +222,10 @@ select {
   margin-bottom: 10px;
   margin-top: 15px;
 }
+
+@media screen and (max-width: 900px) {
+  .modal--content {
+    width: 90%;
+  }
+}
 </style>

@@ -62,7 +62,7 @@
           />
         </div>
         <p class="news--error" v-if="checkNegativeTax">
-          Field should not be in zero or negative.
+          Field should not be in zero or negative, and 50% of product price
         </p>
         <div class="action--form--controller">
           <label for="user-description" class="action--input--label"

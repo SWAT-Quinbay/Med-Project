@@ -21,7 +21,7 @@
                         <img :src="product.image" class="product--image" alt="product">
                     </div>
                 </div> -->
-      <div class="mt-3 mx-auto" v-if="true">
+      <div class="mt-3 mx-auto" v-if="checkAvailabilityStatus">
         <ButtonComponent
           label="Add to Bag"
           class="btn--primary--sm--outline"
@@ -30,7 +30,10 @@
         />
       </div>
       <div v-else class="mx-auto">
-        <BadgeComponent label="Out of Stock" />
+        <BadgeComponent
+          label="Out of Stock"
+          class="badge--outline--sm badge--error--outline"
+        />
       </div>
     </div>
   </div>

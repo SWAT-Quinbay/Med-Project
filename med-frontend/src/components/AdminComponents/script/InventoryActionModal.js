@@ -49,7 +49,10 @@ export default {
       return this.product.netQuantity && this.product.netQuantity < 1;
     },
     checkNegativeTax() {
-      return this.product.tax && this.product.tax < 1;
+      return (
+        this.product.tax &&
+        (this.product.tax < 0 || this.product.tax > this.product.price / 2)
+      );
     },
     checkAllField() {
       return (
@@ -57,7 +60,8 @@ export default {
         this.product.imageUrl.length > 4 &&
         this.product.price > 0 &&
         this.product.netQuantity > 0 &&
-        this.product.tax > 0 &&
+        this.product.tax &&
+        !this.checkNegativeTax &&
         this.product.description.length > 4
       );
     },
