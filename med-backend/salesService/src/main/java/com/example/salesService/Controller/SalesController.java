@@ -5,6 +5,7 @@ import com.example.salesService.CustomException.NotEnoughQuantityException;
 import com.example.salesService.CustomException.SalesIDNotFound;
 import com.example.salesService.Service.SalesService;
 import com.example.salesService.dto.request.OrderRequest;
+import com.example.salesService.dto.response.OrderResponse;
 import com.example.salesService.model.Order;
 import com.example.salesService.security.SecurityConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class SalesController {
     }
 
     @PostMapping("/make")
-    public Order searchOrderForUser(@RequestBody Order order, @RequestHeader(SecurityConstants.AUTH_HEADER) String token){
+    public OrderResponse searchOrderForUser(@RequestBody OrderRequest order, @RequestHeader(SecurityConstants.AUTH_HEADER) String token){
         try {
             return salesService.add(order,token);
         } catch (InvalidDataProvidedException | NotEnoughQuantityException e) {

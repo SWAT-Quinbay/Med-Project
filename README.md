@@ -112,7 +112,5 @@
 
     ### Backend
     	 - use Redis to store and retrieve users
-    	 - add a DTO layer for sales service
-
 
     	 - store product details in all DB and use Kafka to update changes that occurred in the main DB (not a good way doesn't provide data nonredundant!)

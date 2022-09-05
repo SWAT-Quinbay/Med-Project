@@ -4,12 +4,15 @@ import com.example.salesService.CustomException.InvalidDataProvidedException;
 import com.example.salesService.CustomException.NotEnoughQuantityException;
 import com.example.salesService.Repository.SalesRepository;
 import com.example.salesService.dto.request.ItemCheckRequest;
+import com.example.salesService.dto.request.OrderRequest;
+import com.example.salesService.dto.response.OrderResponse;
 import com.example.salesService.dto.response.ProductDetailsResponse;
 import com.example.salesService.model.Order;
 import com.example.salesService.model.OrderItem;
 import com.example.salesService.security.SecurityConstants;
 import com.example.salesService.utils.Utilities;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
@@ -33,6 +36,8 @@ public class SalesServiceImp implements SalesService {
     @Autowired
     SequenceGeneratorService sequenceGeneratorService;
     @Autowired
+    ModelMapper modelMapper;
+    @Autowired
     MongoTemplate mongoTemplate;
     @Autowired
     private RestTemplate restTemplate;
@@ -55,20 +60,20 @@ public class SalesServiceImp implements SalesService {
     }
 
     @Override
-    public Order add(Order order,String token) throws InvalidDataProvidedException, NotEnoughQuantityException {
-        validateData(order);
-        checkQuantityAndReduceIt(order,token);
-
+    public OrderResponse add(OrderRequest orderRequest, String token) throws InvalidDataProvidedException, NotEnoughQuantityException {
+        validateData(orderRequest);
+        checkQuantityAndReduceIt(orderRequest,token);
+        Order order = modelMapper.map(orderRequest,Order.class);
         order.setStatus("CREATED");
 
         populateProductDetails(order,token);
 
         order.setId(sequenceGeneratorService.generateSequence(Order.SEQUENCE_NAME));
 
-        return salesRepository.save(order);
+        return modelMapper.map(salesRepository.save(order),OrderResponse.class);
     }
 
-    private void checkQuantityAndReduceIt(Order order,String token) throws NotEnoughQuantityException {
+    private void checkQuantityAndReduceIt(OrderRequest order,String token) throws NotEnoughQuantityException {
         List<ItemCheckRequest> requests = new ArrayList<>();
 
         for(OrderItem item : order.getOrderItems()){
@@ -133,7 +138,7 @@ public class SalesServiceImp implements SalesService {
         }
     }
 
-    private void validateData(Order order) throws InvalidDataProvidedException {
+    private void validateData(OrderRequest order) throws InvalidDataProvidedException {
         if (!Utilities.validNumber(order.getRetailerId())) {
             throw new InvalidDataProvidedException("Invalid Retailer Id");
         }
@@ -144,7 +149,6 @@ public class SalesServiceImp implements SalesService {
         }
 
         //format string
-        order.setStatus(Utilities.formatString(order.getStatus()));
         order.setPaymentMethod(Utilities.formatString(order.getPaymentMethod()));
 
         if (!(Utilities.validString(order.getPaymentMethod()))) {
