@@ -86,7 +86,7 @@
           <div class="col-6 pe-1">
             <ButtonComponent
               label="Close"
-              buttonStyle="btn--black--outline"
+              class="btn--black--outline"
               @onClick="closeAction()"
               type="button"
             />
@@ -95,7 +95,7 @@
             <ButtonComponent
               :disabled="!checkAllField"
               :label="modalButtonLabel"
-              :buttonStyle="[!checkAllField ? 'btn--disabled' : 'btn--black']"
+              :class="[!checkAllField ? 'btn--disabled' : 'btn--black']"
               @onClick="confirmAction()"
               type="button"
             />
@@ -240,5 +240,11 @@ select {
 
 .action--form--controller {
   margin-bottom: 10px;
+}
+
+@media screen and (max-width: 900px) {
+  .modal--content {
+    width: 90%;
+  }
 }
 </style>

@@ -13,7 +13,7 @@
           <div class="col-6 pe-1">
             <ButtonComponent
               label="Close"
-              buttonStyle="btn--black--outline"
+              class="btn--black--outline"
               @onClick="closeAction()"
               type="button"
             />
@@ -21,7 +21,7 @@
           <div class="col-6 ps-1">
             <ButtonComponent
               label="Confirm"
-              buttonStyle="btn--black"
+              class="btn--black"
               @onClick="confirmAction()"
               type="button"
             />

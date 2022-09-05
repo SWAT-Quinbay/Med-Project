@@ -24,7 +24,7 @@
       <div class="mt-3 mx-auto" v-if="true">
         <ButtonComponent
           label="Add to Bag"
-          buttonStyle="btn--primary--sm--outline"
+          class="btn--primary--sm--outline"
           @onClick="addToCart(product)"
           type="button"
         />

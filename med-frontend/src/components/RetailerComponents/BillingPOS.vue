@@ -66,7 +66,7 @@
         <ButtonComponent
           label="Checkout"
           :disabled="false"
-          buttonStyle="btn--primary--sm--100"
+          class="btn--primary--sm--100"
           @onClick="completeCheckOut()"
           type="button"
         />

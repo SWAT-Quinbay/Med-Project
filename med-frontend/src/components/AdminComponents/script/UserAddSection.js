@@ -45,8 +45,8 @@ export default {
           }
         },
         errorCallback: (err) => {
-          console.log(err);
-          Vue.$toast.error(err.response.data.message);
+          console.log(err.response.data.message);
+          Vue.$toast.error("Something gone wrong! Please again later.");
         },
       });
       this.user = {

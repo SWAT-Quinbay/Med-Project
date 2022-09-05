@@ -9,7 +9,7 @@ export default {
       type: String,
       default: "button",
     },
-    buttonStyle: {
+    class: {
       type: String,
       default: "btn--primary",
     },

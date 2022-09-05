@@ -76,7 +76,6 @@ export default {
       this.requestModalData = modalData;
     },
     saveActionCall(data) {
-      console.log(data);
       changeRequestStatus({
         requestData: data,
         successCallback: (res) => {
@@ -90,7 +89,8 @@ export default {
           }
         },
         errorCallback: (err) => {
-          Vue.$toast.error(err.response.data.message);
+          console.log(err.response.data.message);
+          Vue.$toast.error("Something gone wrong! Please again later.");
         },
       });
       this.showRequestActionModal = false;

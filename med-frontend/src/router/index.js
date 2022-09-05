@@ -23,8 +23,8 @@ import DealerBuyProducts from "@/views/Dealer/DealerBuyProducts.vue";
 
 import NotFound from "@/views/HelperPages/NotFound.vue";
 
-import { getToken } from "@/utils/storage";
 import store from "@/store";
+import { getToken } from "@/utils/storage";
 import { redirectDashboard } from "@/utils/roleRedirect";
 import { checkAuthToken } from "@/service/auth.service.js";
 
@@ -35,9 +35,7 @@ const routes = [
     path: "/",
     name: "LoginPage",
     component: LoginPage,
-    beforeEnter: (to, from, next) => {
-      console.log(from, to);
-
+    beforeEnter: (to, _, next) => {
       if (to.name === "LoginPage" && getToken()) {
         checkAuthToken({
           successCallback: (res) => {
@@ -60,7 +58,6 @@ const routes = [
   {
     path: "/admin",
     component: AdminHomePage,
-    name: "AdminHomePage",
     children: [
       {
         path: "",
@@ -118,7 +115,6 @@ const routes = [
   },
   {
     path: "/dealer",
-    name: "DealerHomePage",
     component: DealerHomePage,
     children: [
       {

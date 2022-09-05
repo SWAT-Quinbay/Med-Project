@@ -67,7 +67,8 @@ export default {
           }
         },
         errorCallback: (err) => {
-          Vue.$toast.error(err.response.data.message);
+          console.log(err.response.data.message);
+          Vue.$toast.error("Something gone wrong! Please again later.");
         },
       });
       this.userId = "";
@@ -75,7 +76,6 @@ export default {
     },
     saveActionCall({ isUpdateName, userData }) {
       if (isUpdateName) {
-        console.log(userData);
         updateUserName({
           userData,
           successCallback: (res) => {
@@ -85,8 +85,8 @@ export default {
             }
           },
           errorCallback: (err) => {
-            console.log(err.message);
-            Vue.$toast.success(err.message);
+            console.log(err.response.data.message);
+            Vue.$toast.error("Updatation failed!");
           },
         });
       } else {
@@ -99,7 +99,8 @@ export default {
             }
           },
           errorCallback: (err) => {
-            console.log(err.message);
+            console.log(err.response.data.message);
+            Vue.$toast.error("Updatation failed!");
           },
         });
       }

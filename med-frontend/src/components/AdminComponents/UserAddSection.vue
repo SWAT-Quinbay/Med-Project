@@ -49,7 +49,7 @@
           label="Create Account"
           :loader="true"
           :disabled="!validateField"
-          :buttonStyle="validateField ? 'btn--primary' : 'btn--disabled'"
+          :class="validateField ? 'btn--primary' : 'btn--disabled'"
           @onClick="createNewUserAccount()"
           type="button"
         />

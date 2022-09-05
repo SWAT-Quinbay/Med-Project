@@ -42,7 +42,8 @@ export default {
           commit("setUserList", data.content);
         },
         errorCallback: (err) => {
-          Vue.$toast.error(err.response.data.message);
+          console.log(err.response.data.message);
+          Vue.$toast.error("Something gone wrong! Please again later.");
         },
       });
     },
@@ -53,7 +54,8 @@ export default {
           commit("setInventory", data.content);
         },
         errorCallback: (err) => {
-          Vue.$toast.error(err.response.data.message);
+          console.log(err.response.data.message);
+          Vue.$toast.error("Something gone wrong! Please again later.");
         },
       });
     },
@@ -66,7 +68,8 @@ export default {
           commit("setRequestHistory", data);
         },
         errorCallback: (err) => {
-          Vue.$toast.error(err.response.data.message);
+          console.log(err.response.data.message);
+          Vue.$toast.error("Something gone wrong! Please again later.");
         },
       });
     },

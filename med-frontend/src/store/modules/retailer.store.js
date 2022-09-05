@@ -57,7 +57,7 @@ export default {
           commit("setRetailerProductList", data.content);
         },
         errorCallback: (err) => {
-          Vue.$toast.error(err.response.data.message);
+          Vue.$toast.error("Something gone wrong! Please again later.");
         },
       });
     },
@@ -69,7 +69,7 @@ export default {
           commit("setRetailerInventory", data);
         },
         errorCallback: (err) => {
-          Vue.$toast.error(err.response.data.message);
+          Vue.$toast.error("Something gone wrong! Please again later.");
         },
       });
     },
@@ -81,7 +81,7 @@ export default {
           commit("setRetailerBuyProductList", data);
         },
         errorCallback: (err) => {
-          Vue.$toast.error(err.response.data.message);
+          Vue.$toast.error("Something gone wrong! Please again later.");
         },
       });
     },
@@ -98,7 +98,7 @@ export default {
           commit("setRetailerRequestHistory", data);
         },
         errorCallback: (err) => {
-          Vue.$toast.error(err.response.data.message);
+          Vue.$toast.error("Something gone wrong! Please again later.");
         },
       });
     },
@@ -115,7 +115,7 @@ export default {
           commit("setRetailerSalesHistory", data);
         },
         errorCallback: (err) => {
-          Vue.$toast.error(err.response.data.message);
+          Vue.$toast.error("Something gone wrong! Please again later.");
         },
       });
     },

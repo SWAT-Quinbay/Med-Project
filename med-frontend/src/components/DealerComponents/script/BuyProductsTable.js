@@ -45,7 +45,6 @@ export default {
         requestedQuantity: quantity,
         senderId: this.user.userId,
       };
-      console.log(payloadForStockRequest);
       requestStock({
         requestData: payloadForStockRequest,
         successCallback: (res) => {
@@ -57,7 +56,8 @@ export default {
           }
         },
         errorCallback: (err) => {
-          Vue.$toast.error(err.response.data.message);
+          console.log(err.response.data.message);
+          Vue.$toast.error("Something gone wrong! Please again later.");
         },
       });
     },

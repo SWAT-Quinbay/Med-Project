@@ -67,7 +67,6 @@ export default {
   },
   mounted() {
     const propsProduct = this.modalObjectData.productData;
-    console.log(this.modalObjectData);
     if (propsProduct !== null) {
       this.product.id = propsProduct.id;
       this.product.name = propsProduct.name;
