@@ -40,7 +40,7 @@
                 - Mongo DB
                         - sales
 
-        - Open services in intelij.
+        - Open services in IntelliJ.
         - run the services
 
 #### After running the services make sure to comment line in each service application.properties file
@@ -101,3 +101,18 @@
                 - stock incrementing on approval is done by using ``` Kafka ```.
 
         - Used Mongo DB for storing the sales histories.
+
+### need to be done
+
+    ### FrontEnd
+    	- Responsive model
+    	- pagination
+    	- loaders and no record found text
+
+
+    ### Backend
+    	 - use Redis to store and retrieve users
+    	 - add a DTO layer for sales service
+
+
+    	 - store product details in all DB and use Kafka to update changes that occurred in the main DB (not a good way doesn't provide data nonredundant!)

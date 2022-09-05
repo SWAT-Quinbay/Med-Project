@@ -1,0 +1,47 @@
+redirecting login when user is already authenticate
+
+Validate input felids (should not add for negative values as well as special characters)
+
+check update model
+delete confirmation
+
+implement order searching.
+
+
+
+
+RetailerService          - 8081
+wholesellerService       - 8183
+
+orders (order request )  - 8188
+sales (retailer orders)  - 8082
+
+insert into users(id,userid,password,role) values(1,'seller1','password','retailseller');
+insert into users(id,userid,password,role) values(2,'seller2','password','retailseller');
+insert into users (id,userid,password,role) values(3,'wholesaleseller1','password','wholesaleseller');
+
+
+SELECT * FROM users as u WHERE (:query is null or u.name like %:query% ) 
+or (:query is null or u.username like %:query%) or (:query is null or e.projectName like %:query%) and  (:query is null or concat(e.projectBudget,'') like %:query%) and (:query is null or e.projectLocation like %:query%)
+select * from users where (Lower(name) like %v%) or (Lower(username) like %v%) or (Lower(role) like %v%);
+
+
+Admin Service 		- 8081
+dealer Service 		- 8082
+Retailer Service 	- 8083
+Sales Service  		- 8084
+
+
+- need to be done
+	### FrontEnd
+		- Responsive model
+		- pagination
+		- loaders and no record found text
+
+ 
+	### Backend
+		 - use redis to store and retrive users
+		 - add dto layer for sales service
+
+
+		 - store product detials in all db and use kafka to update changes occured in main db (not a good way doesn't provide data non redundant!) 
