@@ -5,8 +5,8 @@ import com.example.adminService.dto.requests.StockRequest;
 import com.example.adminService.dto.requests.StockRequestStatusRequest;
 import com.example.adminService.dto.responses.StockRequestResponse;
 import com.example.adminService.dto.responses.StockUpdateResponse;
-import com.example.adminService.models.AppUser;
-import com.example.adminService.models.StockRequestEntity;
+import com.example.adminService.kafka.models.AppUser;
+import com.example.adminService.kafka.models.StockRequestEntity;
 import com.example.adminService.repos.StockRequestRepository;
 import com.example.adminService.security.SecurityConstants;
 import com.example.adminService.services.InventoryService;
@@ -108,7 +108,7 @@ public class StockRequestServiceImp implements StockRequestService {
     }
 
     @Override
-    public StockRequestResponse addAdminStockRequest(StockRequest stockRequest) throws UserNotFoundException, InvalidDataProvidedException, ProductNotFoundException, NotEnoughQuanityException {
+    public StockRequestResponse addAdminStockRequest(StockRequest stockRequest) throws UserNotFoundException, InvalidDataProvidedException, ProductNotFoundException, NotEnoughQuanityException, ProductIsNotAvailableException {
 
         validateStockRequest(stockRequest, true);
         StockRequestEntity stockRequestEntity = createEntity(stockRequest, true);
@@ -116,13 +116,13 @@ public class StockRequestServiceImp implements StockRequestService {
     }
 
     @Override
-    public StockRequestResponse addDealerStockRequest(StockRequest stockRequest) throws InvalidDataProvidedException, UserNotFoundException, ProductNotFoundException, NotEnoughQuanityException {
+    public StockRequestResponse addDealerStockRequest(StockRequest stockRequest) throws InvalidDataProvidedException, UserNotFoundException, ProductNotFoundException, NotEnoughQuanityException, ProductIsNotAvailableException {
         validateStockRequest(stockRequest, false);
         StockRequestEntity stockRequestEntity = createEntity(stockRequest, false);
         return mapStockEntity(stockRequestRepository.save(stockRequestEntity));
     }
 
-    private StockRequestEntity createEntity(StockRequest stockRequest, boolean isAdmin) throws UserNotFoundException, InvalidDataProvidedException, NotEnoughQuanityException, ProductNotFoundException {
+    private StockRequestEntity createEntity(StockRequest stockRequest, boolean isAdmin) throws UserNotFoundException, InvalidDataProvidedException, NotEnoughQuanityException, ProductNotFoundException, ProductIsNotAvailableException {
 
         StockRequestEntity stockRequestEntity = new StockRequestEntity();
 

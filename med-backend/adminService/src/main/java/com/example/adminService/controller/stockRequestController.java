@@ -5,7 +5,6 @@ import com.example.adminService.customExceptions.*;
 import com.example.adminService.dto.requests.StockRequest;
 import com.example.adminService.dto.requests.StockRequestStatusRequest;
 import com.example.adminService.dto.responses.StockRequestResponse;
-import com.example.adminService.models.StockRequestEntity;
 import com.example.adminService.security.SecurityConstants;
 import com.example.adminService.services.StockRequestService;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +49,7 @@ public class stockRequestController {
     public StockRequestResponse postAdminRequests(@RequestBody StockRequest stockRequest){
         try {
             return stockRequestService.addAdminStockRequest(stockRequest);
-        } catch (UserNotFoundException |InvalidDataProvidedException e) {
+        } catch (UserNotFoundException |InvalidDataProvidedException | ProductIsNotAvailableException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,7 +60,7 @@ public class stockRequestController {
     public StockRequestResponse postDealerRequests(@RequestBody StockRequest stockRequest){
         try {
             return stockRequestService.addDealerStockRequest(stockRequest);
-        } catch (UserNotFoundException |InvalidDataProvidedException e) {
+        } catch (UserNotFoundException |InvalidDataProvidedException | ProductIsNotAvailableException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
@@ -74,7 +73,7 @@ public class stockRequestController {
         try {
             return stockRequestService.updateStockRequestStatus(request,token);
         } catch (StockRequestNotFoundException | InvalidDataProvidedException
-                 | NotEnoughQuanityException | ProductNotFoundException e) {
+                 | NotEnoughQuanityException | ProductNotFoundException | ProductIsNotAvailableException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();

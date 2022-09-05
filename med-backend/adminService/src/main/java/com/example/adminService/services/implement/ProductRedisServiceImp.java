@@ -1,6 +1,6 @@
 package com.example.adminService.services.implement;
 
-import com.example.adminService.models.Product;
+import com.example.adminService.kafka.models.Product;
 import com.example.adminService.repos.redis.ProductRedisRepository;
 import com.example.adminService.services.ProductRedisService;
 import org.modelmapper.ModelMapper;

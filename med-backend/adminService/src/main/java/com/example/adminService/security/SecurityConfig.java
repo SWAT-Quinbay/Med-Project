@@ -74,7 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(), redisService,userService));
-        http.addFilterBefore(new JWTAuthorizationFilter(redisService), JWTAuthenticationFilter.class);
+        http.addFilterBefore(new JWTAuthorizationFilter(redisService,userService), JWTAuthenticationFilter.class);
         http.httpBasic();
 
     }

@@ -8,7 +8,7 @@ import com.example.adminService.customExceptions.UserNotFoundException;
 import com.example.adminService.dto.requests.UserRequest;
 import com.example.adminService.dto.requests.UserUpdateRequest;
 import com.example.adminService.dto.responses.UserResponse;
-import com.example.adminService.models.AppUser;
+import com.example.adminService.kafka.models.AppUser;
 import com.example.adminService.repos.UserRepository;
 import com.example.adminService.services.UserService;
 import com.example.adminService.utils.Constants;
@@ -145,7 +145,7 @@ public class UserServiceImp implements UserService {
         if (request.getRole().equals(Constants.ADMIN_ROLE)) {
             Optional<AppUser> result = userRepository.findByRole(request.getRole());
             if (!result.isPresent()) {
-                //create it
+//                create it
                 user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
                 return mapUserResponse(userRepository.save(user));
             }

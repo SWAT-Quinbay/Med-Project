@@ -1,6 +1,6 @@
 package com.example.adminService.services;
 
-import com.example.adminService.models.redis.TokensEntity;
+import com.example.adminService.kafka.models.redis.TokensEntity;
 
 import java.util.Optional;
 

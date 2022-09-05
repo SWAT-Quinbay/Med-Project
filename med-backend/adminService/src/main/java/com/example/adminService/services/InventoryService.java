@@ -2,6 +2,7 @@ package com.example.adminService.services;
 
 import com.example.adminService.customExceptions.InvalidDataProvidedException;
 import com.example.adminService.customExceptions.NotEnoughQuanityException;
+import com.example.adminService.customExceptions.ProductIsNotAvailableException;
 import com.example.adminService.customExceptions.ProductNotFoundException;
 import com.example.adminService.dto.requests.ProductRequest;
 import com.example.adminService.dto.responses.ProductDetailsResponse;
@@ -20,7 +21,7 @@ public interface InventoryService {
     ProductResponse postProduct(ProductRequest product) throws InvalidDataProvidedException;
     Iterable<ProductResponse> postProduct(List<ProductRequest> product) throws InvalidDataProvidedException;
 
-    boolean checkQuantity(int productId, int desiredQuantity) throws ProductNotFoundException, NotEnoughQuanityException, InvalidDataProvidedException;
+    boolean checkQuantity(int productId, int desiredQuantity) throws ProductNotFoundException, NotEnoughQuanityException, InvalidDataProvidedException, ProductIsNotAvailableException;
     boolean reduceQuantity(int productId, int desiredQuantity) throws ProductNotFoundException, NotEnoughQuanityException, InvalidDataProvidedException;
 
     ProductResponse putProduct(ProductRequest product) throws  InvalidDataProvidedException, ProductNotFoundException;

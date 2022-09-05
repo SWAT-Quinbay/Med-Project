@@ -1,4 +1,4 @@
-package com.example.adminService.models;
+package com.example.adminService.kafka.models;
 
 
 import lombok.Data;

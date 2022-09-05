@@ -1,12 +1,11 @@
 package com.example.adminService.security.filters;
 
 
-import com.example.adminService.customExceptions.InvalidDataProvidedException;
-import com.example.adminService.models.AppUser;
+import com.example.adminService.kafka.models.AppUser;
 import com.example.adminService.services.TokensRedisService;
 import com.example.adminService.dto.responses.ConnValidationResponse;
 import com.example.adminService.dto.JwtAuthenticationModel;
-import com.example.adminService.models.redis.TokensEntity;
+import com.example.adminService.kafka.models.redis.TokensEntity;
 import com.example.adminService.security.SecurityConstants;
 import com.example.adminService.services.UserService;
 import com.example.adminService.utils.Utilities;
@@ -16,7 +15,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,7 +30,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.List;
 
@@ -87,7 +84,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .claim(SecurityConstants.AUTHORITIES_HEADER, authResult.getAuthorities())
                 .setIssuer(request.getPathInfo())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 24*60*60*1000))
+                .setExpiration(new Date(System.currentTimeMillis() + 60*60*1000))// 1 hr
                 .signWith(SignatureAlgorithm.HS256, SecurityConstants.PRIVATE_KEY)
                 .compact();
 

@@ -2,11 +2,12 @@ package com.example.adminService.services.implement;
 
 import com.example.adminService.customExceptions.InvalidDataProvidedException;
 import com.example.adminService.customExceptions.NotEnoughQuanityException;
+import com.example.adminService.customExceptions.ProductIsNotAvailableException;
 import com.example.adminService.customExceptions.ProductNotFoundException;
 import com.example.adminService.dto.requests.ProductRequest;
 import com.example.adminService.dto.responses.ProductDetailsResponse;
 import com.example.adminService.dto.responses.ProductResponse;
-import com.example.adminService.models.Product;
+import com.example.adminService.kafka.models.Product;
 import com.example.adminService.repos.InventoryRepository;
 import com.example.adminService.services.InventoryService;
 import com.example.adminService.services.ProductRedisService;
@@ -165,7 +166,7 @@ public class InventoryServiceImp implements InventoryService {
 
 
     @Override
-    public boolean checkQuantity(int productId, int desiredQuantity) throws ProductNotFoundException, NotEnoughQuanityException, InvalidDataProvidedException {
+    public boolean checkQuantity(int productId, int desiredQuantity) throws ProductNotFoundException, NotEnoughQuanityException, InvalidDataProvidedException, ProductIsNotAvailableException {
         if(!(Utilities.validNumber(productId) && Utilities.validNumber(desiredQuantity))){
             throw new InvalidDataProvidedException("Numbers should be positive");
         }
@@ -176,6 +177,10 @@ public class InventoryServiceImp implements InventoryService {
         }
 
         Product originalProduct = result.get();
+
+        if(!originalProduct.isAvailable()){
+            throw new ProductIsNotAvailableException("The requested item is stopped by the Admin");
+        }
 
         if (originalProduct.getNetQuantity() < desiredQuantity) {
             throw new NotEnoughQuanityException("Not enough Quantity");

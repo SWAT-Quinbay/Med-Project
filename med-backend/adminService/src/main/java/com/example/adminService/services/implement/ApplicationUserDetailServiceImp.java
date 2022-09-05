@@ -1,6 +1,6 @@
 package com.example.adminService.services.implement;
 
-import com.example.adminService.models.AppUser;
+import com.example.adminService.kafka.models.AppUser;
 import com.example.adminService.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

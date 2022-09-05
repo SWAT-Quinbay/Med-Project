@@ -1,7 +1,7 @@
 package com.example.adminService.services.implement;
 
 import com.example.adminService.repos.redis.TokensRedisRepository;
-import com.example.adminService.models.redis.TokensEntity;
+import com.example.adminService.kafka.models.redis.TokensEntity;
 import com.example.adminService.services.TokensRedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
