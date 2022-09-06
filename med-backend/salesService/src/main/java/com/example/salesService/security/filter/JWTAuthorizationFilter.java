@@ -65,7 +65,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         HttpEntity<String> entity = new HttpEntity<>("body", headers);
 
         ConnValidationResponse connValidationResponse  =  restTemplate.exchange(
-                ADMIN_BASE_URL+"/auth/validateToken",
+                ADMIN_BASE_URL+"/auth/validate/getToken",
                 HttpMethod.GET,
                 entity,
                 ConnValidationResponse.class)

@@ -148,6 +148,7 @@ public class DealerServiceImp implements DealerService {
                         HttpMethod.GET,
                         entity,
                 ProductDetailsResponse.class);
+
         ProductDetailsResponse productDetailsResponse = response.getBody();
 
         dealerResponse.setProductDetail(productDetailsResponse);

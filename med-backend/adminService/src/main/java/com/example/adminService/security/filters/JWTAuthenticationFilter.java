@@ -23,9 +23,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -47,9 +49,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
-        try {
 
-            JwtAuthenticationModel authModel = mapper.readValue(request.getInputStream(), JwtAuthenticationModel.class);
+        JwtAuthenticationModel authModel = null;
+        try {
+            authModel = mapper.readValue(request.getInputStream(), JwtAuthenticationModel.class);
+
 //            JwtAuthenticationModel authModel  = JwtAuthenticationModel
 //                    .builder()
 //                    .username(request.getParameter("username"))
@@ -60,9 +64,15 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             return authenticationManager.authenticate(authentication);
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            try {
+                response.sendError(HttpStatus.UNAUTHORIZED.value(),e.getMessage());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
+        return null;
     }
+
 
     @Override
     protected void successfulAuthentication(

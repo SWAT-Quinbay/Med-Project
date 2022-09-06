@@ -1,9 +1,6 @@
 package com.example.adminService.services.implement;
 
-import com.example.adminService.customExceptions.InvalidDataProvidedException;
-import com.example.adminService.customExceptions.NotEnoughQuanityException;
-import com.example.adminService.customExceptions.ProductIsNotAvailableException;
-import com.example.adminService.customExceptions.ProductNotFoundException;
+import com.example.adminService.customExceptions.*;
 import com.example.adminService.dto.requests.ProductRequest;
 import com.example.adminService.dto.responses.ProductDetailsResponse;
 import com.example.adminService.dto.responses.ProductResponse;
@@ -115,9 +112,15 @@ public class InventoryServiceImp implements InventoryService {
     }
 
     @Override
-    public ProductResponse postProduct(ProductRequest productRequest) throws InvalidDataProvidedException {
+    public ProductResponse postProduct(ProductRequest productRequest) throws InvalidDataProvidedException, ProductAlreadyExistException {
         formatAndValidateProductDetails(productRequest);
         Product product = getProductFromRequest(productRequest);
+
+        Optional<Product> havProduct = inventoryRepository.findByName(product.getName());
+        if(havProduct.isPresent()){
+            throw new ProductAlreadyExistException("Product name should be unique");
+        }
+
         productRedisService.saveProduct(product);
         return mapProductResponse(inventoryRepository.save(product));
     }
@@ -245,8 +248,8 @@ public class InventoryServiceImp implements InventoryService {
             throw new InvalidDataProvidedException("Numbers Should Be Positive");
         }
 
-        if(productRequest.getPrice()/2 < productRequest.getTax()){
-            throw new InvalidDataProvidedException("Tax should be below 50% of the price");
+        if(0 > productRequest.getTax() || 50 < productRequest.getTax() ){
+            throw new InvalidDataProvidedException("Tax should be below 50%");
         }
 
         if (!(Utilities.validString(productRequest.getName())

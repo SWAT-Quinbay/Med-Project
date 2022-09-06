@@ -18,9 +18,9 @@ public class Constants {
 
     public static final String INTERNAL_ERROR_MESSAGE ="Oops!. Something went wrong.we will rectify it as soon as possible.";
     public static final String INVALID_DATA_PROVIDED ="Invalid data provided in request params";
-
     // Auth Controller
     public static final String AUTH_BASE_URL = "/auth";
+    public static final String AUTH_VALIDATE_GET_TOKEN = "/validate/getToken";
     public static final String AUTH_VALIDATE_TOKEN = "/validateToken";
 
     //Inventory

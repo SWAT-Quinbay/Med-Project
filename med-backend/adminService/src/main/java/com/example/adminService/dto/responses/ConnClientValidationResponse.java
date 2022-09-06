@@ -1,24 +1,18 @@
 package com.example.adminService.dto.responses;
 
 import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.List;
 
-
-
-@Getter
+@Data
 @Builder
-@ToString
-public class ConnValidationResponse {
-
-    private String status;
+public class ConnClientValidationResponse {
     private boolean isAuthenticated = false;
     private String methodType;
     private String username;
     private String userId;
-    private String token;
+    private String status;
     private List<GrantedAuthority> roles;
 }

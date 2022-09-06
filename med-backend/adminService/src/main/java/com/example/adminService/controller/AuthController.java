@@ -1,6 +1,7 @@
 package com.example.adminService.controller;
 
 
+import com.example.adminService.dto.responses.ConnClientValidationResponse;
 import com.example.adminService.dto.responses.ConnValidationResponse;
 import com.example.adminService.security.SecurityConstants;
 import com.example.adminService.utils.Constants;
@@ -20,11 +21,29 @@ import java.util.List;
 @RequestMapping(Constants.AUTH_BASE_URL)
 public class AuthController {
     @GetMapping(value = Constants.AUTH_VALIDATE_TOKEN, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<ConnValidationResponse> validateGet(HttpServletRequest request) {
+    public ResponseEntity<ConnClientValidationResponse> validateGet(HttpServletRequest request) {
         String userId = (String) request.getAttribute(SecurityConstants.USER_ID);
         String username = (String) request.getAttribute(SecurityConstants.USER_NAME);
         String token = (String) request.getAttribute(SecurityConstants.JWT_TOKEN);
-        String tokenKey = (String) request.getAttribute(SecurityConstants.JWT_TOKEN_KEY);
+//        String tokenKey = (String) request.getAttribute(SecurityConstants.JWT_TOKEN_KEY);
+        List<GrantedAuthority> grantedAuthorities = (List<GrantedAuthority>) request.getAttribute(SecurityConstants.AUTHORITIES_HEADER);
+        return ResponseEntity.ok(
+                ConnClientValidationResponse.builder()
+                        .status(HttpStatus.OK.name())
+                        .methodType(HttpMethod.GET.name())
+                        .userId(userId)
+                        .username(username)
+//                        .tokenKey(tokenKey)
+                        .roles(grantedAuthorities)
+                        .isAuthenticated(true).build());
+    }
+
+    @GetMapping(value = Constants.AUTH_VALIDATE_GET_TOKEN, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<ConnValidationResponse> validateAndGetToken(HttpServletRequest request) {
+        String userId = (String) request.getAttribute(SecurityConstants.USER_ID);
+        String username = (String) request.getAttribute(SecurityConstants.USER_NAME);
+        String token = (String) request.getAttribute(SecurityConstants.JWT_TOKEN);
+//        String tokenKey = (String) request.getAttribute(SecurityConstants.JWT_TOKEN_KEY);
         List<GrantedAuthority> grantedAuthorities = (List<GrantedAuthority>) request.getAttribute(SecurityConstants.AUTHORITIES_HEADER);
         return ResponseEntity.ok(
                 ConnValidationResponse.builder()
@@ -33,7 +52,7 @@ public class AuthController {
                         .userId(userId)
                         .username(username)
                         .token(token)
-                        .tokenKey(tokenKey)
+//                        .tokenKey(tokenKey)
                         .roles(grantedAuthorities)
                 .isAuthenticated(true).build());
     }

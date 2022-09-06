@@ -1,6 +1,7 @@
 package com.example.adminService.controller;
 
 import com.example.adminService.customExceptions.InvalidDataProvidedException;
+import com.example.adminService.customExceptions.ProductAlreadyExistException;
 import com.example.adminService.customExceptions.ProductNotFoundException;
 import com.example.adminService.dto.responses.ProductDetailsResponse;
 import com.example.adminService.dto.requests.ProductRequest;
@@ -9,6 +10,7 @@ import com.example.adminService.services.InventoryService;
 import com.example.adminService.utils.Constants;
 import org.apache.tomcat.util.bcel.Const;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -75,13 +77,12 @@ public class inventoryController {
     public ProductResponse addProduct(@RequestBody ProductRequest productRequest){
         try {
             return inventoryService.postProduct(productRequest);
-        }catch (InvalidDataProvidedException e) {
+        }catch (InvalidDataProvidedException | ProductAlreadyExistException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
         } catch (IllegalArgumentException e){
             e.printStackTrace();
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, Constants.INVALID_DATA_PROVIDED);
-        }
-        catch (Exception e) {
+        }catch (Exception e) {
             e.printStackTrace();
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, Constants.INTERNAL_ERROR_MESSAGE);
         }

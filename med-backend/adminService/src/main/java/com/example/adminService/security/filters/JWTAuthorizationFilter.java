@@ -93,7 +93,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
             request.setAttribute(SecurityConstants.USER_NAME, username);
             request.setAttribute(SecurityConstants.AUTHORITIES_HEADER, grantedAuthorities);
             request.setAttribute(SecurityConstants.JWT_TOKEN, token);
-            request.setAttribute(SecurityConstants.JWT_TOKEN_KEY, bearerToken);
+//            request.setAttribute(SecurityConstants.JWT_TOKEN_KEY, authToken);
 
         } catch (Exception e) {
             e.printStackTrace();
