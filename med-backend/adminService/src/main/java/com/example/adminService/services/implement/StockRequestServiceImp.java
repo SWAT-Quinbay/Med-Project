@@ -5,8 +5,8 @@ import com.example.adminService.dto.requests.StockRequest;
 import com.example.adminService.dto.requests.StockRequestStatusRequest;
 import com.example.adminService.dto.responses.StockRequestResponse;
 import com.example.adminService.dto.responses.StockUpdateResponse;
-import com.example.adminService.kafka.models.AppUser;
-import com.example.adminService.kafka.models.StockRequestEntity;
+import com.example.adminService.models.AppUser;
+import com.example.adminService.models.StockRequestEntity;
 import com.example.adminService.repos.StockRequestRepository;
 import com.example.adminService.security.SecurityConstants;
 import com.example.adminService.services.InventoryService;
@@ -152,8 +152,7 @@ public class StockRequestServiceImp implements StockRequestService {
     }
 
     @Override
-    public StockRequestResponse updateStockRequestStatus(StockRequestStatusRequest request, String token)
-            throws Exception {
+    public StockRequestResponse updateStockRequestStatus(StockRequestStatusRequest request, String token) throws StockRequestNotFoundException, RequestAlreadyRespondedException, InvalidDataProvidedException, ProductIsNotAvailableException, NotEnoughQuanityException, ProductNotFoundException, JsonProcessingException {
 
         Optional<StockRequestEntity> result = stockRequestRepository.findById(request.getRequestId());
         if (!result.isPresent()) {
@@ -201,7 +200,7 @@ public class StockRequestServiceImp implements StockRequestService {
                         Boolean.class).getBody());
 
                 if (!hasReduced) {
-                    throw new Exception("Error occurred in reducing quantity in dealer inventory");
+                    throw new NotEnoughQuanityException("Not Enough quantity in dealer inventory");
                 }
 
             }

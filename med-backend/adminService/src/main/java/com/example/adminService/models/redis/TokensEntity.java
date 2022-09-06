@@ -1,11 +1,12 @@
-package com.example.adminService.kafka.models.redis;
+package com.example.adminService.models.redis;
 
+import com.example.adminService.security.SecurityConstants;
 import lombok.*;
 import org.springframework.data.redis.core.RedisHash;
 
 import java.time.LocalDateTime;
 
-@RedisHash(value = "Tokens", timeToLive = 86400)//1 day
+@RedisHash(value = "Tokens", timeToLive = SecurityConstants.REDIS_TIME_TO_LIVE)//1 day
 @Getter
 @Setter
 @Builder

@@ -1,8 +1,8 @@
 package com.example.adminService.security.filters;
 
-import com.example.adminService.kafka.models.AppUser;
+import com.example.adminService.models.AppUser;
 import com.example.adminService.services.TokensRedisService;
-import com.example.adminService.kafka.models.redis.TokensEntity;
+import com.example.adminService.models.redis.TokensEntity;
 import com.example.adminService.security.SecurityConstants;
 import com.example.adminService.services.UserService;
 import com.example.adminService.utils.Utilities;

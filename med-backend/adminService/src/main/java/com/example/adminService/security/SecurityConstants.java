@@ -10,4 +10,7 @@ public class SecurityConstants {
     public static final String USER_NAME = "username";
     public static final String JWT_TOKEN = "JWT";
     public static final String JWT_TOKEN_KEY = "JWT_key";
+
+    public static final long JWT_EXPIRATION_TIME = 60*60*1000;//in milliseconds(1hr)
+    public static final long REDIS_TIME_TO_LIVE = 24*60*60;//in seconds (1day)
 }

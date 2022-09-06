@@ -1,11 +1,11 @@
 package com.example.adminService.security.filters;
 
 
-import com.example.adminService.kafka.models.AppUser;
+import com.example.adminService.models.AppUser;
 import com.example.adminService.services.TokensRedisService;
 import com.example.adminService.dto.responses.ConnValidationResponse;
 import com.example.adminService.dto.JwtAuthenticationModel;
-import com.example.adminService.kafka.models.redis.TokensEntity;
+import com.example.adminService.models.redis.TokensEntity;
 import com.example.adminService.security.SecurityConstants;
 import com.example.adminService.services.UserService;
 import com.example.adminService.utils.Utilities;
@@ -73,7 +73,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         AppUser appUser = userService.getUserByUsernameObject(authResult.getName());
 
         if(!appUser.isActive()){
-            response.sendError(HttpStatus.PAYMENT_REQUIRED.value(),"You Are Currently Blocked please contact Admin.");
+            response.sendError(HttpStatus.FORBIDDEN.value(),"You Are Currently Blocked please contact Admin.");
             return;
         }
 
@@ -84,7 +84,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .claim(SecurityConstants.AUTHORITIES_HEADER, authResult.getAuthorities())
                 .setIssuer(request.getPathInfo())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 60*60*1000))// 1 hr
+                .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.JWT_EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS256, SecurityConstants.PRIVATE_KEY)
                 .compact();
 

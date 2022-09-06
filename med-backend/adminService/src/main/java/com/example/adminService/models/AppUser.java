@@ -1,4 +1,4 @@
-package com.example.adminService.kafka.models;
+package com.example.adminService.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

@@ -8,7 +8,7 @@ import com.example.adminService.customExceptions.UserNotFoundException;
 import com.example.adminService.dto.requests.UserRequest;
 import com.example.adminService.dto.requests.UserUpdateRequest;
 import com.example.adminService.dto.responses.UserResponse;
-import com.example.adminService.kafka.models.AppUser;
+import com.example.adminService.models.AppUser;
 import com.example.adminService.repos.UserRepository;
 import com.example.adminService.services.UserService;
 import com.example.adminService.utils.Constants;

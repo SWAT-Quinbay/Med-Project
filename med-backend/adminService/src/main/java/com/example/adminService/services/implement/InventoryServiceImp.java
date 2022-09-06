@@ -7,7 +7,7 @@ import com.example.adminService.customExceptions.ProductNotFoundException;
 import com.example.adminService.dto.requests.ProductRequest;
 import com.example.adminService.dto.responses.ProductDetailsResponse;
 import com.example.adminService.dto.responses.ProductResponse;
-import com.example.adminService.kafka.models.Product;
+import com.example.adminService.models.Product;
 import com.example.adminService.repos.InventoryRepository;
 import com.example.adminService.services.InventoryService;
 import com.example.adminService.services.ProductRedisService;
@@ -239,10 +239,14 @@ public class InventoryServiceImp implements InventoryService {
 
         if (!(productRequest.getId()>=0
                 && Utilities.validNumber(productRequest.getPrice())
-                && Utilities.validNumber(productRequest.getTax())
+                && Utilities.validNumberEqualToZero(productRequest.getTax())
                 && Utilities.validNumber(productRequest.getNetQuantity()))) {
 
             throw new InvalidDataProvidedException("Numbers Should Be Positive");
+        }
+
+        if(productRequest.getPrice()/2 < productRequest.getTax()){
+            throw new InvalidDataProvidedException("Tax should be below 50% of the price");
         }
 
         if (!(Utilities.validString(productRequest.getName())

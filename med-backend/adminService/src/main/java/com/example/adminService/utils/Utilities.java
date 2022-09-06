@@ -34,6 +34,7 @@ public class Utilities {
             return input>0;
         }
         public static boolean validNumber(float input) { return input>0; }
+        public static boolean validNumberEqualToZero(float input) { return input>=0; }
 
         public static String generateUuid() {
             return UUID.randomUUID().toString();

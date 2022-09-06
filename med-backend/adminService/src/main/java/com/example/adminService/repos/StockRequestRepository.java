@@ -1,6 +1,6 @@
 package com.example.adminService.repos;
 
-import com.example.adminService.kafka.models.StockRequestEntity;
+import com.example.adminService.models.StockRequestEntity;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.PagingAndSortingRepository;
 

@@ -28,10 +28,15 @@ public class inventoryController {
     public ProductResponse getProduct(@PathVariable int id){
         try {
             return inventoryService.getById(id);
-        } catch (InvalidDataProvidedException e) {
+        } catch (ProductNotFoundException | InvalidDataProvidedException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
-        }catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage());
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, Constants.INVALID_DATA_PROVIDED);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, Constants.INTERNAL_ERROR_MESSAGE);
         }
     }
 
@@ -41,9 +46,13 @@ public class inventoryController {
             return inventoryService.getAll(page,size);
         } catch (InvalidDataProvidedException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
-        }catch (Exception e){
+        }catch (IllegalArgumentException e){
             e.printStackTrace();
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, Constants.INVALID_DATA_PROVIDED);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, Constants.INTERNAL_ERROR_MESSAGE);
         }
     }
     @GetMapping(Constants.INVENTORY_SEARCH)
@@ -52,8 +61,13 @@ public class inventoryController {
             return inventoryService.searchByName(query,page,size);
         } catch (InvalidDataProvidedException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
-        }catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage());
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, Constants.INVALID_DATA_PROVIDED);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, Constants.INTERNAL_ERROR_MESSAGE);
         }
     }
 
@@ -63,8 +77,13 @@ public class inventoryController {
             return inventoryService.postProduct(productRequest);
         }catch (InvalidDataProvidedException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
-        } catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage());
+        } catch (IllegalArgumentException e){
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, Constants.INVALID_DATA_PROVIDED);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, Constants.INTERNAL_ERROR_MESSAGE);
         }
     }
 
@@ -75,8 +94,13 @@ public class inventoryController {
 
         }catch (InvalidDataProvidedException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
-        } catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage());
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, Constants.INVALID_DATA_PROVIDED);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, Constants.INTERNAL_ERROR_MESSAGE);
         }
     }
 
@@ -87,8 +111,13 @@ public class inventoryController {
 
         } catch (InvalidDataProvidedException | ProductNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
-        } catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage());
+        } catch (IllegalArgumentException e){
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, Constants.INVALID_DATA_PROVIDED);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, Constants.INTERNAL_ERROR_MESSAGE);
         }
     }
 
@@ -99,8 +128,13 @@ public class inventoryController {
 
         } catch (ProductNotFoundException | InvalidDataProvidedException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
-        }catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage());
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, Constants.INVALID_DATA_PROVIDED);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, Constants.INTERNAL_ERROR_MESSAGE);
         }
     }
 
@@ -111,22 +145,15 @@ public class inventoryController {
 
         } catch (ProductNotFoundException |InvalidDataProvidedException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
-        }catch (Exception e){
+        }catch (IllegalArgumentException e){
             e.printStackTrace();
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, Constants.INVALID_DATA_PROVIDED);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, Constants.INTERNAL_ERROR_MESSAGE);
         }
     }
-//    @GetMapping("/detail/all")
-//    public List<ProductDetailsResponse> getProductDetails(@RequestBody List<Integer> ids){
-//        try {
-//            return inventoryService.getAllProductDetails(ids);
-//
-//        } catch (ProductNotFoundException | InvalidDataProvidedException e) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
-//        }catch (Exception e){
-//            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage());
-//        }
-//    }
 
     @GetMapping(Constants.INVENTORY_DETAIL_SEARCH)
     public Page<ProductDetailsResponse> searchProducts(@RequestParam String query,@RequestParam int page, @RequestParam int size){
@@ -134,8 +161,13 @@ public class inventoryController {
             return inventoryService.searchByNameAndGetDetails(query,page,size);
         } catch (InvalidDataProvidedException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
-        }catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage());
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, Constants.INVALID_DATA_PROVIDED);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, Constants.INTERNAL_ERROR_MESSAGE);
         }
     }
 }

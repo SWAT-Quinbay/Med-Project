@@ -1,6 +1,6 @@
 package com.example.adminService.repos;
 
-import com.example.adminService.kafka.models.Product;
+import com.example.adminService.models.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;

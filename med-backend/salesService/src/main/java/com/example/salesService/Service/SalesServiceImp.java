@@ -68,6 +68,7 @@ public class SalesServiceImp implements SalesService {
 
         populateProductDetails(order,token);
 
+        order.setCreatedTime(new Date());
         order.setId(sequenceGeneratorService.generateSequence(Order.SEQUENCE_NAME));
 
         return modelMapper.map(salesRepository.save(order),OrderResponse.class);
@@ -114,6 +115,7 @@ public class SalesServiceImp implements SalesService {
     }
 
     private void populateProductDetails(Order order,String token) {
+        int total = 0;
         for (OrderItem item : order.getOrderItems()) {
             HttpHeaders headers = new HttpHeaders();
             headers.add(SecurityConstants.AUTH_HEADER, token);
@@ -129,6 +131,8 @@ public class SalesServiceImp implements SalesService {
             ProductDetailsResponse productDetailsResponse = response.getBody();
 
             assert productDetailsResponse != null;
+            total += (productDetailsResponse.getPrice() +
+                    ( productDetailsResponse.getPrice() * (productDetailsResponse.getTax()/100)));
 
             item.setName(productDetailsResponse.getName());
             item.setDescription(productDetailsResponse.getDescription());
@@ -136,12 +140,18 @@ public class SalesServiceImp implements SalesService {
             item.setPrice(productDetailsResponse.getPrice());
             item.setImageUrl(productDetailsResponse.getImageUrl());
         }
+        order.setSubTotal(total);
     }
 
     private void validateData(OrderRequest order) throws InvalidDataProvidedException {
         if (!Utilities.validNumber(order.getRetailerId())) {
             throw new InvalidDataProvidedException("Invalid Retailer Id");
         }
+
+        if(order.getOrderItems().isEmpty()){
+            throw new InvalidDataProvidedException("There is items in cart!");
+        }
+
         for (OrderItem item : order.getOrderItems()) {
             if (!(Utilities.validNumber(item.getProductId()) && Utilities.validNumber(item.getQuantity()))) {
                 throw new InvalidDataProvidedException("Invalid Product Id");

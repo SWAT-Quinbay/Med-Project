@@ -1,6 +1,6 @@
 package com.example.adminService.services;
 
-import com.example.adminService.kafka.models.Product;
+import com.example.adminService.models.Product;
 
 import java.util.List;
 import java.util.Optional;

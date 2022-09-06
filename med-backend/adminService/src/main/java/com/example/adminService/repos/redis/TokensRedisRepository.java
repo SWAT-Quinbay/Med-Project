@@ -1,7 +1,7 @@
 package com.example.adminService.repos.redis;
 
 
-import com.example.adminService.kafka.models.redis.TokensEntity;
+import com.example.adminService.models.redis.TokensEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -7,7 +7,7 @@ import com.example.adminService.customExceptions.UserNotFoundException;
 import com.example.adminService.dto.requests.UserRequest;
 import com.example.adminService.dto.requests.UserUpdateRequest;
 import com.example.adminService.dto.responses.UserResponse;
-import com.example.adminService.kafka.models.AppUser;
+import com.example.adminService.models.AppUser;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 

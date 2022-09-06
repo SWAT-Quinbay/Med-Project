@@ -138,12 +138,12 @@ public class RetailerServiceImp implements RetailerService {
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 
         HttpEntity<String> entity = new HttpEntity<>("body", headers);
-
         ResponseEntity<ProductDetailsResponse> response = restTemplate.exchange(
                 ADMIN_BASE_URL + "/inventory/detail?id=" + retailerResponse.getProductId(),
                 HttpMethod.GET,
                 entity,
                 ProductDetailsResponse.class);
+
         ProductDetailsResponse productDetailsResponse = response.getBody();
 
         retailerResponse.setProductDetail(productDetailsResponse);
@@ -154,7 +154,11 @@ public class RetailerServiceImp implements RetailerService {
         List<RetailerResponse> responses = new ArrayList<>();
         for (Retailer e : retailers) {
             RetailerResponse retailerResponse = mapRetailerResponse(e, token);
-            if (query == null || retailerResponse.getProductDetail().getName().contains(query)) {
+            if (query == null ||
+                    retailerResponse
+                            .getProductDetail()
+                            .getName().toLowerCase()
+                            .contains(query.toLowerCase())) {
                 responses.add(retailerResponse);
             }
         }
